@@ -5,26 +5,31 @@
         <ul class="nav nav-pills">
             @if (auth()->check())
                 <li class="nav-item">
-                    <a href="" class="nav-link">Dashboard</a>
+                    <a href="/home" class="nav-link">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">Ver incidencias</a>
+                    <a href="/ver" class="nav-link">Ver incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">Reportar incidencia</a>
+                    <a href="/reportar" class="nav-link">Reportar incidencia</a>
                 </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">Administracion</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administracion</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/usuarios">Usuarios</a>
+                        <a class="dropdown-item" href="/proyectos">Proyecto</a>
+                        <a class="dropdown-item" href="/config">Configuracion</a>
+                    </div>
                 </li>
             @else
                 <li class="nav-item">
-                    <a href="" class="nav-link">Bienvenido</a>
+                    <a href="/" class="nav-link">Bienvenido</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">Instrucciones</a>
+                    <a href="/instrucciones" class="nav-link">Instrucciones</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">Créditos</a>
+                    <a href="/acerca-de" class="nav-link">Créditos</a>
                 </li>
             @endif
         </ul>

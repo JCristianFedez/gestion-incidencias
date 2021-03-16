@@ -28,7 +28,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/reportar',[HomeController::class, "report"])->name("reportar");
 
-Route::group(["middleware" => "auth"], function (){
+Route::group(["middleware" => "admin"], function (){
     
     Route::get('/usuarios',[UserController::class, "index"])->name("usuarios");
     Route::get('/proyectos',[ProjectController::class, "index"])->name("proyectos");
