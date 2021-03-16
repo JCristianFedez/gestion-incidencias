@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\ConfigController;
+use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +24,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::view('/reportar', 'report')->name("report");
+Route::get('/reportar',[HomeController::class, "report"])->name("reportar");
+
+Route::group(["middleware" => "auth"], function (){
+    
+    Route::get('/usuarios',[UserController::class, "index"])->name("usuarios");
+    Route::get('/proyectos',[ProjectController::class, "index"])->name("proyectos");
+    Route::get('/config',[ConfigController::class, "index"])->name("config");
+
+});
+
+
+
