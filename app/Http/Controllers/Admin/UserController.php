@@ -78,4 +78,12 @@ class UserController extends Controller
 
         return back()->with("notification","Usuario modificado exitosamente.");
     }
+
+    public function destroy($id){
+        $user = User::findOrFail($id);
+
+		$user->delete();
+        return back()->with("notification","Usuario eliminado exitosamente.");
+
+	}
 }

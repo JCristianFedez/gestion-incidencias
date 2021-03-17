@@ -31,9 +31,10 @@ Route::post('/reportar',[HomeController::class, "postReport"])->name("reportar")
 
 Route::group(["middleware" => "admin"], function (){
     Route::get('/usuarios',[UserController::class, "index"])->name("usuarios");
-    Route::post('/usuarios',[UserController::class, "store"])->name("store");
-    Route::get('/usuario/{id}',[UserController::class, "edit"])->name("edit");
-    Route::post('/usuario/{id}',[UserController::class, "update"])->name("update");
+    Route::post('/usuarios',[UserController::class, "store"])->name("usuarios.store");
+    Route::get('/usuario/{id}',[UserController::class, "edit"])->name("usuario.edit");
+    Route::put('/usuario/{id}',[UserController::class, "update"])->name("usuario.update");
+    Route::delete('/usuario/{id}',[UserController::class, "destroy"])->name("usuario.destroy");
 
 
     Route::get('/proyectos',[ProjectController::class, "index"])->name("proyectos");

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card border-primary">
-    <div class="card-header  bg-primary text-white">{{ __('Dashboard') }}</div>
+    <div class="card-header  bg-primary text-white">Editar Usuario</div>
 
     <div class="card-body">
         @if (session('status'))
@@ -30,7 +30,7 @@
 
         <form action=""  method="POST" class="row g-3">
             @csrf
-
+            @method("PUT")
             <div class="col-md-12 form-group">
                 <label for="email" class="form-label">E-mail</label>
                 <input type="email" name="email" id="email" readonly class="form-control" value="{{old('email',$user->email)}}">
@@ -68,8 +68,13 @@
                             <a href="" class="btn btn-sm btn-primary" title="Editar">
                                 <i class="fas fa-user-edit"></i>
                             </a>
-                            <a href="" class="btn btn-sm btn-danger" title="Dar de baja">
-                                <i class="fas fa-user-times"></i></a>
+                            <form action="/usuario/{{$user->id}}" method="POST" class="d-inline-block">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja">
+                                    <i class="fas fa-user-times"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 </tbody>
