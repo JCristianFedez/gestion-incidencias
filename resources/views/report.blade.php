@@ -11,6 +11,12 @@
             </div>
         @endif
 
+        @if (session("notification"))
+        <div class="alert alert-success">
+            {{ session("notification") }}
+        </div>
+        @endif
+
         @if (count($errors) > 0)
             <div class="alert alert-danger">
                 <ul>
@@ -26,7 +32,7 @@
 
             <div class="col-md-6 form-group">
                 <label for="category_id" class="form-label">Categoria</label>
-                <select name="category_id" id="category_id" class="custom-select">
+                <select name="category_id" id="category_id" class="form-control">
                     <option value="" >General</option>
                     @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -36,7 +42,7 @@
 
             <div class="col-md-6 form-group">
                 <label for="severity" class="form-label">Severidad</label>
-                <select name="severity" id="severity" class="custom-select">
+                <select name="severity" id="severity" class="form-control">
                     <option value="M">Menor</option>
                     <option value="N">Normal</option>
                     <option value="A">Alta</option>
@@ -50,7 +56,7 @@
 
             <div class="col-md-12 form-group">
                 <label for="description" class="form-label">Descripción</label>
-                <textarea name="description" id="description" class="form-control">{{old('title')}}</textarea>
+                <textarea name="description" id="description" class="form-control">{{old('description')}}</textarea>
             </div>
 
             <div class="col-md-12 form-group">

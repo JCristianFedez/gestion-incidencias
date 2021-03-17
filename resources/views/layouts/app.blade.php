@@ -15,7 +15,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -30,8 +29,12 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
+                    <ul class="nav navbar-nav">
+                        <form action="" class="form">
+                            <select name="" class="form-control">
+                                <option value="">Proyecto A</option>
+                            </select>
+                        </form>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

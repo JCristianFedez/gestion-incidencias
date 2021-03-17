@@ -30,8 +30,12 @@ Route::get('/reportar',[HomeController::class, "getReport"])->name("reportar");
 Route::post('/reportar',[HomeController::class, "postReport"])->name("reportar");
 
 Route::group(["middleware" => "admin"], function (){
-    
     Route::get('/usuarios',[UserController::class, "index"])->name("usuarios");
+    Route::post('/usuarios',[UserController::class, "store"])->name("store");
+    Route::get('/usuario/{id}',[UserController::class, "edit"])->name("edit");
+    Route::post('/usuario/{id}',[UserController::class, "update"])->name("update");
+
+
     Route::get('/proyectos',[ProjectController::class, "index"])->name("proyectos");
     Route::get('/config',[ConfigController::class, "index"])->name("config");
 

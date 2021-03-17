@@ -36,10 +36,10 @@ class HomeController extends Controller
     public function postReport(Request $request){
         
         $rules = [
-            "category_id" => "nullable|exists:categories,id",
-            "severity" => "required|in:M,N,A",
-            "title" => "required|min:5",
-            "description" => "required|min:15"
+            "category_id" => ["nullable","exists:categories,id"],
+            "severity" => ["required","in:M,N,A"],
+            "title" => ["required","min:5"],
+            "description" => ["required","min:15"]
         ];
 
         $messages = [
@@ -59,6 +59,6 @@ class HomeController extends Controller
         $incident->description = $request->description;
         $incident->client_id = auth()->user()->id;
         $incident->save();
-        return back();
+        return back()->with("notification","Incidencia registrada exitosamente.");
     }
 }
