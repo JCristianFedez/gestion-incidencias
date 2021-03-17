@@ -35,6 +35,23 @@ class HomeController extends Controller
 
     public function postReport(Request $request){
         
+        $rules = [
+            "category_id" => "nullable|exists:categories,id",
+            "severity" => "required|in:M,N,A",
+            "title" => "required|min:5",
+            "description" => "required|min:15"
+        ];
+
+        $messages = [
+            "category_id.exists" => "La categoria seleccionada no existe en nuestra base de datos.",
+            "title.required" => "Es necesario ingresar un título para la incidencia.",
+            "title.min" => "El título debe presentar al menos 5 caracteres.",
+            "description.required" => "Es necesario ingresar una descripción para la incidencia.",
+            "description.min" => "La descripción debe presentar al menos 15 caracteres."
+        ];
+
+        $this->validate($request, $rules, $messages);
+
         $incident = new Incident();
         $incident->category_id = $request->category_id ?: null;
         $incident->severity = $request->severity;
