@@ -40,4 +40,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Devuelve true si es admin
+     */
+    public function getIsAdminAttribute(){
+        return $this->role == 0;
+    }
+
+    /**
+     * Devuelve true si es cliente
+     */
+    public function getIsClientAttribute(){
+        return $this->role == 2;
+    }
 }

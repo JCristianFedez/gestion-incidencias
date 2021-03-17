@@ -7,9 +7,13 @@
                 <li class="nav-item">
                     <a href="/home" class="nav-link @if(request()->is("home"))active @endif">Dashboard</a>
                 </li>
-                <li class="nav-item">
-                    <a href="/ver" class="nav-link @if(request()->is("ver"))active @endif">Ver incidencias</a>
-                </li>
+
+                @if (! auth()->user()->is_client)
+                    <li class="nav-item">
+                        <a href="/ver" class="nav-link @if(request()->is("ver"))active @endif">Ver incidencias</a>
+                    </li>
+                @endif
+
                 <li class="nav-item">
                     <a href="/reportar" class="nav-link @if(request()->is("reportar"))active @endif">Reportar incidencia</a>
                 </li>
