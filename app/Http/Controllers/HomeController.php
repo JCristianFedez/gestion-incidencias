@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,6 +28,7 @@ class HomeController extends Controller
     }
 
     public function report(){
-        return view("report");
+        $categories = Category::where("project_id",1)->get();
+        return view("report",compact("categories"));
     }
 }
