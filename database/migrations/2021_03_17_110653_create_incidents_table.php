@@ -24,11 +24,11 @@ class CreateIncidentsTable extends Migration
         Schema::table("incidents", function (Blueprint $table){
             
             //Clave foranea a categoria
-            $table->unsignedBigInteger("category_id");
+            $table->unsignedBigInteger("category_id")->nullable();
             $table->foreign("category_id")->references("id")->on("categories");
 
             //Clave foranea a levels
-            $table->unsignedBigInteger("level_id");
+            $table->unsignedBigInteger("level_id")->nullable();
             $table->foreign("level_id")->references("id")->on("levels");
 
             //Clave foranea a users, que tiene una incidencia
@@ -36,7 +36,7 @@ class CreateIncidentsTable extends Migration
             $table->foreign("client_id")->references("id")->on("users");
             
             //Clave foranea a users, que resuelve una incidencia
-            $table->unsignedBigInteger("support_id");
+            $table->unsignedBigInteger("support_id")->nullable();
             $table->foreign("support_id")->references("id")->on("users");
         });
     }

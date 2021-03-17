@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Incident;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,7 +33,15 @@ class HomeController extends Controller
         return view("report",compact("categories"));
     }
 
-    public function postReport(){
+    public function postReport(Request $request){
         
+        $incident = new Incident();
+        $incident->category_id = $request->category_id ?: null;
+        $incident->severity = $request->severity;
+        $incident->title = $request->title;
+        $incident->description = $request->description;
+        $incident->client_id = auth()->user()->id;
+        $incident->save();
+        return back();
     }
 }
