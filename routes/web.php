@@ -26,7 +26,8 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/reportar',[HomeController::class, "report"])->name("reportar");
+Route::get('/reportar',[HomeController::class, "getReport"])->name("reportar");
+Route::post('/reportar',[HomeController::class, "postReport"])->name("reportar");
 
 Route::group(["middleware" => "admin"], function (){
     

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card">
-    <div class="card-header">{{ __('Dashboard') }}</div>
+<div class="card border-primary">
+    <div class="card-header  bg-primary text-white">{{ __('Dashboard') }}</div>
 
     <div class="card-body">
         @if (session('status'))
@@ -11,7 +11,9 @@
             </div>
         @endif
 
-        <form action="" class="row g-3">
+        <form action=""  method="POST" class="row g-3">
+            @csrf
+
             <div class="col-md-6 form-group">
                 <label for="category_id" class="form-label">Categoria</label>
                 <select name="category_id" id="category_id" class="custom-select">
