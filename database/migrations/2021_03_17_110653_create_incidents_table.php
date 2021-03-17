@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateIncidentsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('incidents', function (Blueprint $table) {
+            $table->id();
+            $table->string("title");
+            $table->string("description");
+            $table->string("severity",1);
+
+            $table->timestamps();
+        });
+        Schema::table("incidents", function (Blueprint $table){
+            
+            //Clave foranea a categoria
+            $table->unsignedBigInteger("category_id");
+            $table->foreign("category_id")->references("id")->on("categories");
+
+            //Clave foranea a levels
+            $table->unsignedBigInteger("level_id");
+            $table->foreign("level_id")->references("id")->on("levels");
+
+            //Clave foranea a users, que tiene una incidencia
+            $table->unsignedBigInteger("client_id");
+            $table->foreign("client_id")->references("id")->on("users");
+            
+            //Clave foranea a users, que resuelve una incidencia
+            $table->unsignedBigInteger("support_id");
+            $table->foreign("support_id")->references("id")->on("users");
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('incidents');
+    }
+}
