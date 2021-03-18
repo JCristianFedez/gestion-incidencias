@@ -30,14 +30,22 @@ Route::get('/reportar',[HomeController::class, "getReport"])->name("reportar");
 Route::post('/reportar',[HomeController::class, "postReport"])->name("reportar");
 
 Route::group(["middleware" => "admin"], function (){
+    // Users
     Route::get('/usuarios',[UserController::class, "index"])->name("usuarios");
     Route::post('/usuarios',[UserController::class, "store"])->name("usuarios.store");
     Route::get('/usuario/{id}',[UserController::class, "edit"])->name("usuario.edit");
     Route::put('/usuario/{id}',[UserController::class, "update"])->name("usuario.update");
     Route::delete('/usuario/{id}',[UserController::class, "destroy"])->name("usuario.destroy");
 
+    // Projects
+    Route::get('/proyectos',[ProjectController::class, "index"])->name("proyectos.index");
+    Route::post('/proyectos',[ProjectController::class, "store"])->name("proyectos.store");
+    Route::get('/proyecto/{id}',[ProjectController::class, "edit"])->name("proyecto.edit");
+    Route::put('/proyecto/{id}',[ProjectController::class, "update"])->name("proyecto.update");
+    Route::delete('/proyecto/{id}',[ProjectController::class, "destroy"])->name("proyecto.destroy");
+    Route::get('/proyecto/{id}/restaurar',[ProjectController::class, "restore"])->name("proyecto.restore");
 
-    Route::get('/proyectos',[ProjectController::class, "index"])->name("proyectos");
+
     Route::get('/config',[ConfigController::class, "index"])->name("config");
 
 });
