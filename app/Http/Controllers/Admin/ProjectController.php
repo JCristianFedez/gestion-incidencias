@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Level;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -23,7 +25,9 @@ class ProjectController extends Controller
 
     public function edit($id){
         $project = Project::find($id);
-        return view("admin.projects.edit", compact("project"));
+        $categories =  $project->categories; //Category::where("project_id",$id)->get();
+        $levels = $project->levels;  //Level::where("project_id",$id)->get();
+        return view("admin.projects.edit", compact("project","categories", "levels"));
     }
 
     public function update(Request $request, $id){

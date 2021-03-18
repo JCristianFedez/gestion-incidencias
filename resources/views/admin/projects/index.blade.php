@@ -68,14 +68,16 @@
                             <td>{{ $project->description }}</td>
                             <td>{{ $project->start }}</td>
                             <td>
-                                <a href="/proyecto/{{$project->id}}" class="btn btn-sm btn-primary" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+                                
                                 @if ($project->trashed())
                                     <a href="/proyecto/{{$project->id}}/restaurar" class="btn btn-sm btn-success" title="Restaurar">
                                         <i class="fas fa-trash-restore"></i>
                                     </a>
                                 @else
+                                    <a href="/proyecto/{{$project->id}}" class="btn btn-sm btn-primary" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    
                                     <form action="/proyecto/{{$project->id}}" method="POST" class="d-inline-block">
                                         @csrf
                                         @method('DELETE')

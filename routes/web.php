@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ConfigController;
+use App\Http\Controllers\Admin\LevelController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
@@ -38,13 +40,22 @@ Route::group(["middleware" => "admin"], function (){
     Route::delete('/usuario/{id}',[UserController::class, "destroy"])->name("usuario.destroy");
 
     // Projects
-    Route::get('/proyectos',[ProjectController::class, "index"])->name("proyectos.index");
+    Route::get('/proyectos',[ProjectController::class, "index"])->name("proyectos");
     Route::post('/proyectos',[ProjectController::class, "store"])->name("proyectos.store");
     Route::get('/proyecto/{id}',[ProjectController::class, "edit"])->name("proyecto.edit");
     Route::put('/proyecto/{id}',[ProjectController::class, "update"])->name("proyecto.update");
     Route::delete('/proyecto/{id}',[ProjectController::class, "destroy"])->name("proyecto.destroy");
     Route::get('/proyecto/{id}/restaurar',[ProjectController::class, "restore"])->name("proyecto.restore");
 
+    // Category
+    Route::post('/categorias',[CategoryController::class, "store"])->name("categorias.store");
+    Route::put('/categoria',[CategoryController::class, "update"])->name("categoria.update");     //  No recojo el valor por {id} en update debido a que se pasa por un hidden
+    Route::delete('/categoria/{id}',[CategoryController::class, "destroy"])->name("categoria.destroy");
+
+    // Levels
+    Route::post('/niveles',[LevelController::class, "store"])->name("niveles.store");
+    Route::put('/nivel',[LevelController::class, "update"])->name("nivel.update");     //  No recojo el valor por {id} en update debido a que se pasa por un hidden
+    Route::delete('/nivel/{id}',[LevelController::class, "destroy"])->name("nivel.destroy");
 
     Route::get('/config',[ConfigController::class, "index"])->name("config");
 
