@@ -30,11 +30,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <form action="" class="form">
-                            <select name="" class="form-control">
-                                <option value="">Proyecto A</option>
-                            </select>
-                        </form>
+                        @auth
+                            <form action="" class="form">
+                                <select name="" class="form-control">
+                                    <option value="">Proyecto A</option>
+                                </select>
+                            </form>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

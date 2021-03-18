@@ -28,6 +28,7 @@
             </div>
         @endif
 
+        {{-- Formulario para editar usuario --}}
         <form action=""  method="POST" class="row g-3">
             @csrf
             @method("PUT")
@@ -51,6 +52,33 @@
             </div>
         </form>
 
+        {{-- Forumlario para agregar asignar proyecto y nivel --}}
+        <form action="/proyecto-usuario" method="POST" class="mb-3">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ $user->id }}">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <select name="project_id" class="form-control" id="select-project">
+                        <option value="">Seleccione proyecto</option>
+                        @foreach ($projects as $project)
+                            <option value="{{ $project->id }}">
+                                {{ $project->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <select name="level_id" class="form-control" id="select-level">
+                        <option value="">Seleccione nivel</option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <button class="btn btn-primary">Asignar proyecto</button>
+                </div>
+            </div>
+        </form>
+
+        {{-- Tavla de los poryectos y nivel del usuario --}}
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead class="thead-dark">
@@ -82,4 +110,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('/js/admin/users/edit.js') }}"></script>
 @endsection

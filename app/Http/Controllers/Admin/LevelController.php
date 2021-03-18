@@ -48,4 +48,9 @@ class LevelController extends Controller
         Level::find($id)->delete();
         return back()->with('notification', 'El nivel se ha eliminado correctamente.');
     }
+
+    // Mi pequeño api
+    public function byProject($id){
+        return Level::where("project_id",$id)->get();
+    }
 }
