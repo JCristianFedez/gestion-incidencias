@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ConfigController;
 use App\Http\Controllers\Admin\LevelController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\ProjectUserController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,10 @@ Route::group(["middleware" => "admin"], function (){
     Route::post('/niveles',[LevelController::class, "store"])->name("niveles.store");
     Route::put('/nivel',[LevelController::class, "update"])->name("nivel.update");     //  No recojo el valor por {id} en update debido a que se pasa por un hidden
     Route::delete('/nivel/{id}',[LevelController::class, "destroy"])->name("nivel.destroy");
+
+    // Prject-User
+    Route::post("/proyecto-usuario", [ProjectUserController::class,"store"])->name("proyecto-user.store");
+    Route::delete("/proyecto-usuario/{id}", [ProjectUserController::class,"destroy"])->name("proyecto-user.destory");
 
     Route::get('/config',[ConfigController::class, "index"])->name("config");
 

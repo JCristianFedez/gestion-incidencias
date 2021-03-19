@@ -89,22 +89,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Proyecto A</td>
-                        <td>N1</td>
-                        <td>
-                            <a href="" class="btn btn-sm btn-primary" title="Editar">
-                                <i class="fas fa-user-edit"></i>
-                            </a>
-                            <form action="/usuario/{{$user->id}}" method="POST" class="d-inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja">
-                                    <i class="fas fa-user-times"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                    @foreach ($projects_user as $project_user)
+                        <tr>
+                            <td>{{ $project_user->project->name }}</td>
+                            <td>{{ $project_user->level->name }}</td>
+                            <td>
+                                <a href="" class="btn btn-sm btn-primary" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form action="/proyecto-usuario/{{ $project_user->id }}" method="POST" class="d-inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
