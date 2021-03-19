@@ -41,4 +41,14 @@ class Incident extends Model
     public function getTitleShortAttribute(){
         return mb_strimwidth($this->title, 0, 20, "...");
     }
+
+    /**
+     * Return name of category
+     */
+    public function getCategoryNameAttribute(){
+        if($this->category){
+            return $this->category->name;
+        }
+        return "General";
+    }
 }

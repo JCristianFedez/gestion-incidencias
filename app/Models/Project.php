@@ -37,4 +37,9 @@ class Project extends Model
     public function users(){
         return $this->belongsToMany("App\Models\User");
     }
+
+    // Accesors
+    public function getFirstLevelIdAttribute(){
+        return $this->levels->first()->id;
+    }
 }

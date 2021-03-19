@@ -75,4 +75,11 @@ class User extends Authenticatable
     public function getIsClientAttribute(){
         return $this->role == 2;
     }
+
+    /**
+     * Devuelve true si es support
+     */
+    public function getIsSupportAttribute(){
+        return $this->role == 1;
+    }
 }

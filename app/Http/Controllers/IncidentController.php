@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Incident;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class IncidentController extends Controller
@@ -42,14 +43,17 @@ class IncidentController extends Controller
         ];
 
         $this->validate($request, $rules, $messages);
-
+        $user = auth()->user();
         $incident = new Incident();
         $incident->category_id = $request->category_id ?: null;
         $incident->severity = $request->severity;
         $incident->title = $request->title;
         $incident->description = $request->description;
-        $incident->client_id = auth()->user()->id;
+        $incident->client_id = $user->id;
+        $incident->project_id = $user->selected_project_id;
+        $incident->level_id = Project::find($user->selected_project_id)->first_level_id;
         $incident->save();
+
         return back()->with("notification","Incidencia registrada exitosamente.");
     }
 }
