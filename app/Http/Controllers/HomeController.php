@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Incident;
+use App\Models\ProjectUser;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,7 +26,26 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = auth()->user();
+        $selected_project_id =$user->selected_project_id;
+        // dashboard table: Incidencias asignadas a mí
+        $my_incidents = Incident::where("project_id",$selected_project_id)
+            ->where("support_id", $user->id)
+            ->get();
+
+        // dashboard table: Incidencias sin asignar
+        $projectUser = ProjectUser::where("project_id",$selected_project_id)
+            ->where("user_id",$user->id)->first();
+
+        $pending_incidents = Incident::where("support_id",null)
+            ->where("level_id",$projectUser->level_id)
+            ->get();
+
+        // Dashboard table: Incidencias asignadas por mi
+        $incidents_by_me = Incident::where("client_id",$user->id)
+            ->where("project_id",$selected_project_id)->get();
+
+        return view('home',compact("my_incidents","pending_incidents","incidents_by_me"));
     }
 
     public function selectProject($id){
@@ -38,37 +58,4 @@ class HomeController extends Controller
         return back();
     }
 
-    public function getReport(){
-        $categories = Category::where("project_id",1)->get();
-        return view("report",compact("categories"));
-    }
-
-    public function postReport(Request $request){
-        
-        $rules = [
-            "category_id" => ["nullable","exists:categories,id"],
-            "severity" => ["required","in:M,N,A"],
-            "title" => ["required","min:5"],
-            "description" => ["required","min:15"]
-        ];
-
-        $messages = [
-            "category_id.exists" => "La categoria seleccionada no existe en nuestra base de datos.",
-            "title.required" => "Es necesario ingresar un título para la incidencia.",
-            "title.min" => "El título debe presentar al menos 5 caracteres.",
-            "description.required" => "Es necesario ingresar una descripción para la incidencia.",
-            "description.min" => "La descripción debe presentar al menos 15 caracteres."
-        ];
-
-        $this->validate($request, $rules, $messages);
-
-        $incident = new Incident();
-        $incident->category_id = $request->category_id ?: null;
-        $incident->severity = $request->severity;
-        $incident->title = $request->title;
-        $incident->description = $request->description;
-        $incident->client_id = auth()->user()->id;
-        $incident->save();
-        return back()->with("notification","Incidencia registrada exitosamente.");
-    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\ProjectUserController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IncidentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,8 +32,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get("/seleccionar/proyecto/{id}",[HomeController::class, "selectProject"])->name("seleccionar.proyecto");
 
-Route::get('/reportar',[HomeController::class, "getReport"])->name("reportar");
-Route::post('/reportar',[HomeController::class, "postReport"])->name("reportar");
+Route::get('/reportar',[IncidentController::class, "create"])->name("reportar.create");
+Route::post('/reportar',[IncidentController::class, "store"])->name("reportar.store");
 
 Route::group(["middleware" => "admin"], function (){
     // Users
