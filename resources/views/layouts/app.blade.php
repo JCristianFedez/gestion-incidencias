@@ -33,7 +33,11 @@
                         @auth
                             <form action="" class="form">
                                 <select name="" class="form-control">
-                                    <option value="">Proyecto A</option>
+                                    @foreach (auth()->user()->list_of_projects as $project)
+                                        <option value="{{ $project->id }}">
+                                            {{ $project->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </form>
                         @endauth

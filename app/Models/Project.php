@@ -25,11 +25,16 @@ class Project extends Model
         'name', 'description', 'start'
     ];
 
+    // Relationships
     public function categories(){
         return $this->hasMany("App\Models\Category");
     }
 
     public function levels(){
         return $this->hasMany("App\Models\Level");
+    }
+
+    public function users(){
+        return $this->belongsToMany("App\Models\User");
     }
 }

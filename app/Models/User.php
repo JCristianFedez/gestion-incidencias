@@ -42,6 +42,26 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    // Relationships
+    public function projects(){
+        return $this->belongsToMany("App\Models\Project");
+    }
+
+    // Accesors
+
+    /**
+     * Devuelve la lista de projectos dependiendo del rol de usuario
+     */
+    public function getListOfProjectsAttribute(){
+
+        if($this->role == 1){ //0: Admin | 1: Support | 2: Client
+            return $this->projects;
+        }
+        
+        return Project::all();
+    }
+
     /**
      * Devuelve true si es admin
      */
