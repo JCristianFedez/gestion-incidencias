@@ -28,6 +28,16 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function selectProject($id){
+        // Validar que el usuario esta asociado con el proyecto
+
+        $user = auth()->user();
+        $user->selected_project_id = $id;
+        $user->save();
+
+        return back();
+    }
+
     public function getReport(){
         $categories = Category::where("project_id",1)->get();
         return view("report",compact("categories"));

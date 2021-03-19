@@ -29,6 +29,8 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::get("/seleccionar/proyecto/{id}",[HomeController::class, "selectProject"])->name("seleccionar.proyecto");
+
 Route::get('/reportar',[HomeController::class, "getReport"])->name("reportar");
 Route::post('/reportar',[HomeController::class, "postReport"])->name("reportar");
 

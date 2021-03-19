@@ -32,9 +32,10 @@
                     <ul class="nav navbar-nav">
                         @auth
                             <form action="" class="form">
-                                <select name="" class="form-control">
+                                <select id="list-of-projects" class="form-control">
                                     @foreach (auth()->user()->list_of_projects as $project)
-                                        <option value="{{ $project->id }}">
+                                        <option value="{{ $project->id }}" 
+                                            @if($project->id == auth()->user()->selected_project_id) selected @endif>
                                             {{ $project->name }}
                                         </option>
                                     @endforeach
@@ -82,12 +83,17 @@
             </div>
         </nav>
 
+        {{-- Contenido del sitio --}}
         <main class="py-4">
             <div class="container">
                 <div class="row">
+
+                    {{-- Menu izquierdo --}}
                     <div class="col-md-3">
                         @include('layouts.includes.menu')
                     </div>
+
+                    {{-- Contenido --}}
                     <div class="col-md-9">
                         @yield('content')
                     </div>
@@ -100,7 +106,7 @@
         <script src="{{ asset('js/app.js') }}"></script>
         {{-- <script src="{{ asset('js/jquery.js') }}" defer></script> --}}
         {{-- <script src="{{ asset('js/bootstrap.js') }}" defer></script> --}}
-
+        <script src="{{ asset('js/main.js') }}"></script>
         @yield("scripts")
 
     </body>
