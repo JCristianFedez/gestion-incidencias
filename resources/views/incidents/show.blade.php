@@ -48,7 +48,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>Asignado a</th>
-                        <th>Visibilidad</th>
+                        <th>Nivel</th>
                         <th>Estado</th>
                         <th>Severidad</th>
                     </tr>
@@ -56,7 +56,7 @@
                 <tbody>
                     <tr>
                         <td>{{ $incident->support_name }}</td>
-                        <td>{{ $incident->project->name }}</td>
+                        <td>{{ $incident->level->name }}</td>
                         <td>{{ $incident->state }}</td>
                         <td>{{ $incident->severity_full }}</td>
                     </tr>

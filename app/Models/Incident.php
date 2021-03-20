@@ -25,6 +25,10 @@ class Incident extends Model
         return $this->belongsTo("App\Models\User","client_id");
     }
 
+    public function level(){
+        return $this->belongsTo("App\Models\Level");
+    }
+
     // Accesors
 
     /**
