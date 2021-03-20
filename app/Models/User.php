@@ -48,6 +48,18 @@ class User extends Authenticatable
         return $this->belongsToMany("App\Models\Project");
     }
 
+
+    /**
+     * Devuelve true si el nivel de la incidencia y del usuario
+     * son el mismo
+     */
+    public function canTake(Incident $incident){
+        return ProjectUser::where("user_id",$this->id)
+                ->where("level_id",$incident->level_id)
+                ->first();
+    }
+
+
     // Accesors
 
     /**
@@ -82,4 +94,5 @@ class User extends Authenticatable
     public function getIsSupportAttribute(){
         return $this->role == 1;
     }
+
 }

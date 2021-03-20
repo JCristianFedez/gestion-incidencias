@@ -35,12 +35,14 @@ Route::get("/seleccionar/proyecto/{id}",[HomeController::class, "selectProject"]
 Route::get('/reportar',[IncidentController::class, "create"])->name("reportar.create");
 Route::post('/reportar',[IncidentController::class, "store"])->name("reportar.store");
 
+Route::get("/incidencia/{id}/editar", [IncidentController::class, "edit"])->name("incidencia.edit");
+Route::post("/incidencia/{id}/editar", [IncidentController::class, "update"])->name("incidencia.update");
+
 Route::get("/ver/incidencia/{id}", [IncidentController::class, "show"])->name("incidencia.show");
 
 Route::get("/incidencia/{id}/atender", [IncidentController::class, "take"])->name("incidencia.take");
 Route::get("/incidencia/{id}/resolver", [IncidentController::class, "solve"])->name("incidencia.solce");
 Route::get("/incidencia/{id}/abrir", [IncidentController::class, "open"])->name("incidencia.open");
-Route::get("/incidencia/{id}/editar", [IncidentController::class, "edit"])->name("incidencia.edit");
 Route::get("/incidencia/{id}/derivar", [IncidentController::class, "nextLevel"])->name("incidencia.nextLevel");
 
 Route::group(["middleware" => "admin"], function (){

@@ -85,7 +85,8 @@
 
         {{-- Boton: Atender incidencia --}}
         @if ($incident->support_id == null
-            && $incident->active)
+            && $incident->active
+            && auth()->user()->canTake($incident))
             <a href="/incidencia/{{ $incident->id }}/atender" class="btn btn-primary btn-sm">
                 Atender Incidencia
             </a>
@@ -98,6 +99,9 @@
                 <a href="/incidencia/{{ $incident->id }}/resolver" class="btn btn-success btn-sm">
                     Marcar como resuelta
                 </a>
+                <a href="/incidencia/{{ $incident->id }}/editar" class="btn btn-warning btn-sm">
+                    Editar incidencia
+                </a>
             @else    {{--  Volver a abrir --}}
                 <a href="/incidencia/{{ $incident->id }}/abrir" class="btn btn-info btn-sm">
                     Volver a abrir la incidencia
@@ -105,10 +109,6 @@
             @endif
 
         @endif
-
-        <a href="/incidencia/{{ $incident->id }}/editar" class="btn btn-warning btn-sm">
-            Editar incidencia
-        </a>
 
         {{-- Boton: Derivar al siguiente nivel --}}
         @if (auth()->user()->id == $incident->support_id
