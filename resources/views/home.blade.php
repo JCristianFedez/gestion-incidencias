@@ -37,10 +37,14 @@
                                 <tbody id="dashboard_my_incidents">
                                     @foreach ($my_incidents as $incident)
                                         <tr>
-                                            <td>{{ $incident->id }}</td>
+                                            <td>
+                                                <a href="/ver/incidencia/{{ $incident->id }}">
+                                                    {{ $incident->id }}
+                                                </a>
+                                            </td>
                                             <td>{{ $incident->category_name }}</td>
                                             <td>{{ $incident->severity_full }}</td>
-                                            <td>{{ $incident->id }}</td>
+                                            <td>{{ $incident->state }}</td>
                                             <td>{{ $incident->created_at }}</td>
                                             <td>{{ $incident->title_short }}</td>
                                         </tr>
@@ -74,10 +78,14 @@
                             <tbody id="dashboard_by_me">
                                 @foreach ($incidents_by_me as $incident)
                                     <tr>
-                                        <td>{{ $incident->id }}</td>
+                                        <td>
+                                            <a href="/ver/incidencia/{{ $incident->id }}">
+                                                {{ $incident->id }}
+                                            </a>
+                                        </td>
                                         <td>{{ $incident->category_name }}</td>
                                         <td>{{ $incident->severity_full }}</td>
-                                        <td>{{ $incident->id }}</td>
+                                        <td>{{ $incident->state }}</td>
                                         <td>{{ $incident->created_at }}</td>
                                         <td>{{ $incident->title_short }}</td>
                                         <td>
@@ -115,10 +123,14 @@
                                 <tbody id="dashboard_pending_incidents">
                                     @foreach ($pending_incidents as $incident)
                                         <tr>
-                                            <td>{{ $incident->id }}</td>
+                                            <td>
+                                                <a href="/ver/incidencia/{{ $incident->id }}">
+                                                    {{ $incident->id }}
+                                                </a>
+                                            </td>
                                             <td>{{ $incident->category_name }}</td>
                                             <td>{{ $incident->severity_full }}</td>
-                                            <td>{{ $incident->id }}</td>
+                                            <td>{{ $incident->state }}</td>
                                             <td>{{ $incident->created_at }}</td>
                                             <td>{{ $incident->title_short }}</td>
                                             <td>

@@ -35,6 +35,8 @@ Route::get("/seleccionar/proyecto/{id}",[HomeController::class, "selectProject"]
 Route::get('/reportar',[IncidentController::class, "create"])->name("reportar.create");
 Route::post('/reportar',[IncidentController::class, "store"])->name("reportar.store");
 
+Route::get("/ver/incidencia/{id}", [IncidentController::class, "show"])->name("incidencia.show");
+
 Route::group(["middleware" => "admin"], function (){
     // Users
     Route::get('/usuarios',[UserController::class, "index"])->name("usuarios");

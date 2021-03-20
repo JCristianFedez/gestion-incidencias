@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card border-primary">
-    <div class="card-header  bg-primary text-white">{{ __('Dashboard') }}</div>
+    <div class="card-header  bg-primary text-white">Reportar Incidencia</div>
 
     <div class="card-body">
         @if (session('status'))

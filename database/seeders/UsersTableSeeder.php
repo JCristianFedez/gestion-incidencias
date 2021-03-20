@@ -31,13 +31,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         User::create([
-            "name" => "support",
-            "email" => "support@gmail.com",
-            "password" => bcrypt("123"),
-            "role" => 1
-        ]);
-
-        User::create([
             "name" => "client",
             "email" => "client@gmail.com",
             "password" => bcrypt("123"),

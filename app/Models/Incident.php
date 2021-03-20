@@ -13,6 +13,18 @@ class Incident extends Model
         return $this->belongsTo("App\Models\Category");
     }
 
+    public function project(){
+        return $this->belongsTo("App\Models\Project");
+    }
+
+    public function support(){
+        return $this->belongsTo("App\Models\User","support_id");
+    }
+
+    public function client(){
+        return $this->belongsTo("App\Models\User","client_id");
+    }
+
     // Accesors
 
     /**
@@ -50,5 +62,30 @@ class Incident extends Model
             return $this->category->name;
         }
         return "General";
+    }
+
+    /**
+     * Return name of Support
+     */
+    public function getSupportNameAttribute(){
+        if($this->support){
+            return $this->support->name;
+        }
+        return "Sin asignar";
+    }
+
+    /**
+     * Return name of state
+     */
+    public function getStateAttribute(){
+        if($this->active == 0){
+            return "Resuelto";
+        }
+
+        if($this->support_id){
+            return "Asignado";
+        }
+
+        return "Pendiente";
     }
 }
