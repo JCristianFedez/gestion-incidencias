@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card border-primary">
+<div class="card border-primary mb-3">
     <div class="card-header  bg-primary text-white">Informacion de Incidencia</div>
 
     <div class="card-body">
@@ -119,4 +119,6 @@
         @endif
     </div>
 </div>
+
+    @include('layouts.chat')
 @endsection

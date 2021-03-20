@@ -23,7 +23,8 @@ class IncidentController extends Controller
 
     public function show($id){
         $incident = Incident::findOrFail($id);
-        return view("incidents.show", compact("incident"));
+        $messages = $incident->messages;
+        return view("incidents.show", compact("incident","messages"));
     }
 
     public function create(){

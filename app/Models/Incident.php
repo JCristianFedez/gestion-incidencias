@@ -44,6 +44,10 @@ class Incident extends Model
         return $this->belongsTo("App\Models\Level");
     }
 
+    public function messages(){
+        return $this->hasMany("App\Models\Message");
+    }
+
     // Accesors
 
     /**

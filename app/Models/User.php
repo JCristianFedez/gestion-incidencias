@@ -95,4 +95,14 @@ class User extends Authenticatable
         return $this->role == 1;
     }
 
+    /**
+     * Devuelve la ruta de la imagen de avatar
+     */
+    public function getAvatarPathAttribute(){
+        if($this->is_client){
+            return "/images/client.png";
+        }
+        return "/images/support.png";
+    }
+
 }
