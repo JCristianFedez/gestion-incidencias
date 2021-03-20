@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -44,14 +45,20 @@ class LoginController extends Controller
      */
     public function authenticated(){
         $user = auth()->user();
-        if ($user->is_admin || $user->is_client){
-            return;
-        }
 
-        // support
+        // user don't have a selected_project
         if(! $user->selected_project_id){
-            $user->selected_project_id = $user->projects->first()->id;
-            $user->save();
+            // Admin and client
+            if ($user->is_admin || $user->is_client){
+                $user->selected_project_id = Project::first()->id;
+
+            }else{
+                // support
+                // Y si el usuario de soporte no esta asignado a ningun proyecto
+                $user->selected_project_id = $user->projects->first()->id;
+            }
+            $user->save();   
         }
+        
     }
 }

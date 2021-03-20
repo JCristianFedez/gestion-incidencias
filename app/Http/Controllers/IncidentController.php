@@ -61,4 +61,24 @@ class IncidentController extends Controller
 
         return back()->with("notification","Incidencia registrada exitosamente.");
     }
+
+    public function edit($id){
+        
+    }
+
+    public function take($id){
+
+    }
+
+    public function solve($id){
+
+    }
+
+    public function open($id){
+
+    }
+    
+    public function nextLevel($id){
+
+    }
 }
