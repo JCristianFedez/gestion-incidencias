@@ -41,7 +41,7 @@ Route::post('/reportar',[IncidentController::class, "store"])->name("reportar.st
 Route::get("/incidencia/{id}/editar", [IncidentController::class, "edit"])->name("incidencia.edit");
 Route::post("/incidencia/{id}/editar", [IncidentController::class, "update"])->name("incidencia.update");
 
-Route::get("/ver/incidencia/{id}", [IncidentController::class, "show"])->name("incidencia.show");
+Route::get("/incidencia/ver/{id}", [IncidentController::class, "show"])->name("incidencia.show");
 
 Route::get("/incidencia/{id}/atender", [IncidentController::class, "take"])->name("incidencia.take");
 Route::get("/incidencia/{id}/resolver", [IncidentController::class, "solve"])->name("incidencia.solce");

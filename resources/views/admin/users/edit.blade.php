@@ -5,28 +5,11 @@
     <div class="card-header  bg-primary text-white">Editar Usuario</div>
 
     <div class="card-body">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
+        @include('layouts.includes.status')
+        
+        @include('layouts.includes.notification')
 
-            
-        @if (session("notification"))
-        <div class="alert alert-success">
-            {{ session("notification") }}
-        </div>
-        @endif
-
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('layouts.includes.errors')
 
         {{-- Formulario para editar usuario --}}
         <form action=""  method="POST" class="row g-3">
@@ -94,13 +77,15 @@
                             <td>{{ $project_user->project->name }}</td>
                             <td>{{ $project_user->level->name }}</td>
                             <td>
-                                <a href="" class="btn btn-sm btn-primary" title="Editar">
+                                <a href="" class="btn btn-sm btn-primary" title="Editar"
+                                data-toggle="tooltip" data-placement="left">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <form action="/proyecto-usuario/{{ $project_user->id }}" method="POST" class="d-inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja">
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja"
+                                    data-toggle="tooltip" data-placement="right">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>

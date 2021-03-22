@@ -5,28 +5,12 @@
     <div class="card-header  bg-primary text-white">Proyecto</div>
 
     <div class="card-body">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
+        
+        @include('layouts.includes.status')
+        
+        @include('layouts.includes.notification')
 
-            
-        @if (session("notification"))
-        <div class="alert alert-success">
-            {{ session("notification") }}
-        </div>
-        @endif
-
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('layouts.includes.errors')
 
         {{-- Formulario para editar proyecto --}}
         <form action=""  method="POST" class="row g-3">

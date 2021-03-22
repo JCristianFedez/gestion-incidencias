@@ -74,7 +74,7 @@ class IncidentController extends Controller
         $incident->description = $request->description;
         $incident->save();
 
-        return redirect("/ver/incidencia/$id")->with("notification","Incidencia modificada exitosamente.");
+        return redirect("/incidencia/ver/$id")->with("notification","Incidencia modificada exitosamente.");
 
     }
 

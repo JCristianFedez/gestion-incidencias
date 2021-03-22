@@ -5,27 +5,11 @@
     <div class="card-header  bg-primary text-white">Usuarios</div>
 
     <div class="card-body">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
+        @include('layouts.includes.status')
+        
+        @include('layouts.includes.notification')
 
-        @if (session("notification"))
-        <div class="alert alert-success">
-            {{ session("notification") }}
-        </div>
-        @endif
-
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('layouts.includes.errors')
 
         <form action=""  method="POST" class="row g-3">
             @csrf
@@ -66,13 +50,15 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->name }}</td>
                             <td>
-                                <a href="/usuario/{{$user->id}}" class="btn btn-sm btn-primary" title="Editar">
+                                <a href="/usuario/{{$user->id}}" class="btn btn-sm btn-primary" title="Editar"
+                                    data-toggle="tooltip" data-placement="left">
                                     <i class="fas fa-user-edit"></i>
                                 </a>
                                 <form action="/usuario/{{$user->id}}" method="POST" class="d-inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja">
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja"
+                                    data-toggle="tooltip" data-placement="right">
                                         <i class="fas fa-user-times"></i>
                                     </button>
                                 </form>

@@ -30,29 +30,26 @@ class HomeController extends Controller
         $selected_project_id =$user->selected_project_id;
         
 
-        if($user->is_support){
-            // dashboard table: Incidencias asignadas a mí
-            $my_incidents = Incident::where("project_id",$selected_project_id)
-                ->where("support_id", $user->id)
-                ->get();
+        if ($selected_project_id) {
 
-            // dashboard table: Incidencias sin asignar
-            $projectUser = ProjectUser::where("project_id",$selected_project_id)
-                ->where("user_id",$user->id)->first();
+            if ($user->is_support || $user->is_admin) {
+                $my_incidents = Incident::where('project_id', $selected_project_id)->where('support_id', $user->id)->get();
 
-            $pending_incidents = Incident::where("support_id",null)
-                ->where("level_id",$projectUser->level_id)
-                ->get();
-        }
-        
+                $projectUser = ProjectUser::where('project_id', $selected_project_id)->where('user_id', $user->id)->first();
 
-        // Dashboard table: Incidencias asignadas por mi
-        $incidents_by_me = Incident::where("client_id",$user->id)
-            ->where("project_id",$selected_project_id)->get();
-        
-        
-        if($user->is_client){
-            return view('home',compact("incidents_by_me"));
+                if ($projectUser) {
+                    $pending_incidents = Incident::where('support_id', null)->where('level_id', $projectUser->level_id)->get();
+                } else {
+                    $pending_incidents = collect(); // empty when no project associated
+                }
+            }
+
+            $incidents_by_me = Incident::where('client_id', $user->id)
+                                        ->where('project_id', $selected_project_id)->get();
+        } else {
+            $pending_incidents = [];
+            $incidents_by_me = [];
+            $my_incidents = [];
         }
 
         return view('home',compact("my_incidents","pending_incidents","incidents_by_me"));

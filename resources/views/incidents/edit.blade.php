@@ -2,34 +2,19 @@
 
 @section('content')
 <div class="card border-primary">
-    <div class="card-header  bg-primary text-white">Reportar Incidencia</div>
+    <div class="card-header  bg-primary text-white">Editar Incidencia</div>
 
     <div class="card-body">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
+        @include('layouts.includes.status')
+        
+        @include('layouts.includes.notification')
 
-        @if (session("notification"))
-        <div class="alert alert-success">
-            {{ session("notification") }}
-        </div>
-        @endif
+        @include('layouts.includes.errors')
 
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
+        {{-- Formulario para editar incidencia --}}
         <form action=""  method="POST" class="row g-3">
             @csrf
-
+            {{-- Categoria --}}
             <div class="col-md-6 form-group">
                 <label for="category_id" class="form-label">Categoria</label>
                 <select name="category_id" id="category_id" class="form-control">
@@ -42,6 +27,7 @@
                 </select>
             </div>
 
+            {{-- Severidad --}}
             <div class="col-md-6 form-group">
                 <label for="severity" class="form-label">Severidad</label>
                 <select name="severity" id="severity" class="form-control">

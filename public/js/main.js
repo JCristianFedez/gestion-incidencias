@@ -14,3 +14,7 @@ $(document).ready(function(){
             $(".toast").fadeOut(1500);
     },3000);
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})

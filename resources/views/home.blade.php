@@ -5,17 +5,18 @@
     <div class="card-header bg-primary text-white">Dashboard</div>
 
     <div class="card-body">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
+        
+        @include('layouts.includes.status')
+        
+        @include('layouts.includes.notification')
+
+        @include('layouts.includes.errors')
 
         {{-- Tablas de incidencias --}}
         <div>
 
             {{-- Incidencias asignadas a mi --}}
-            @if (auth()->user()->is_support)
+            @if (auth()->user()->is_support || auth()->user()->is_admin)
                 {{-- Incidencias asignadas a mi --}}
                 <div class="card border-info mb-3">
                     <div class="card-header bg-info">
@@ -36,12 +37,8 @@
                                 </thead>
                                 <tbody id="dashboard_my_incidents">
                                     @foreach ($my_incidents as $incident)
-                                        <tr>
-                                            <td>
-                                                <a href="/ver/incidencia/{{ $incident->id }}">
-                                                    {{ $incident->id }}
-                                                </a>
-                                            </td>
+                                        <tr data-href="/incidencia/ver/{{ $incident->id }}" class="cursor-pointer">
+                                            <td>{{ $incident->id }}</td>
                                             <td>{{ $incident->category_name }}</td>
                                             <td>{{ $incident->severity_full }}</td>
                                             <td>{{ $incident->state }}</td>
@@ -77,12 +74,8 @@
                             </thead>
                             <tbody id="dashboard_by_me">
                                 @foreach ($incidents_by_me as $incident)
-                                    <tr>
-                                        <td>
-                                            <a href="/ver/incidencia/{{ $incident->id }}">
-                                                {{ $incident->id }}
-                                            </a>
-                                        </td>
+                                    <tr data-href="/incidencia/ver/{{ $incident->id }}"  class="cursor-pointer">
+                                        <td>{{ $incident->id }}</td>
                                         <td>{{ $incident->category_name }}</td>
                                         <td>{{ $incident->severity_full }}</td>
                                         <td>{{ $incident->state }}</td>
@@ -100,7 +93,7 @@
             </div>
 
             {{-- Incidencias sin asignar --}}
-            @if (auth()->user()->is_support)
+            @if (auth()->user()->is_support || auth()->user()->is_admin)
                 {{-- Incidencias sin asignar --}}
                 <div class="card border-info mb-3">
                     <div class="card-header bg-info">
@@ -122,19 +115,15 @@
                                 </thead>
                                 <tbody id="dashboard_pending_incidents">
                                     @foreach ($pending_incidents as $incident)
-                                        <tr>
-                                            <td>
-                                                <a href="/ver/incidencia/{{ $incident->id }}">
-                                                    {{ $incident->id }}
-                                                </a>
-                                            </td>
+                                        <tr data-href="/incidencia/ver/{{ $incident->id }}" class="cursor-pointer">
+                                            <td>{{ $incident->id }}</td>
                                             <td>{{ $incident->category_name }}</td>
                                             <td>{{ $incident->severity_full }}</td>
                                             <td>{{ $incident->state }}</td>
                                             <td>{{ $incident->created_at }}</td>
                                             <td>{{ $incident->title_short }}</td>
                                             <td>
-                                                <a href="" class="btn btn-primary btn-sm">
+                                                <a href="/incidencia/{{ $incident->id }}/atender" class="btn btn-primary btn-sm">
                                                     Atender
                                                 </a>
                                             </td>
@@ -150,4 +139,9 @@
 
     </div>
 </div>
+@endsection
+
+{{-- Script para acceder a incidencias --}}
+@section('scripts')
+    <script src="{{ asset('/js/home/home.js') }}"></script>
 @endsection
