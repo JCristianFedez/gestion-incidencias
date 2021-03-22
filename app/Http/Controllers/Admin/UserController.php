@@ -12,6 +12,7 @@ class UserController extends Controller
 {
     public function index(){
         $users = User::where("role",1)->get();
+
         return view("admin.users.index",compact("users"));
     }
 
@@ -19,7 +20,8 @@ class UserController extends Controller
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8']
+            'password' => ['required', 'string', 'min:8'],
+            'rol' => ["required","in:0,1,2"]
         ];
 
         $messages = [
@@ -30,7 +32,9 @@ class UserController extends Controller
     		'email.max' => 'El e-mail es demasiado extenso.',
     		'email.unique' => 'Este e-mail ya se encuentra en uso.',
     		'password.required' => 'Olvidó ingresar una contraseña.',
-    		'password.min' => 'La contraseña debe presentar al menos 6 caracteres.'
+    		'password.min' => 'La contraseña debe presentar al menos 6 caracteres.',
+            'rol.required' => 'El rol es obligatorio',
+            'rol.in' => 'Rol invalido'
         ];
 
         $this->validate($request, $rules, $messages);
@@ -39,7 +43,7 @@ class UserController extends Controller
     	$user->name = $request->name;
     	$user->email = $request->email;
     	$user->password = bcrypt($request->password);
-    	$user->role = 1; //0: Admin | 1: Support | 2:Client	
+    	$user->role = $request->rol; //0: Admin | 1: Support | 2:Client	
     	$user->save();
 
         
@@ -50,6 +54,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $projects = Project::all();
         $projects_user = ProjectUser::where("user_id",$user->id)->get();
+
         return view("admin.users.edit", compact("user","projects","projects_user"));
     }
 

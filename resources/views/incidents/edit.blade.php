@@ -12,7 +12,7 @@
         @include('layouts.includes.errors')
 
         {{-- Formulario para editar incidencia --}}
-        <form action=""  method="POST" class="row g-3">
+        <form action=""  method="POST" class="row needs-validation" novalidate>
             @csrf
             {{-- Categoria --}}
             <div class="col-md-6 form-group">
@@ -45,13 +45,20 @@
 
             <div class="col-md-12 form-group">
                 <label for="title" class="form-label">Titulo</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{old('title',$incident->title)}}">
+                <input type="text" name="title" id="title" class="form-control" 
+                value="{{old('title',$incident->title)}}" required minlength="5" maxlength="255">
+                <div class="invalid-feedback">
+                    Porfavor introduzca un titulo valido.
+                </div>
             </div>
 
             <div class="col-md-12 form-group">
                 <label for="description" class="form-label">Descripción</label>
-                <textarea name="description" id="description" class="form-control">{{old('description',$incident->description)}}
-                </textarea>
+                <textarea name="description" id="description" class="form-control"
+                required minlength="15" maxlength="255">{{old('description',$incident->description)}}</textarea>
+                <div class="invalid-feedback">
+                    Porfavor introduzca una descripcion valida.
+                </div>
             </div>
 
             <div class="col-md-12 form-group">

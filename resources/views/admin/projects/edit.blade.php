@@ -13,26 +13,38 @@
         @include('layouts.includes.errors')
 
         {{-- Formulario para editar proyecto --}}
-        <form action=""  method="POST" class="row g-3">
+        <form action=""  method="POST" class="row needs-validation" novalidate>
             @csrf
             @method("PUT")
             <div class="col-md-12 form-group">
                 <label for="name" class="form-label">Nombre</label>
-                <input type="text" name="name" id="name" class="form-control" value="{{old('name',$project->name)}}">
+                <input type="text" name="name" id="name" class="form-control" value="{{old('name',$project->name)}}"
+                required minlength="5" maxlength="255">
+                <div class="invalid-feedback">
+                    Porfavor introduzca un nombre valido.
+                </div>
             </div>
 
             <div class="col-md-12 form-group">
                 <label for="description" class="form-label">Descripción</label>
-                <input type="text" name="description" id="description" class="form-control" value="{{old('description',$project->description)}}">
+                <input type="text" name="description" id="description" class="form-control" value="{{old('description',$project->description)}}"
+                required minlength="15" maxlength="255">
+                <div class="invalid-feedback">
+                    Porfavor introduzca una descripción valido.
+                </div>
             </div>
 
             <div class="col-md-12 form-group">
                 <label for="start" class="form-label">Fecha de inicio</label>
-                <input type="date" name="start" id="start" class="form-control" value="{{old('start',$project->start)}}">
+                <input type="date" name="start" id="start" class="form-control" value="{{old('start',$project->start)}}"
+                required>
+                <div class="invalid-feedback">
+                    Porfavor introduzca una fecha valida.
+                </div>
             </div>
 
             <div class="col-md-12 form-group">
-                <input type="submit" value="Guardar Proyecto" class="btn btn-primary">
+                <input type="submit" value="Actualizar Proyecto" class="btn btn-primary">
             </div>
         </form>
 
@@ -43,12 +55,13 @@
                 <p>Categorías</p>
 
                 {{-- Agregar Categoria --}}
-                <form action="/categorias" method="POST" class="form-inline mb-3">
+                <form action="/categorias" method="POST" class="form-inline mb-3 needs-validation" novalidate>
                     @csrf
                     <input type="hidden" name="project_id" value="{{ $project->id }}">
 
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Ingrese nombre">
+                        <input type="text" name="name" class="form-control" placeholder="Ingrese nombre"
+                        required minlength="5" maxlength="255">
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Añadir" class="btn btn-primary">
@@ -93,12 +106,13 @@
             <div class="col-md-6">
                 <p>Niveles</p>
                 {{-- Agregar Nivel --}}
-                <form action="/niveles" method="POST" class="form-inline mb-3">
+                <form action="/niveles" method="POST" class="form-inline mb-3 needs-validation" novalidate>
                     @csrf
                     <input type="hidden" name="project_id" value="{{ $project->id }}">
 
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Ingrese nombre">
+                        <input type="text" name="name" class="form-control" placeholder="Ingrese nombre"
+                        required minlength="5" maxlength="255">
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Añadir" class="btn btn-primary">
@@ -155,14 +169,18 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/categoria" method="POST">
+            <form action="/categoria" method="POST" class="needs-validation" novalidate >
                 <div class="modal-body row">
                     @csrf
                     @method("PUT")
                     <input type="hidden" name="category_id" id="category_id" value="">
                     <div class="form-group col-12">
                         <label for="name">Nombre de la categoría</label>
-                        <input type="text" name="name" id="category_name" class="form-control" value=""  >
+                        <input type="text" name="name" id="category_name" class="form-control" value=""  
+                        required minlength="5" maxlength="255">
+                        <div class="invalid-feedback">
+                            Porfavor introduzca un nombre valido.
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -184,14 +202,18 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/nivel" method="POST">
+            <form action="/nivel" method="POST" class="needs-validation" novalidate>
                 <div class="modal-body row">
                     @csrf
                     @method("PUT")
                     <input type="hidden" name="level_id" id="level_id" value="">
                     <div class="form-group col-12">
                         <label for="name">Nombre del nivel</label>
-                        <input type="text" name="name" id="level_name" class="form-control" value=""  >
+                        <input type="text" name="name" id="level_name" class="form-control" value=""  
+                        required minlength="5" maxlength="15">
+                        <div class="invalid-feedback">
+                            Porfavor introduzca un nombre valido.
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -11,11 +11,13 @@ class CategoryController extends Controller
     public function store(Request $request){
         
         $rules = [
-            'name' => 'required'
+            'name' => ["required","min:5","max:255"]
         ];
     
         $messages = [
             'name.required' => 'Es necesario ingresar un nombre para la categoría.',
+            'name.min' => 'La categoría necesita un minimo de 5 caracteres.',
+            'name.max' => 'La categoría no puede tener mas de 255 caracteres.',
         ];
 
         $this->validate($request, $rules, $messages);
@@ -27,11 +29,13 @@ class CategoryController extends Controller
 
     public function update(Request $request){
         $rules = [
-            'name' => 'required'
+            'name' => ["required","min:5","max:255"]
         ];
     
         $messages = [
             'name.required' => 'Es necesario ingresar un nombre para la categoría.',
+            'name.min' => 'La categoría necesita un minimo de 5 caracteres.',
+            'name.max' => 'La categoría no puede tener mas de 255 caracteres.',
         ];
 
         $this->validate($request, $rules, $messages);

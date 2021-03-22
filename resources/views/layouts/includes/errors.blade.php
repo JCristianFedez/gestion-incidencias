@@ -1,7 +1,10 @@
 @if (count($errors) > 0)
-    <ul class="list-group mb-3">
-        @foreach ($errors->all() as $error)
-            <li class="list-group-item list-group-item-danger">{{ $error }}</li>
+<div class="alert alert-danger">
+    <p>Corrige los siguientes errores:</p>
+    <ul>
+        @foreach ($errors->all() as $message)
+        <li>{{ $message }}</li>
         @endforeach
     </ul>
+</div>
 @endif

@@ -11,22 +11,44 @@
 
         @include('layouts.includes.errors')
 
-        <form action=""  method="POST" class="row g-3">
+        {{-- Formulario para registrar usuario --}}
+        <form action=""  method="POST" class="row needs-validation" novalidate>
             @csrf
 
             <div class="col-md-12 form-group">
                 <label for="email" class="form-label">E-mail</label>
-                <input type="email" name="email" id="email" class="form-control" value="{{old('email')}}">
+                <input type="email" name="email" id="email" class="form-control" value="{{old('email')}}"
+                required maxlength="255">
+                <div class="invalid-feedback">
+                    Porfavor introduzca un E-mail valido.
+                </div>
             </div>
 
             <div class="col-md-12 form-group">
                 <label for="name" class="form-label">Nombre</label>
-                <input type="text" name="name" id="name" class="form-control" value="{{old('name')}}">
+                <input type="text" name="name" id="name" class="form-control" value="{{old('name')}}"
+                required maxlength="255">
+                <div class="invalid-feedback">
+                    Porfavor introduzca un nombre valido.
+                </div>
             </div>
 
-            <div class="col-md-12 form-group">
+            <div class="col-md-6 form-group">
                 <label for="password" class="form-label">Contraseña</label>
-                <input type="text" name="password" id="password" class="form-control" value="{{old('password',Str::random(8))}}">
+                <input type="text" name="password" id="password" class="form-control" value="{{old('password',Str::random(8))}}"
+                required minlength="8">
+                <div class="invalid-feedback">
+                    Porfavor introduzca una contraseña valido.
+                </div>
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label for="validationServer04">Rol</label>
+                    <select class="custom-select">
+                        <option value="2">Cliente</option>
+                        <option value="1" selected>Support</option>
+                        <option value="0">Admin</option>
+                    </select>
             </div>
 
             <div class="col-md-12 form-group">
@@ -34,6 +56,7 @@
             </div>
         </form>
 
+        {{-- Tabla de usuarios support registrados --}}
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover">
                 <thead class="thead-dark">

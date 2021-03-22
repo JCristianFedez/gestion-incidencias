@@ -11,13 +11,18 @@ class Project extends Model
     use HasFactory, SoftDeletes;
 
     public static $rules = [
-        'name' => 'required',
-        // 'description' => '',
+        'name' => ['required',"min:5","max:255"],
+        'description' => ["required","min:15","max:255"],
         'start' => 'date'
     ];
 
     public static $messages = [
         'name.required' => 'Es necesario ingresar un nombre para el proyecto.',
+        'name.min' => "El nombre del proyecto debe de contener un minimo de 5 caracteres",
+        'name.max' => "El nombre del proyecto debe de contener un maximo de 255 caracteres",
+        'description.required' => "Es necesario ingresar una descripccion valida",
+        'description.min' => "La descripccion debe de contener un minimo de 15 caracteres",
+        'description.max' => "La descripccion debe de contener un maximo de 255 caracteres",
         'start.date' => 'La fecha no tiene un formato adecuado.'
     ];
 

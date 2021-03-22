@@ -5,7 +5,7 @@
         <ul class="nav nav-pills">
             @if (auth()->check())
                 <li class="nav-item">
-                    <a href="/home" class="nav-link @if(request()->is("home"))active @endif">Dashboard</a>
+                    <a href="/home" class="nav-link @if(request()->is("home") || request()->is("incidencia*"))active @endif">Dashboard</a>
                 </li>
 
                 {{-- @if (! auth()->user()->is_client)

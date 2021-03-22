@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Level;
 use App\Models\Project;
 use App\Models\ProjectUser;
 use Illuminate\Http\Request;
@@ -11,12 +12,25 @@ class ProjectUserController extends Controller
 {
     public function store(Request $request){
         
-        // Asegurarnos de que:
-        // El nivel preteneze al proyecto
-        // El proyecto existe
-        // El nivel existe
-        // El usuario existe
+        $rules = [
+            'project_id' => ['required', 'exists:projects,id'],
+            'level_id' => ['required', 'exists:levels,id'],
+            'user_id' => ['required', 'exists:users,id']
+        ];
+
+        $messages = [
+            'project_id.required' => 'Es necesario seleccionar el proyecto.',
+            'level_id.required' => 'Es necesario seleccionar el nivel.'
+        ];
+
+        $this->validate($request, $rules, $messages);
         
+        // Si hay un usuario malicioso e intenta enlacar un proyecto con un nivel que no le corresponde
+        $level = Level::find($request->level_id);
+        if($level->project_id != $request->project_id){
+            return back();
+        }
+
         // Comprobamos que el usuario no pertenezca ya al proyecto
         $project_user = ProjectUser::where("project_id", $request->project_id)
             ->where("user_id",$request->user_id)->first();
