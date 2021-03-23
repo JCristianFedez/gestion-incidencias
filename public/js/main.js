@@ -38,3 +38,10 @@ $(function () {
     }, false);
   })();
 
+
+// Menu vertical
+$(function() {
+  $('#vertiacalSidebarCollapse').on('click', function() {
+    $('#sidebar, #content').toggleClass('active');
+  });
+});

@@ -44,7 +44,7 @@
 
             <div class="col-md-6 form-group">
                 <label for="validationServer04">Rol</label>
-                    <select class="custom-select">
+                    <select class="custom-select" name="rol">
                         <option value="2">Cliente</option>
                         <option value="1" selected>Support</option>
                         <option value="0">Admin</option>
@@ -63,6 +63,7 @@
                     <tr>
                         <th>E-mail</th>
                         <th>Nombre</th>
+                        <th>Rol</th>
                         <th>Opciones</th>
                     </tr>
                 </thead>
@@ -72,6 +73,7 @@
                         <tr>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->name }}</td>
+                            <td>{{ $user->role_name }}</td>
                             <td>
                                 <a href="/usuario/{{$user->id}}" class="btn btn-sm btn-primary" title="Editar"
                                     data-toggle="tooltip" data-placement="left">

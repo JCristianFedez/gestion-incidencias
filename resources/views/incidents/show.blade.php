@@ -78,9 +78,18 @@
         {{-- Boton: Atender incidencia --}}
         @if ($incident->support_id == null
             && $incident->active
-            && auth()->user()->canTake($incident))
+            && (auth()->user()->canTake($incident) || auth()->user()->is_admin))
             <a href="/incidencia/{{ $incident->id }}/atender" class="btn btn-primary btn-sm">
                 Atender Incidencia
+            </a>
+        @endif
+
+        {{-- Boton: Desatender incidencia --}}
+        @if ($incident->support_id != null
+            && $incident->active
+            && (auth()->user()->canTake($incident) || auth()->user()->is_admin))
+            <a href="/incidencia/{{ $incident->id }}/desatender" class="btn btn-warning btn-sm">
+                Desatender Incidencia
             </a>
         @endif
 
@@ -103,8 +112,8 @@
         @endif
 
         {{-- Boton: Derivar al siguiente nivel --}}
-        @if (auth()->user()->id == $incident->support_id
-            && $incident->active)
+        @if ((auth()->user()->id == $incident->support_id
+            && $incident->active) || ($incident->active && auth()->user()->is_admin))
             <a href="/incidencia/{{ $incident->id }}/derivar" class="btn btn-danger btn-sm">
                 Derivar al siguiente nivel
             </a>

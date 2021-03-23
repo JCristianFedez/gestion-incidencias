@@ -33,17 +33,23 @@
                                         <th>Estado</th>
                                         <th>Fecha creación</th>
                                         <th>Título</th>
+                                        <th>Opción</th>
                                     </tr>
                                 </thead>
                                 <tbody id="dashboard_my_incidents">
                                     @foreach ($my_incidents as $incident)
-                                        <tr data-href="/incidencia/ver/{{ $incident->id }}" class="cursor-pointer">
+                                        <tr>
                                             <td>{{ $incident->id }}</td>
                                             <td>{{ $incident->category_name }}</td>
                                             <td>{{ $incident->severity_full }}</td>
                                             <td>{{ $incident->state }}</td>
                                             <td>{{ $incident->created_at }}</td>
                                             <td>{{ $incident->title_short }}</td>
+                                            <td class="text-center d-flex flex-column">
+                                                <a href="/incidencia/ver/{{ $incident->id }}" class="btn btn-info btn-sm flex-fill">
+                                                    Ver
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -70,11 +76,12 @@
                                     <th>Fecha creación</th>
                                     <th>Título</th>
                                     <th>Responsable</th>
+                                    <th>Opción</th>
                                 </tr>
                             </thead>
                             <tbody id="dashboard_by_me">
                                 @foreach ($incidents_by_me as $incident)
-                                    <tr data-href="/incidencia/ver/{{ $incident->id }}"  class="cursor-pointer">
+                                    <tr>
                                         <td>{{ $incident->id }}</td>
                                         <td>{{ $incident->category_name }}</td>
                                         <td>{{ $incident->severity_full }}</td>
@@ -82,7 +89,12 @@
                                         <td>{{ $incident->created_at }}</td>
                                         <td>{{ $incident->title_short }}</td>
                                         <td>
-                                            {{ $incident->support_id ?: "Sin asignar" }}
+                                            {{ $incident->support_name ?: "Sin asignar" }}
+                                        </td>
+                                        <td class="text-center d-flex flex-column">
+                                            <a href="/incidencia/ver/{{ $incident->id }}" class="btn btn-info btn-sm flex-fill">
+                                                Ver
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -115,16 +127,19 @@
                                 </thead>
                                 <tbody id="dashboard_pending_incidents">
                                     @foreach ($pending_incidents as $incident)
-                                        <tr data-href="/incidencia/ver/{{ $incident->id }}" class="cursor-pointer">
+                                        <tr>
                                             <td>{{ $incident->id }}</td>
                                             <td>{{ $incident->category_name }}</td>
                                             <td>{{ $incident->severity_full }}</td>
                                             <td>{{ $incident->state }}</td>
                                             <td>{{ $incident->created_at }}</td>
                                             <td>{{ $incident->title_short }}</td>
-                                            <td>
-                                                <a href="/incidencia/{{ $incident->id }}/atender" class="btn btn-primary btn-sm">
+                                            <td class="text-center d-flex flex-column">
+                                                <a href="/incidencia/{{ $incident->id }}/atender" class="btn btn-primary btn-sm flex-fill">
                                                     Atender
+                                                </a>
+                                                <a href="/incidencia/ver/{{ $incident->id }}" class="btn btn-info btn-sm flex-fill">
+                                                    Ver
                                                 </a>
                                             </td>
                                         </tr>
@@ -142,6 +157,6 @@
 @endsection
 
 {{-- Script para acceder a incidencias --}}
-@section('scripts')
+{{-- @section('scripts')
     <script src="{{ asset('/js/home/home.js') }}"></script>
-@endsection
+@endsection --}}

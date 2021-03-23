@@ -48,6 +48,36 @@ class ProjectUserController extends Controller
         return back();
     }
 
+    public function update(Request $request){
+        
+        $rules = [
+            'project_id' => ['required', 'exists:projects,id'],
+            'level_id' => ['required', 'exists:levels,id'],
+            'user_id' => ['required', 'exists:users,id'],
+            'project_user_id' => ['required', 'exists:project_user,id']
+        ];
+
+        $messages = [
+            'level_id.required' => 'Es necesario seleccionar el nivel.'
+        ];
+
+        $this->validate($request, $rules, $messages);
+        
+        // Si hay un usuario malicioso e intenta enlacar un proyecto con un nivel que no le corresponde
+        $level = Level::find($request->level_id);
+        if($level->project_id != $request->project_id){
+            return back();
+        }
+
+        $project_user = ProjectUser::find($request->project_user_id);
+        $project_user->project_id = $request->project_id;
+        $project_user->user_id = $request->user_id;
+        $project_user->level_id = $request->level_id;
+        $project_user->save();
+
+        return back()->with("notification", "Relacion actualizada.");
+    }
+
 
     public function destroy($id){
         ProjectUser::find($id)->delete();

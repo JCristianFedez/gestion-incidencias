@@ -44,6 +44,7 @@ Route::post("/incidencia/{id}/editar", [IncidentController::class, "update"])->n
 Route::get("/incidencia/ver/{id}", [IncidentController::class, "show"])->name("incidencia.show");
 
 Route::get("/incidencia/{id}/atender", [IncidentController::class, "take"])->name("incidencia.take");
+Route::get("/incidencia/{id}/desatender", [IncidentController::class, "disregard"])->name("incidencia.tadisregardke");
 Route::get("/incidencia/{id}/resolver", [IncidentController::class, "solve"])->name("incidencia.solce");
 Route::get("/incidencia/{id}/abrir", [IncidentController::class, "open"])->name("incidencia.open");
 Route::get("/incidencia/{id}/derivar", [IncidentController::class, "nextLevel"])->name("incidencia.nextLevel");
@@ -82,6 +83,7 @@ Route::group(["middleware" => "admin"], function (){
 
     // Prject-User
     Route::post("/proyecto-usuario", [ProjectUserController::class,"store"])->name("proyecto-user.store");
+    Route::put("/proyecto-usuario", [ProjectUserController::class,"update"])->name("proyecto-user.update");
     Route::delete("/proyecto-usuario/{id}", [ProjectUserController::class,"destroy"])->name("proyecto-user.destory");
 
     Route::get('/config',[ConfigController::class, "index"])->name("config");

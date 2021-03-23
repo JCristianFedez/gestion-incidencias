@@ -86,7 +86,15 @@ class IncidentController extends Controller
         $incident = Incident::findOrFail($id);
         $user = auth()->user();
 
-        // Si usuario no es soporte
+        // Si es administrador no se comprueba el nivel o el proyecto
+        if($user->is_admin){
+            $incident->support_id = $user->id;
+            $incident->save();
+    
+            return back()->with("notification","Incidencia atendida");
+        }
+
+        // Si usuario no es de soporte
         if(! $user->is_support){
             return back();
         }
@@ -105,6 +113,31 @@ class IncidentController extends Controller
         }
 
         $incident->support_id = $user->id;
+        $incident->save();
+
+        return back()->with("notification","Incidencia atendida");
+    }
+
+    /**
+     * Desatender incidencia
+     */
+    public function disregard($id){
+
+        $incident = Incident::findOrFail($id);
+        $user = auth()->user();
+
+        //Si es administrador no se comprueba el nivel o el proyecto
+        if($user->is_admin){
+            $incident->support_id = null;
+            $incident->save();
+    
+            return back()->with("notification","Incidencia desatendida");
+        }
+
+        if($incident->support_id != $user->id){
+            return back();
+        }
+        $incident->support_id = null;
         $incident->save();
 
         return back()->with("notification","Incidencia atendida");

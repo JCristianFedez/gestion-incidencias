@@ -159,7 +159,7 @@
     </div>
 </div>
 
-<!-- Modal edit category -->
+<!-- Modal editar categoria -->
 <div class="modal fade" id="modalEditCategory" tabindex="-1" aria-labelledby="EditCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -192,7 +192,7 @@
     </div>
 </div>
 
-<!-- Modal edit category -->
+<!-- Modal editar nivel -->
 <div class="modal fade" id="modalEditLevel" tabindex="-1" aria-labelledby="EditLevelModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

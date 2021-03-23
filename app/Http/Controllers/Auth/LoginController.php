@@ -46,9 +46,9 @@ class LoginController extends Controller
     public function authenticated(){
         $user = auth()->user();
 
-        // user don't have a selected_project
+        // Usuario no tiene un selected_project
         if(! $user->selected_project_id){
-            // Admin and client
+            // Admin y cliente
             if ($user->is_admin || $user->is_client){
                 $user->selected_project_id = Project::first()->id;
 

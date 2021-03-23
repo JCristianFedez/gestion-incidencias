@@ -10,6 +10,9 @@
 .cursor-pointer{
     cursor: pointer;
 }
+.cursor-normal{
+    cursor: initial;
+}
 
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/regular';

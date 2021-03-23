@@ -105,4 +105,24 @@ class User extends Authenticatable
         return "/images/support.png";
     }
 
+    /**
+     * Return full name of the severity
+     */
+    public function getRoleNameAttribute(){
+        switch ($this->role) {
+            case 0:
+                return "Admin";
+                break;
+            case 1:
+                return "Support";
+                break;
+            case 2:
+                return "Cliente";
+                break;
+            default:
+                return "Desconocido";
+                break;
+        }
+    }
+
 }

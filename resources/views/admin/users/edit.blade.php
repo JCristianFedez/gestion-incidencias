@@ -30,17 +30,26 @@
                 </div>
             </div>
 
-            <div class="col-md-12 form-group">
+            <div class="col-md-6 form-group">
                 <label for="password" class="form-label">Contraseña <em>Ingresar solo si se desea modificar</em></label>
                 <input type="text" name="password" id="password" class="form-control" value="{{old('password')}}"
-                    minlength="8">
+                    minlength="8" maxlength="255">
                 <div class="invalid-feedback">
                     Porfavor introduzca una contraseña valido.
                 </div>
             </div>
 
+            <div class="col-md-6 form-group">
+                <label for="validationServer04">Rol</label>
+                    <select class="custom-select" name="rol">
+                        <option value="0" @if($user->role == 0) selected @endif>Admin</option>
+                        <option value="1" @if($user->role == 1) selected @endif>Support</option>
+                        <option value="2" @if($user->role == 2) selected @endif>Cliente</option>
+                    </select>
+            </div>
+
             <div class="col-md-12 form-group">
-                <input type="submit" value="Guardar Usuario" class="btn btn-primary">
+                <input type="submit" value="Guardar cambios" class="btn btn-primary">
             </div>
         </form>
 
@@ -90,10 +99,19 @@
                         <td>{{ $project_user->project->name }}</td>
                         <td>{{ $project_user->level->name }}</td>
                         <td>
-                            <a href="/proyecto/{{$project_user->project_id}}" class="btn btn-sm btn-primary"
-                                title="Editar" data-toggle="tooltip" data-placement="left">
+                            <span data-toggle="modal" data-target="#modalEditProjectRelation">
+                                <button type="button" class="btn btn-sm btn-primary"
+                                title="Editar" 
+                                data-level-id="{{ $project_user->level->id }}"
+                                data-project-id="{{ $project_user->project->id }}" 
+                                data-project-name="{{ $project_user->project->name }}"
+                                data-relation="" 
+                                data-placement="left"
+                                data-toggle="tooltip"
+                                value="{{ $project_user->id }}">
                                 <i class="fas fa-edit"></i>
-                            </a>
+                            </button>
+                            </span>
                             <form action="/proyecto-usuario/{{ $project_user->id }}" method="POST"
                                 class="d-inline-block">
                                 @csrf
@@ -113,6 +131,43 @@
 </div>
 @endsection
 
+<!-- Modal editar relacion entre usuario y proyecto -->
+<div class="modal fade" id="modalEditProjectRelation" tabindex="-1" aria-labelledby="EditProjectRelationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditProjectRelationModalLabel">Editar Relacion con </h5>
+                <button type="button" class="close text-black-50" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/proyecto-usuario" method="POST" class="needs-validation" novalidate >
+                <div class="modal-body row">
+                    @csrf
+                    @method("PUT")
+                    <input type="hidden" name="user_id" value="{{ $user->id }}">
+                    <input type="hidden" name="project_id" value="" id="project_id_relation">
+                    <input type="hidden" name="project_user_id" value="" id="project_user_id_relation">
+                    <div class="col-12 form-group">
+                        <select name="level_id" class="form-control" id="select_level_relation" aria-describedby="select-level-Feedback" required>
+                            <option selected disabled value="">Seleccione nivel</option>
+                        </select>
+                        <div id="select-level-Feedback" class="invalid-feedback">
+                            Ingrese nivel valido.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 @section('scripts')
 <script src="{{ asset('/js/admin/users/edit.js') }}"></script>
 @endsection
+

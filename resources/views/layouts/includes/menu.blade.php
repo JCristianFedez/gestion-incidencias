@@ -1,44 +1,67 @@
-<div class="card border-primary">
-    <div class="card-header bg-primary text-white">Menú</div>
-
-    <div class="card-body">
-        <ul class="nav nav-pills">
-            @if (auth()->check())
-                <li class="nav-item">
-                    <a href="/home" class="nav-link @if(request()->is("home") || request()->is("incidencia*"))active @endif">Dashboard</a>
-                </li>
-
-                {{-- @if (! auth()->user()->is_client)
-                    <li class="nav-item">
-                        <a href="/ver" class="nav-link @if(request()->is("ver"))active @endif">Ver incidencias</a>
-                    </li>
-                @endif --}}
-
-                <li class="nav-item">
-                    <a href="/reportar" class="nav-link @if(request()->is("reportar"))active @endif">Reportar incidencia</a>
-                </li>
-                @if (auth()->user()->is_admin)
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle @if(request()->is("usuario*") || request()->is("proyecto*") || request()->is("config*"))active @endif" 
-                            data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administracion</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item @if(request()->is("usuario*"))active @endif" href="/usuarios">Usuarios</a>
-                            <a class="dropdown-item @if(request()->is("proyecto*"))active @endif" href="/proyectos">Proyecto</a>
-                            <a class="dropdown-item @if(request()->is("config*"))active @endif" href="/config">Configuracion</a>
-                        </div>
-                    </li>
-                @endif
-            @else
-                <li class="nav-item">
-                    <a href="/" class="nav-link @if(request()->is("/"))active @endif">Bienvenido</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/instrucciones" class="nav-link @if(request()->is("instrucciones"))active @endif">Instrucciones</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/acerca-de" class="nav-link @if(request()->is("acerca-de"))active @endif">Créditos</a>
-                </li>
-            @endif
-        </ul>
+<div class="vertical-nav bg-dark" id="sidebar">
+    <div class="py-4 px-3 mb-4 bg-dark">
+        <div class="media-body">
+            <h4 class="font-weight-white text-muted mb-0">Menú</h4>
+        </div>
     </div>
+
+    <p class="text-white font-weight-bold text-uppercase px-3 small pb-4 mb-0">Principal</p>
+
+    <ul class="nav flex-column bg-dark mb-0">
+        <li class="nav-item">
+            <a href="/home" class="nav-link text-light font-italic bg-dark
+            @if(request()->is(" home") || request()->is("incidencia*"))active @endif">
+                <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/reportar" class="nav-link text-light font-italic bg-dark
+            @if(request()->is("reportar"))active @endif">
+                <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+                Reportar
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-light font-italic">
+                <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+                Services
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-light font-italic">
+                <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
+                Gallery
+            </a>
+        </li>
+    </ul>
+
+    <p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Charts</p>
+
+    <ul class="nav flex-column bg-dark mb-0">
+        <li class="nav-item">
+            <a href="#" class="nav-link text-light font-italic">
+                <i class="fa fa-area-chart mr-3 text-primary fa-fw"></i>
+                Area charts
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-light font-italic">
+                <i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
+                Bar charts
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-light font-italic">
+                <i class="fa fa-pie-chart mr-3 text-primary fa-fw"></i>
+                Pie charts
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link text-light font-italic">
+                <i class="fa fa-line-chart mr-3 text-primary fa-fw"></i>
+                Line charts
+            </a>
+        </li>
+    </ul>
 </div>
