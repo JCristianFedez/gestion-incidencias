@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="card border-primary">
-    <div class="card-header  bg-primary text-white">Usuarios</div>
+@section('tituloPagina', 'Usuarios')
 
-    <div class="card-body">
+
+@section('content')
+
         @include('layouts.includes.status')
         
         @include('layouts.includes.notification')
@@ -12,7 +12,7 @@
         @include('layouts.includes.errors')
 
         {{-- Formulario para registrar usuario --}}
-        <form action=""  method="POST" class="row needs-validation" novalidate>
+        <form action=""  method="POST" class="row needs-validation mb-4" novalidate>
             @csrf
 
             <div class="col-md-12 form-group">
@@ -93,6 +93,4 @@
                 </tbody>
             </table>
         </div>
-    </div>
-</div>
 @endsection

@@ -1,4 +1,4 @@
-<div class="card border-primary">
+<div class="card border-primary mt-5">
     <div class="card-header  bg-primary text-white">Discusion</div>
 
     <div class="card-body">
@@ -45,7 +45,7 @@
             <div class="input-group">
                 <input type="text" class="form-control" name="message">
                 <span class="input-group-append">
-                    <button class="btn btn-default" type="submit">Enviar</button>
+                    <button class="btn btn-primary" type="submit">Enviar</button>
                 </span>
             </div>    
         </form>        

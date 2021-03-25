@@ -1,15 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="card border-primary mb-3">
-    <div class="card-header  bg-primary text-white">Informacion de Incidencia</div>
+@section('tituloPagina', 'Informacion de Incidencia')
 
-    <div class="card-body">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
+@section('content')
 
         @include('layouts.includes.status')
         
@@ -118,8 +111,6 @@
                 Derivar al siguiente nivel
             </a>
         @endif
-    </div>
-</div>
 
     @include('layouts.chat')
 @endsection
