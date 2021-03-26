@@ -163,7 +163,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="EditCategoryModalLabel">Editar Categoría</h5>
                 <button type="button" class="close text-black-50" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                     aria-hidden="true">&times;</span>
                 </button>
             </div>
             <form action="/categoria" method="POST" class="needs-validation" novalidate>

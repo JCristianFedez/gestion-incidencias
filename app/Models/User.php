@@ -42,6 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Para filtar por nombre
+    public static function scopeSearchName($query, $scope=""){
+        return $query->where("name","like","%$scope%");
+    }
+
 
     // Relationships
     public function projects(){

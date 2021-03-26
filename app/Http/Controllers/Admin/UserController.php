@@ -11,9 +11,15 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+
         // $users = User::where("role",1)->get();
-        $users = User::paginate(8);
+        $users = User::SearchName($request->scope)->paginate(8);
+
+        if($request->ajax()){
+            return response()->
+            json(view("admin.users.includes.table", compact("users"))->render());
+        }
 
         return view("admin.users.index",compact("users"));
     }

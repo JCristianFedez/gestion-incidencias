@@ -106,7 +106,7 @@
                             data-level-id="{{ $project_user->level->id }}"
                             data-project-id="{{ $project_user->project->id }}"
                             data-project-name="{{ $project_user->project->name }}" data-relation=""
-                            data-placement="left" data-toggle="tooltip" value="{{ $project_user->id }}">
+                            data-placement="left" data-toggle-second="tooltip" value="{{ $project_user->id }}">
                             <i class="fas fa-edit"></i>
                         </button>
                     </span>

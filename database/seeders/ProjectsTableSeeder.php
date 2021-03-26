@@ -25,5 +25,8 @@ class ProjectsTableSeeder extends Seeder
             "description" => "El proyecto B consiste en desarrollar una aplicación Android.",
             "start" => now()
         ]);
+
+        Project::factory(300)
+            ->create();
     }
 }

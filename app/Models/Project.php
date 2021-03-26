@@ -30,6 +30,11 @@ class Project extends Model
         'name', 'description', 'start'
     ];
 
+    // Para filtar por nombre
+    public static function scopeSearchName($query, $scope=""){
+        return $query->where("name","like","%$scope%");
+    }
+
     // Relationships
     public function categories(){
         return $this->hasMany("App\Models\Category");

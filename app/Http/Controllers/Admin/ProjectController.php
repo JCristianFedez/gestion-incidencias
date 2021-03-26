@@ -10,8 +10,14 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    public function index(){
-        $projects = Project::withTrashed()->get();
+    public function index(Request $request){
+        $projects = Project::withTrashed()->SearchName($request->scope)->paginate(8);
+
+        if($request->ajax()){
+            return response()->
+            json(view("admin.projects.includes.table", compact("projects"))->render());
+        }
+
         return view("admin.projects.index", compact("projects"));
     }
 

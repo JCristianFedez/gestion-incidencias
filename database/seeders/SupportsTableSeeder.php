@@ -16,7 +16,7 @@ class SupportsTableSeeder extends Seeder
     {
         // Suport - Project 1
         User::create([ // id = 3
-            "name" => "support s1",
+            "name" => "support",
             "email" => "support@gmail.com",
             "password" => bcrypt("123"),
             "role" => 1

@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
             "password" => bcrypt("123"),
             "role" => 0
         ]);
-
+        
         User::create([
             "name" => "client",
             "email" => "client@gmail.com",
@@ -37,7 +37,7 @@ class UsersTableSeeder extends Seeder
             "role" => 2
         ]);
 
-        User::factory(500)
+        User::factory(300)
             ->create();
 
     }

@@ -7,6 +7,8 @@ function onNewProjectSelected(){
     location.href = `/seleccionar/proyecto/${project_id}`;
 }
 
+
+// Toast
 $(document).ready(function(){
     $(".toast").toast();
     
@@ -15,8 +17,10 @@ $(document).ready(function(){
     },3000);
 });
 
+// Tooltips
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('body [data-toggle="tooltip"]').tooltip();
+    $('body [data-toggle-second="tooltip"]').tooltip();
 });
 
 // Validar formulario
