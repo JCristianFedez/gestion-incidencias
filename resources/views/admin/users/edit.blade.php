@@ -12,7 +12,7 @@
 @include('layouts.includes.errors')
 
 {{-- Formulario para editar usuario --}}
-<form action="" method="POST" class="row g-3 needs-validation border-bottom border-secondary mb-4" novalidate>
+<form action="" method="POST" class="row g-3 needs-validation mb-4" novalidate>
     @csrf
     @method("PUT")
     <div class="col-md-12 form-group">
@@ -52,8 +52,9 @@
     </div>
 </form>
 
+@if ($user->is_support)
 {{-- Forumlario para agregar asignar proyecto y nivel --}}
-<form action="/proyecto-usuario" method="POST" class="mb-3 row needs-validation" novalidate>
+<form action="/proyecto-usuario" method="POST" class="mb-3 row needs-validation border-top pt-4 border-secondary" novalidate>
     @csrf
     <input type="hidden" name="user_id" value="{{ $user->id }}">
     <div class="col-md-5 form-group">
@@ -123,6 +124,7 @@
         </tbody>
     </table>
 </div>
+@endif
 @endsection
 
 <!-- Modal editar relacion entre usuario y proyecto -->
@@ -144,9 +146,9 @@
                     <input type="hidden" name="project_id" value="" id="project_id_relation">
                     <input type="hidden" name="project_user_id" value="" id="project_user_id_relation">
                     <div class="col-12 form-group">
+                        <label for="level_id" class="form-label">Seleccione nivel</label>
                         <select name="level_id" class="form-control" id="select_level_relation"
                             aria-describedby="select-level-Feedback" required>
-                            <option selected disabled value="">Seleccione nivel</option>
                         </select>
                         <div id="select-level-Feedback" class="invalid-feedback">
                             Ingrese nivel valido.

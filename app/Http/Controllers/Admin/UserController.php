@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index(){
         // $users = User::where("role",1)->get();
-        $users = User::all();
+        $users = User::paginate(8);
 
         return view("admin.users.index",compact("users"));
     }

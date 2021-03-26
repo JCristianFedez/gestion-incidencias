@@ -37,5 +37,8 @@ class UsersTableSeeder extends Seeder
             "role" => 2
         ]);
 
+        User::factory(500)
+            ->create();
+
     }
 }
