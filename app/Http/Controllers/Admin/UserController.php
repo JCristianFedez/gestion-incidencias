@@ -14,7 +14,20 @@ class UserController extends Controller
     public function index(Request $request){
 
         // $users = User::where("role",1)->get();
-        $users = User::SearchName($request->scope)->paginate(8);
+
+        $users = User::SearchName($request->name)->paginate(8);
+
+        if($request->email){
+            $users = User::SearchEmail($request->email)->paginate(8);
+        }
+
+        if($request->name){
+            $users = User::SearchName($request->name)->paginate(8);
+        }
+
+        if($request->rol || $request->rol == "0"){
+            $users = User::SearchRol($request->rol)->paginate(8);
+        }
 
         if($request->ajax()){
             return response()->

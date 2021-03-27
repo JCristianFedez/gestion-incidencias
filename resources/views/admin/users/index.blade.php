@@ -56,12 +56,12 @@
 </form>
 
 {{-- Filtros --}}
-<div class="row mb-3">
+<div class="row mb-3" id="filtros-usuarios">
     @include('admin.users.includes.filterTable')
 </div>
 
 {{-- Tabla de usuarios support registrados --}}
-<div class="table-responsive" id="allUsersTable">
+<div id="allUsersTable">
     @include('admin.users.includes.table',['users' => $users])
 </div>
 @endsection
