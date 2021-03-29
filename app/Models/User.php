@@ -42,22 +42,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // Para filtar por email
-    public static function scopeSearchEmail($query, $email=""){
-        return $query->where("email","like","%$email%");
+    // Filtro de usuarios
+    public static function scopeFilter($query, $campo="", $valor="", $campoOrdenar="", $orden=""){
+        if($campoOrdenar && $orden){
+            if($campo && $valor){
+                return $query->where($campo,"like","%$valor%")->orderBy($campoOrdenar,$orden);
+            }else{
+                return $query->orderBy($campoOrdenar,$orden);                
+            }
+        }
+        return $query->where($campo,"like","%$valor%");
     }
-
-    // Para filtar por nombre
-    public static function scopeSearchName($query, $name=""){
-        return $query->where("name","like","%$name%");
-    }
-
-    // Para filtar por rol
-    public static function scopeSearchRol($query, $rol=""){
-        return $query->where("role",$rol);
-    }
-
-
 
     // Relationships
     public function projects(){

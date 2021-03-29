@@ -2,8 +2,32 @@
     <table class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
-                <th>E-mail</th>
-                <th>Nombre</th>
+                <th data-sortable="true">
+                    E-mail
+                    <div class="btn-group-vertical">
+                        <button class="btn btn-outline-dark btn-sm order-data py-0" aria-hidden="true" data-orden="asc"
+                            data-campo="email">
+                            <i class="fa fa-sort-up"></i>
+                        </button>
+                        <button class="btn btn-outline-dark btn-sm order-data py-0" aria-hidden="true" data-orden="desc"
+                            data-campo="email">
+                            <i class="fa fa-sort-down"></i>
+                        </button>
+                    </div>
+                </th>
+                <th data-sortable="true">
+                    Nombre
+                    <div class="btn-group-vertical">
+                        <button class="btn btn-outline-dark btn-sm order-data py-0" aria-hidden="true" data-orden="asc"
+                            data-campo="name">
+                            <i class="fa fa-sort-up"></i>
+                        </button>
+                        <button class="btn btn-outline-dark btn-sm order-data py-0" aria-hidden="true" data-orden="desc"
+                            data-campo="name">
+                            <i class="fa fa-sort-down"></i>
+                        </button>
+                    </div>
+                </th>
                 <th>Rol</th>
                 <th>Opciones</th>
             </tr>

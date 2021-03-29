@@ -61,7 +61,7 @@
 </div>
 
 {{-- Tabla de usuarios support registrados --}}
-<div id="allUsersTable">
+<div id="all-users-table">
     @include('admin.users.includes.table',['users' => $users])
 </div>
 @endsection

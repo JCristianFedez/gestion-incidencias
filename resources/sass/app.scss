@@ -7,12 +7,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.cursor-pointer{
-    cursor: pointer;
-}
-.cursor-normal{
-    cursor: initial;
-}
+
+// Mi css
+@import "micss";
 
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/regular';

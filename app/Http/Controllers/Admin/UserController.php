@@ -13,20 +13,14 @@ class UserController extends Controller
 {
     public function index(Request $request){
 
-        // $users = User::where("role",1)->get();
-
-        $users = User::SearchName($request->name)->paginate(8);
-
-        if($request->email){
-            $users = User::SearchEmail($request->email)->paginate(8);
-        }
-
-        if($request->name){
-            $users = User::SearchName($request->name)->paginate(8);
-        }
-
-        if($request->rol || $request->rol == "0"){
-            $users = User::SearchRol($request->rol)->paginate(8);
+        // Con filtro, el || es debido a que los admin tienen el rol = 0
+        if(($request->campo && ($request->valor || $request->valor == 0))
+            || ($request->campoOrdenar && $request->orden)){
+            $users = User::Filter($request->campo, $request->valor, $request->campoOrdenar, $request->orden)->paginate(8);
+        
+        }else{
+            // Sin filtrar
+            $users = User::paginate(8);
         }
 
         if($request->ajax()){
