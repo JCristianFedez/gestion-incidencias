@@ -1,104 +1,77 @@
-let campo = "";
-let valor = "";
-let campoOrdenar = "";
-let orden = "";
+$(document).ready(function () {
+    // Creo la segunda columna
+    $('#users-table thead tr').clone(true).appendTo('#users-table thead');
 
-// Paginacion
-$(document).on("click", "#paginacionUsuarios .pagination a", function (e) {
-    e.preventDefault();
+    // Le añado los inputs y selects
+    $('#users-table thead tr:eq(1) th').each(function (i) {
+        if (i < 2) {
+            let title = $(this).text();
+            $(this).html('<input type="text" class="form-control w-100" placeholder="Buscar ' + title + '" />');
 
-    params = {
-        url: "/usuarios",
-        type: "GET",
-        dataType: "json",
-        data: { 
-            page: $(this).attr("href").split("page=")[1], 
-            campo: campo, 
-            valor: valor, 
-            campoOrdenar: campoOrdenar, 
-            orden: orden },
-        success: function (result) {
-            $("#all-users-table").html(result);
-        }
-    };
+            // Agrego los eventos a cada input
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        } else {
+            // Select de los estados
+            if (i == 2) {
+                let title = $(this).text();
+                var arr = [
+                    { val: "", text: `Seleccionar ${title}`},
+                    { val: 'Admin', text: 'Adminstrador' },
+                    { val: 'Support', text: 'Support' },
+                    { val: 'Cliente', text: 'Cliente' }
+                ];
 
-    $.ajax(params);
+                var sel = $('<select class="custom-select w-100">');
 
-});
+                $(arr).each(function () {
+                    sel.append($("<option>").attr('value', this.val).text(this.text));
+                });
 
-// Para filtrar por campos
-$(document).on("click", ".btn-filter", filtrarPorCampo);
-$(document).on("keydown", ".form-filter", filtrarPorCampo);
+                $(this).html(sel);
 
-function filtrarPorCampo(e) {
-    if (e.type == "keydown" && e.which != 13) return;
+                // Agrego el evento
+                $('select', this).on('change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
 
-    campo = $(this).data("campo");
-    valor = $(`#${campo}-filter`).val();
-
-    filtroActivo = campo;
-
-    $.ajax({
-        url: "/usuarios",
-        data: { campo: campo, valor: valor, orden: null },
-        type: "GET",
-        dataType: "json",
-        success: function (result) {
-            $("#all-users-table").html(result);
-            $(`#dropdown-${campo}`).dropdown('toggle'); // Cerrar dropdawn
-        }
-    });
-
-}
-
-// Para remover el filtro
-$(document).on("click", "#remove-filter", function (e) {
-
-    campo = "";
-    valor = "";
-    campoOrdenar = "";
-    orden = "";
-
-    $.ajax({
-        url: "/usuarios",
-        data: null,
-        type: "GET",
-        dataType: "json",
-        success: function (result) {
-            $("#all-users-table").html(result);
-            $(".tooltip").tooltip("hide"); // Sirve para ocultar el tooltip una vez borrado el filtro
-            emptyFilter();
+            } else {
+                $(this).text("");
+            }
         }
     });
 
-});
-
-
-// Para valciar el valor de los filtros
-function emptyFilter() {
-    $('#filtros-usuarios input[type=text]').each(function () {
-        $(this).val("");
-    });
-}
-
-
-////////// ORDER BY
-
-$(document).on("click", ".order-data", function (e) {
-
-    orden = $(this).data("orden");
-    campoOrdenar = $(this).data("campo");
-
-    console.log(orden);
-    console.log(campo);
-
-    $.ajax({
-        url: "/usuarios",
-        data: { campo: campo, valor: valor, campoOrdenar: campoOrdenar, orden: orden },
-        type: "GET",
-        dataType: "json",
-        success: function (result) {
-            $("#all-users-table").html(result);
-        }
+    // Agrego la tabla
+    let table = $('#users-table').DataTable({
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        language: {
+            url: "http://gestion.incidencias/js/datatables/datatables-plugin-Spanish.js"
+        },
+        ajax: "datatables/usuarios",
+        columns: [
+            { data: "email" },
+            { data: "name" },
+            { data: "role", name: "role" },
+            { data: "opciones" }
+        ],
+        columnDefs: [
+            { orderable: false, targets: 3 },
+            { orderable: false, targets: 2 },
+        ],
+        orderCellsTop: true,
+        fixedHeader: true
     });
 });
