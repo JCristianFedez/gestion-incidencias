@@ -6,7 +6,7 @@
     @csrf
     @method('DELETE')
     <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja" data-toggle="tooltip"
-        data-placement="right">
+        data-placement="top">
         <i class="fas fa-user-times"></i>
     </button>
 </form>

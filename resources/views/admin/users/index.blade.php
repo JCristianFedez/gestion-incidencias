@@ -12,7 +12,7 @@
 @include('layouts.includes.errors')
 
 {{-- Formulario para registrar usuario --}}
-<form action="" method="POST" class="row needs-validation mb-4" novalidate>
+<form action="" method="POST" class="row needs-validation mb-4 border-bottom" novalidate>
     @csrf
 
     <div class="col-md-12 form-group">
