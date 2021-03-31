@@ -1,4 +1,5 @@
-$(document).ready(function () {
+
+$(document).on("DOMContentLoaded", function () {
 
     // Agrego la tabla
     let table = $('#users-table').DataTable({
@@ -9,13 +10,13 @@ $(document).ready(function () {
         },
         ajax: "datatables/usuarios",
         dom:
-            "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+            "<'row'<'col-md-6'l><'col-md-6'f>>" +
             "<'row'<'col-12'B>>" +
             "<'row'<'col-12'tr>>" +
-            "<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
+            "<'row'<'col-lg'i><'col-lg'p>>",
         columns: [
             { data: "email" },
-            { data: "name" },
+            { data: "name", className: "name" },
             { data: "role", name: "role" },
             { data: "opciones" },
         ],
@@ -51,44 +52,68 @@ $(document).ready(function () {
                 }
             },
             'colvis', 'colvisRestore'
-        ]
+        ],
+        drawCallback: function () {
+            $('[data-action="delete-user"]').off('click'); // Limpio los eventos para que no se dupliquen
+            loadEventsDeleteUser(); // Los vuelvo a dar 
+        },
     });
 
-    // Activar tooltips despues de pintar la tabla
-    table.on('draw', function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-
-
-    // Le añado los inputs y selects
-    $('#users-table thead tr:eq(1) th').each(function (i) {
-
-        // Agrego los eventos a cada input
-        $('input,select', this).on('keyup change', function () {
-            if (table.column(i).search() !== this.value) {
-                table
-                    .column(i)
-                    .search(this.value)
-                    .draw();
-            }
-        });
-
-    });
-
-
-    // Elimino el filtro
-    $('[data-clear-filter]').each(function () {
-        $(this).on("click", function () {
-            $(this).tooltip("hide");
-            let idTable = $(this).data("clearFilter");
-            $(`#${idTable} thead input`).val("");
-            $(`#${idTable} thead select`).val("");
-
-            let tableToClear = $(`#${idTable}`).DataTable();
-            tableToClear
-                .search('')
-                .columns().search('')
-                .draw();
-        });
-    });
 });
+
+
+// Eliminar usuario
+function loadEventsDeleteUser() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('[data-action="delete-user"]').on("click", function (e) {
+
+        e.preventDefault();
+
+        // Recojo Url
+        let url = $(this).parent().attr("action");
+        url = url.split("gestion.incidencias")[1];
+
+        // Recojo nombre
+        let tr = $(this).closest("tr");
+        let name = $(".name", tr).text();
+
+        Swal.fire({
+            title: 'Atencion !',
+            text: `Esta seguro de eliminar al usuario <strong>${name}</strong> ?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: { '_method': 'DELETE' },
+                    success: function success() {
+                        Swal.fire(
+                            'Eliminado!',
+                            'Usuario eliminado.',
+                            'success');
+                        $('#users-table').DataTable().ajax.reload(null, false)
+                    },
+                    error: function error() {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: "Ha abido un error en la eliminacion",
+                            type: 'error',
+                            timer: 5000
+                        });
+                    }
+                });
+            }
+        })
+
+    });
+}

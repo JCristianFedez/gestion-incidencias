@@ -19,8 +19,9 @@ $(document).ready(function () {
 
 // Tooltips
 $(function () {
-  $('body [data-toggle="tooltip"]').tooltip();
-  $('body [data-toggle-second="tooltip"]').tooltip();
+  $('body').tooltip({selector: '[data-toggle="tooltip"]'});
+  $('body').tooltip({selector: '[data-toggle-second="tooltip"]'});
+
 });
 
 // Validar formulario
@@ -52,14 +53,14 @@ $(function () {
 
 // No enviar formulario al pulsar enter
 $(function () {
-  $(document).on("keydown", ".form-not-send", function (e) {
+  $(document).on("keydown", ".not-send", function (e) {
     if ((e.keyCode || e.which) == 13) {
       e.preventDefault();
       return;
     }
   });
   
-  $(document).on("submit", ".form-not-send", function (e) {
+  $(document).on("submit", ".not-send", function (e) {
     e.preventDefault();
   });
 

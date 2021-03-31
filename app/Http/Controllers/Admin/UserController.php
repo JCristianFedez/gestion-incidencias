@@ -13,21 +13,6 @@ class UserController extends Controller
 {
     public function index(Request $request){
 
-        // Con filtro, el || es debido a que los admin tienen el rol = 0
-        // if(($request->campo && ($request->valor || $request->valor == 0))
-        //     || ($request->campoOrdenar && $request->orden)){
-        //     $users = User::Filter($request->campo, $request->valor, $request->campoOrdenar, $request->orden)->paginate(8);
-        
-        // }else{
-        //     // Sin filtrar
-        //     $users = User::paginate(8);
-        // }
-
-        // if($request->ajax()){
-        //     return response()->
-        //     json(view("admin.users.includes.table", compact("users"))->render());
-        // }
-
         return view("admin.users.index");
     }
 

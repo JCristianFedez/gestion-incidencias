@@ -42,18 +42,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // Filtro de usuarios
-    public static function scopeFilter($query, $campo="", $valor="", $campoOrdenar="", $orden=""){
-        if($campoOrdenar && $orden){
-            if($campo && $valor){
-                return $query->where($campo,"like","%$valor%")->orderBy($campoOrdenar,$orden);
-            }else{
-                return $query->orderBy($campoOrdenar,$orden);                
-            }
-        }
-        return $query->where($campo,"like","%$valor%");
-    }
-
     // Relationships
     public function projects(){
         return $this->belongsToMany("App\Models\Project");
