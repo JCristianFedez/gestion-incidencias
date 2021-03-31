@@ -1,26 +1,57 @@
 $(document).ready(function () {
-    
+
     // Agrego la tabla
     let table = $('#users-table').DataTable({
         responsive: true,
         processing: true,
-        serverSide: true,
         language: {
-            url: "http://gestion.incidencias/js/datatables/datatables-plugin-Spanish.js"
+            url: "http://gestion.incidencias/datatables/plugin-Spanish.json"
         },
         ajax: "datatables/usuarios",
+        dom:
+            "<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+            "<'row'<'col-12'B>>" +
+            "<'row'<'col-12'tr>>" +
+            "<'row'<'col-sm-6'i><'col-sm-6 text-right'p>>",
         columns: [
             { data: "email" },
             { data: "name" },
             { data: "role", name: "role" },
-            { data: "opciones" }
+            { data: "opciones" },
         ],
         columnDefs: [
             { orderable: false, targets: 3 },
             { orderable: false, targets: 2 },
+            {
+                searchPanes: {
+                    show: true,
+                },
+                targets: [0, 1, 2],
+            }
         ],
-        orderCellsTop: true,
-        fixedHeader: true
+        buttons: [
+            "searchPanes",
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [0, 1, 2]
+                }
+
+            },
+            {
+                extend: 'excel',
+                exportOptions: {
+                    columns: [0, 1, 2]
+                }
+            },
+            {
+                extend: 'csv',
+                exportOptions: {
+                    columns: [0, 1, 2]
+                }
+            },
+            'colvis', 'colvisRestore'
+        ]
     });
 
     // Activar tooltips despues de pintar la tabla
@@ -54,10 +85,10 @@ $(document).ready(function () {
             $(`#${idTable} thead select`).val("");
 
             let tableToClear = $(`#${idTable}`).DataTable();
-                tableToClear
-                    .search('')
-                    .columns().search('')
-                    .draw();
+            tableToClear
+                .search('')
+                .columns().search('')
+                .draw();
         });
     });
 });

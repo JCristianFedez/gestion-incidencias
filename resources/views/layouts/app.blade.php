@@ -17,9 +17,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/datatables/datatables.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/datatables/datatables-responsive.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/datatables/datatables-fixHead.min.css') }}" rel="stylesheet">
+    @yield("css")
 </head>
 
 <body>
@@ -124,9 +122,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/datatables/datatables.js') }}"></script>
-    <script src="{{ asset('js/datatables/datatables-responsive.js') }}"></script>
-    <script src="{{ asset('js/datatables/datatables-fixedHead.js') }}"></script>
 
     {{-- <script src="{{ asset('js/jquery.js') }}" defer></script> --}}
     {{-- <script src="{{ asset('js/bootstrap.js') }}" defer></script> --}}

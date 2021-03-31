@@ -63,5 +63,12 @@
 
 {{-- Script para cambiar de pagina dinamicamente --}}
 @section('scripts')
+<script src="https://cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"></script>
 <script src="{{ asset('/js/admin/users/index.js') }}"></script>
+<script src="{{ asset('/datatables/datatables.min.js') }}"></script>
+@endsection
+
+{{-- Agregar css para esta pagina --}}
+@section('css')
+<link href="{{ asset('/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection
