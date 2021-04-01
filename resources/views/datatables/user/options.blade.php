@@ -5,8 +5,9 @@
 <form action="{{ route('usuario.destroy', $id) }}" method="POST" class="d-inline-block not-send">
     @csrf
     @method('DELETE')
-    <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja" data-toggle-second="tooltip"
-        data-placement="top" data-action="delete-user" data-toggle="modal" data-target="#confirm-delete">
+    <input type="hidden" data-user-name="{{$name}}" value="{{$name}}">
+    <button type="submit" class="btn btn-sm btn-danger delete-user" title="Dar de baja"
+        data-placement="top" data-action="delete-user" data-toggle="tooltip" >
         <i class="fas fa-user-times"></i>
     </button>
 </form>
