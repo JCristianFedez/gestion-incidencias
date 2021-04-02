@@ -162,7 +162,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="EditCategoryModalLabel">Editar Categoría</h5>
-                <button type="button" class="close text-black-50" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close text-black-50" data-dismiss="modal" aria-label="Close"
                      aria-hidden="true">&times;</span>
                 </button>
             </div>

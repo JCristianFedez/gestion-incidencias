@@ -26,7 +26,11 @@ use Symfony\Component\VarDumper\Cloner\Data;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome.welcome');
+});
+
+Route::get('/creditos', function () {
+    return view('credits.credit');
 });
 
 Auth::routes();

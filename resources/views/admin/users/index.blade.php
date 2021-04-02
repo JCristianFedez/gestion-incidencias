@@ -65,7 +65,7 @@
 @section('scripts')
 <script src="{{ asset('/js/admin/users/index.js') }}"></script>
 <script src="{{ asset('/datatables/datatables.min.js') }}"></script>
-<script src="{{ asset('js/library/swalert-all.min.js') }}"></script>
+<script src="{{ asset('js/library/sweetalert2-all.min.js') }}"></script>
 
 @endsection
 

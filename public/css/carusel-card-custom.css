@@ -1,0 +1,62 @@
+.card-custom {
+  overflow: hidden;
+  /* min-height: 450px; */
+  /* height: 450px; */
+  min-height: 350px; 
+  height: 350px;
+  box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+  /* width: 300px; */
+}
+
+.card-body{
+  overflow-y: auto;
+}
+
+.card-custom-img {
+  /* height: 200px; */
+  /* min-height: 200px; */
+  height: 100px;
+  min-height: 100px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-color: inherit;
+
+  background-image: url("/images/backgrounds/geometric-blue.png");
+}
+
+
+/* Invierte el elemento */
+.inverse{
+  transform: scaleX(-1);
+}
+
+/* La primera configuración del ancho del borde izquierdo es una alternativa */
+.card-custom-img::after {
+  position: absolute;
+  content: '';
+  /* top: 161px; */
+  top: 61px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-top-width: 40px;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 545px;
+  border-left-width: calc(575px - 5vw);
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: inherit;
+}
+
+.card-custom-avatar {
+  box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+  /* top: 100px; */
+  top: 20px;
+  left: 1.25rem;
+  width: 75px;
+  height: 75px;
+}
