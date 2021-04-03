@@ -1,41 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card border-primary">
-    <div class="card-header bg-primary text-white">{{ __('Reset Password') }}</div>
+<div class="row d-felx justify-content-center align-items-center">
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+        <div class="card shadow-lg">
+            <div class="card-header bg-gradient-primary text-white h4">{{ __('Reset Password') }}</div>
 
-    <div class="card-body">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
+            <div class="card-body">
+                @include('layouts.includes.status')
 
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
+                <form method="POST" action="{{ route('password.email') }}">
+                    @csrf
 
-            <div class="form-group row">
-                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                    <div class="form-group">
+                        <label for="email">{{ __('E-Mail Address') }}</label>
 
-                <div class="col-md-6">
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                    @error('email')
+                        @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
-                </div>
-            </div>
+                        @enderror
+                    </div>
 
-            <div class="form-group row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('Send Password Reset Link') }}
-                    </button>
-                </div>
+                    <div class="form-group mb-0">
+                        <button type="submit" class="btn btn-info btn-block shadow">
+                            {{ __('Send Password Reset Link') }}
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 @endsection
