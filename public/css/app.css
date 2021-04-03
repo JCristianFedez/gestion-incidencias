@@ -10072,11 +10072,12 @@ h3 {
 .vertical-nav {
   min-width: 11rem;
   width: 13rem;
+  padding-bottom: 70px;
   overflow-y: auto;
   position: fixed;
   left: 0;
   top: 70px;
-  bottom: 56px;
+  bottom: 0;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
 }
