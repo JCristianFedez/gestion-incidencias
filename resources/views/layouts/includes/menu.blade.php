@@ -1,5 +1,5 @@
-<div class="vertical-nav bg-light" id="sidebar">
-    <h4 class="font-weight-bold text-center my-4">Menú</h4>
+<div class="vertical-nav bg-light py-4" id="sidebar">
+    <h4 class="font-weight-bold text-center mb-4 mt-2">Menú</h4>
 
     <p class="font-weight-bold text-uppercase px-3 small mb-1">Principal</p>
 

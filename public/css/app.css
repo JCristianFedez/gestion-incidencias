@@ -10070,23 +10070,25 @@ h3 {
 }
 
 .vertical-nav {
-  min-width: 10rem;
-  width: 12rem;
-  min-height: 100vh;
+  min-width: 11rem;
+  width: 13rem;
+  overflow-y: auto;
   position: fixed;
   left: 0;
+  top: 70px;
+  bottom: 56px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
 }
 
 .page-content {
-  width: calc(100% - 12rem);
-  margin-left: 12rem;
+  width: calc(100% - 13rem);
+  margin-left: 13rem;
   transition: all 0.4s;
 }
 
 #sidebar.active {
-  margin-left: -12rem;
+  margin-left: -13rem;
 }
 
 #content.active {
@@ -10096,7 +10098,7 @@ h3 {
 
 @media (max-width: 768px) {
   #sidebar {
-    margin-left: -12rem;
+    margin-left: -13rem;
   }
 
   #sidebar.active {
@@ -10109,8 +10111,8 @@ h3 {
   }
 
   #content.active {
-    margin-left: 12rem;
-    width: calc(100% - 12rem);
+    margin-left: 13rem;
+    width: calc(100% - 13rem);
   }
 }
 /* Las siguientes lineas sirven para tener el header arriba, el footer abajo y el content en el centro */
