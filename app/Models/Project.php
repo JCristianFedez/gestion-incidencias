@@ -30,10 +30,10 @@ class Project extends Model
         'name', 'description', 'start'
     ];
 
-    // Para filtar por nombre
-    public static function scopeSearchName($query, $scope=""){
-        return $query->where("name","like","%$scope%");
-    }
+    // Para filtar por nombre | Sustituido por DataTables
+    // public static function scopeSearchName($query, $scope=""){
+    //     return $query->where("name","like","%$scope%");
+    // }
 
     // Relationships
     public function categories(){
@@ -51,5 +51,13 @@ class Project extends Model
     // Accesors
     public function getFirstLevelIdAttribute(){
         return $this->levels->first()->id;
+    }
+
+    public function getStatusAttribute(){
+        if($this->trashed()){
+            return "Inactivo";
+        }else{
+            return "Activo";
+        }
     }
 }

@@ -94,8 +94,9 @@ Route::group(["middleware" => "admin"], function (){
 
     Route::get('/config',[ConfigController::class, "index"])->name("config");
 
-    // Datatables
+    // Datatables para cargar las tablas dinamicamente
     Route::get("/datatables/usuarios", [DatatableController::class,"users"])->name("datatables.users");
+    Route::get("/datatables/proyectos", [DatatableController::class,"projects"])->name("datatables.projects");
 
 });
 

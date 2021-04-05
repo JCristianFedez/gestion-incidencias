@@ -45,26 +45,20 @@
     </div>
 </form>
 
-{{-- Formulario de filtrar por nombre --}}
-<div class="form-group mb-4">
-    <label for="nameFilter">Nombre</label>
-    <div class="input-group">
-        <input type="text" name="nameFilter" id="nameFilter" class="form-control" aria-describedby="helpNameFilter">
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="button" id="btn-filtro-nombre">Buscar</button>
-        </div>
-    </div>
-    <small id="helpNameFilter" class="text-muted">Introduzca el nombre a buscar, tambien se puede buscar por 
-        una parte del nombre
-    </small>
-</div>
-
-<div class="table-responsive" id="allProjectsTable">
-    @include('admin.projects.includes.table',['projects' => $projects])
+{{-- Tabla de todos los proyectos --}}
+<div id="all-projects-table" style="min-height: 600px" id="allProjectsTable">
+    @include('admin.projects.includes.table')
 </div>
 @endsection
 
 {{-- Script para cambiar de pagina dinamicamente --}}
 @section('scripts')
 <script src="{{ asset('/js/admin/projects/index.js') }}"></script>
+<script src="{{ asset('/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('js/library/sweetalert2-all.min.js') }}"></script>
+@endsection
+
+{{-- Agregar css para esta pagina --}}
+@section('css')
+<link href="{{ asset('/datatables/datatables.min.css') }}" rel="stylesheet">
 @endsection

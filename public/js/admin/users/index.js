@@ -12,7 +12,7 @@ $(document).on("DOMContentLoaded", function () {
         dom:
             "<'row'<'col-md-6'l><'col-md-6'f>>" +
             "<'row'<'col-12'B>>" +
-            "<'#filtro-para-usuarios.row'<'col-12'P>>" +
+            "<'#filtro-para-tablas.row'<'col-12'P>>" +
             "<'row'<'col-12'tr>>" +
             "<'row'<'col-lg'i><'col-lg'p>>",
         columns: [
@@ -23,7 +23,7 @@ $(document).on("DOMContentLoaded", function () {
             { data: "opciones" },
         ],
         columnDefs: [
-            { orderable: false, targets: 3 },
+            { orderable: false, targets: [3,4] },
             {
                 searchPanes: {
                     show: true,
@@ -68,6 +68,7 @@ $(document).on("DOMContentLoaded", function () {
                 e.preventDefault();
                 loadEventsDeleteUser(this);
             });
+            $('.dtsp-searchPanes').hide(); // Por defecto oculto el panel de busqueda
         },
     });
 

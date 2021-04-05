@@ -55,8 +55,8 @@
     </div>
 </form>
 
-{{-- Tabla de usuarios support registrados --}}
-<div id="all-users-table" style="min-height: 600px">
+{{-- Tabla de usuarios registrados --}}
+<div id="all-users-table">
     @include('admin.users.includes.table')
 </div>
 @endsection
@@ -65,7 +65,7 @@
 @section('scripts')
 <script src="{{ asset('/js/admin/users/index.js') }}"></script>
 <script src="{{ asset('/datatables/datatables.min.js') }}"></script>
-<script src="{{ asset('js/library/sweetalert2-all.min.js') }}"></script>
+<script src="{{ asset('/js/library/sweetalert2-all.min.js') }}"></script>
 
 @endsection
 
