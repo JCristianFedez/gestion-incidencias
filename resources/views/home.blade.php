@@ -21,39 +21,8 @@
         <div class="card-header bg-gradient-info">
             <h5 class="card-title font-weight-bold text-white">Incidencias asignadas a mí</h5>
         </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover m-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Código</th>
-                            <th>Categoría</th>
-                            <th>Severidad</th>
-                            <th>Estado</th>
-                            <th>Fecha creación</th>
-                            <th>Título</th>
-                            <th>Opción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dashboard_my_incidents">
-                        @foreach ($my_incidents as $incident)
-                        <tr>
-                            <td>{{ $incident->id }}</td>
-                            <td>{{ $incident->category_name }}</td>
-                            <td>{{ $incident->severity_full }}</td>
-                            <td>{{ $incident->state }}</td>
-                            <td>{{ $incident->created_at }}</td>
-                            <td>{{ $incident->title_short }}</td>
-                            <td class="text-center d-flex flex-column">
-                                <a href="/incidencia/ver/{{ $incident->id }}" class="btn btn-info btn-sm flex-fill">
-                                    Ver
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        <div class="card-body">
+            @include('dashboard.includes.incidenciasAsignadasAmi-table')
         </div>
     </div>
     @endif
@@ -63,43 +32,8 @@
         <div class="card-header bg-gradient-info">
             <h5 class="card-title font-weight-bold text-white">Mis Incidencias</h5>
         </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover m-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Código</th>
-                            <th>Categoría</th>
-                            <th>Severidad</th>
-                            <th>Estado</th>
-                            <th>Fecha creación</th>
-                            <th>Título</th>
-                            <th>Responsable</th>
-                            <th>Opción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dashboard_by_me">
-                        @foreach ($incidents_by_me as $incident)
-                        <tr>
-                            <td>{{ $incident->id }}</td>
-                            <td>{{ $incident->category_name }}</td>
-                            <td>{{ $incident->severity_full }}</td>
-                            <td>{{ $incident->state }}</td>
-                            <td>{{ $incident->created_at }}</td>
-                            <td>{{ $incident->title_short }}</td>
-                            <td>
-                                {{ $incident->support_name ?: "Sin asignar" }}
-                            </td>
-                            <td class="text-center d-flex flex-column">
-                                <a href="/incidencia/ver/{{ $incident->id }}" class="btn btn-info btn-sm flex-fill">
-                                    Ver
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        <div class="card-body">
+            @include('dashboard.includes.misIncidencias-table')
         </div>
     </div>
 
@@ -110,43 +44,8 @@
         <div class="card-header bg-gradient-info">
             <h5 class="card-title font-weight-bold text-white">Incidencias sin asignar</h5>
         </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover m-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Código</th>
-                            <th>Categoría</th>
-                            <th>Severidad</th>
-                            <th>Estado</th>
-                            <th>Fecha creación</th>
-                            <th>Título</th>
-                            <th>Opción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="dashboard_pending_incidents">
-                        @foreach ($pending_incidents as $incident)
-                        <tr>
-                            <td>{{ $incident->id }}</td>
-                            <td>{{ $incident->category_name }}</td>
-                            <td>{{ $incident->severity_full }}</td>
-                            <td>{{ $incident->state }}</td>
-                            <td>{{ $incident->created_at }}</td>
-                            <td>{{ $incident->title_short }}</td>
-                            <td class="text-center d-flex flex-column">
-                                <a href="/incidencia/{{ $incident->id }}/atender"
-                                    class="btn btn-primary btn-sm flex-fill">
-                                    Atender
-                                </a>
-                                <a href="/incidencia/ver/{{ $incident->id }}" class="btn btn-info btn-sm flex-fill">
-                                    Ver
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        <div class="card-body">
+            @include('dashboard.includes.incidenciasSinAsingar-table')
         </div>
     </div>
     @endif
@@ -154,7 +53,17 @@
 
 @endsection
 
-{{-- Script para acceder a incidencias --}}
-{{-- @section('scripts')
-    <script src="{{ asset('/js/home/home.js') }}"></script>
-@endsection --}}
+{{-- Script para cambiar de pagina dinamicamente --}}
+@section('scripts')
+<script src="{{ asset('/js/dashboard/home.js') }}"></script>
+<script src="{{ asset('/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('/js/library/jquery-toast-plugin.min.js') }}"></script>
+
+@endsection
+
+{{-- Agregar css para esta pagina --}}
+@section('css')
+<link href="{{ asset('/datatables/datatables.min.css') }}" rel="stylesheet">
+<link href="{{ asset('/css/library/jquery-toast-plugin.min.css') }}" rel="stylesheet">
+
+@endsection
