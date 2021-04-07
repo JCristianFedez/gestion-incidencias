@@ -172,7 +172,7 @@ function loadEventsDeleteProject(theElement) {
         if (result.isConfirmed) {
             $.ajax({
                 url: url,
-                type: 'POST',
+                type: 'GET',
                 data: { '_method': 'GET' },
                 success: function success() {
                     Swal.fire(

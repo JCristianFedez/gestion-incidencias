@@ -127,7 +127,8 @@ class DatatableController extends Controller
 
                 // Si es admin puede ver todas las incidencias
                 if($user->is_admin){
-                    $pending_incidents = Incident::where('support_id', null)->get();
+                    $pending_incidents = Incident::where('support_id', null)->
+                    where('project_id', $selected_project_id)->get();
 
                 }else{// Si es de soporte solo puede atender incidencias de su proyecto y nivel
                     $projectUser = ProjectUser::where('project_id', $selected_project_id)->where('user_id', $user->id)->first();

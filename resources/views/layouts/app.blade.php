@@ -44,6 +44,8 @@
                         <ul class="nav navbar-nav">
                             @auth
                             <form action="" class="form">
+
+                                @if (auth()->user()->selected_project_id)
                                 <select id="list-of-projects" class="custom-select">
                                     @foreach (auth()->user()->list_of_projects as $project)
                                     <option value="{{ $project->id }}" @if($project->id ==
@@ -52,6 +54,11 @@
                                     </option>
                                     @endforeach
                                 </select>
+                                @else
+                                <select class="custom-select">
+                                    <option selected>No pertenece a ningun proyecto</option>
+                                </select>
+                                @endif
                             </form>
                             @endauth
                         </ul>
@@ -102,8 +109,8 @@
                 <nav>
                     @include('layouts.includes.menu')
                 </nav>
-    
-    
+
+
                 {{-- Contenido --}}
                 <main class="container-fluid">
                     <div class="page-content px-5 pt-3 pb-5" id="content">

@@ -1,6 +1,6 @@
 
 /////////////////// TABLA - Incidencias asignadas para mi
-$(document).on("DOMContentLoaded", function () {
+$(function () {
 
     // Agrego la tabla
     let table = $('#incidencias-asignadas-a-mi').DataTable({
@@ -98,7 +98,7 @@ $(document).on("DOMContentLoaded", function () {
 
     $.ajax({
         url: url,
-        type: 'POST',
+        type: 'GET',
         data: { '_method': 'GET' },
         success: function success() {
             $.toast({
@@ -128,7 +128,7 @@ $(document).on("DOMContentLoaded", function () {
 
 
 //////////////////// TABLA - Mis incidencias
-$(document).on("DOMContentLoaded", function () {
+$(function () {
 
     // Agrego la tabla
     let table = $('#mis-incidencias').DataTable({
@@ -206,7 +206,7 @@ $(document).on("DOMContentLoaded", function () {
 
 
 //////////////////// TABLA - Incidencias sin asignar
-$(document).on("DOMContentLoaded", function () {
+$(function () {
 
     // Agrego la tabla
     let table = $('#incidencias-sin-asignar').DataTable({
@@ -312,7 +312,7 @@ function loadEventsTakeIncident(theElement) {
 
     $.ajax({
         url: url,
-        type: 'POST',
+        type: 'GET',
         data: { '_method': 'GET' },
         success: function success() {
             $.toast({

@@ -4,113 +4,136 @@
 
 @section('content')
 
-        @include('layouts.includes.status')
-        
-        @include('layouts.includes.notification')
+@include('layouts.includes.status')
 
-        @include('layouts.includes.errors')
+@include('layouts.includes.notification')
 
-        {{-- Tabla con la info de la incidencia --}}
-        <div class="table-responsive mb-3">
-            <table class="table table-striped table-bordered table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Código</th>
-                        <th>Proyecto</th>
-                        <th>Categoria</th>
-                        <th>Fecha de envio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ $incident->id }}</td>
-                        <td>{{ $incident->project->name }}</td>
-                        <td>{{ $incident->category_name }}</td>
-                        <td>{{ $incident->created_at }}</td>
-                    </tr>
-                </tbody>
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Asignado a</th>
-                        <th>Nivel</th>
-                        <th>Estado</th>
-                        <th>Severidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ $incident->support_name }}</td>
-                        <td>{{ $incident->level->name }}</td>
-                        <td>{{ $incident->state }}</td>
-                        <td>{{ $incident->severity_full }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+@include('layouts.includes.errors')
 
-        {{-- Tabla con mas info de la incidencia --}}
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover">
-                <tbody>
-                    <tr>
-                        <th>Título</th>
-                        <td>{{ $incident->title }}</td>
-                    </tr>
-                    <tr>
-                        <th>Descripcíon</th>
-                        <td>{{ $incident->description }}</td>
-                    </tr>
-                    <tr>
-                        <th>Adjuntos</th>
-                        <td>No se han adjuntado archivos</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+{{-- Tabla con la info de la incidencia --}}
+<div class="table-responsive mb-3">
+    <table class="table table-striped table-bordered table-hover" id="tabla-incidencia">
+        <thead class="thead-dark">
+            <tr>
+                <th>Código</th>
+                <th>Proyecto</th>
+                <th>Categoria</th>
+                <th>Fecha de envio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ $incident->id }}</td>
+                <td>{{ $incident->project->name }}</td>
+                <td>{{ $incident->category_name }}</td>
+                <td>{{ $incident->created_at }}</td>
+            </tr>
+        </tbody>
+        <thead class="thead-dark">
+            <tr>
+                <th>Asignado a</th>
+                <th>Nivel</th>
+                <th>Estado</th>
+                <th>Severidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ $incident->support_name }}</td>
+                <td>{{ $incident->level->name }}</td>
+                <td>{{ $incident->state }}</td>
+                <td>{{ $incident->severity_full }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-        {{-- Boton: Atender incidencia --}}
-        @if ($incident->support_id == null
-            && $incident->active
-            && (auth()->user()->canTake($incident) || auth()->user()->is_admin))
-            <a href="/incidencia/{{ $incident->id }}/atender" class="btn btn-primary btn-sm">
-                Atender Incidencia
-            </a>
-        @endif
+{{-- Tabla con mas info de la incidencia --}}
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="tabla-incidencia-2">
+        <tbody>
+            <tr>
+                <th>Título</th>
+                <td>{{ $incident->title }}</td>
+            </tr>
+            <tr>
+                <th>Descripcíon</th>
+                <td>{{ $incident->description }}</td>
+            </tr>
+            <tr>
+                <th>Adjuntos</th>
+                <td>No se han adjuntado archivos</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-        {{-- Boton: Desatender incidencia --}}
-        @if ($incident->support_id != null
-            && $incident->active
-            && (auth()->user()->canTake($incident) || auth()->user()->is_admin))
-            <a href="/incidencia/{{ $incident->id }}/desatender" class="btn btn-warning btn-sm">
-                Desatender Incidencia
-            </a>
-        @endif
+<div id="action-butons">
+    {{-- Boton: Atender incidencia --}}
+    @if ($incident->support_id == null
+    && $incident->active
+    && (auth()->user()->canTake($incident) || auth()->user()->is_admin))
+    <a href="{{ route("incidencia.take", $incident->id) }}" class="btn btn-primary btn-sm btn-action-js"
+        data-success-message="Incidencia atendida correctamente"
+        data-error-message="Error al atender incidencia">
+        Atender Incidencia
+    </a>
+    @endif
 
-        {{-- Botones: volver a abrir | marcar como resuelta --}}
-        @if (auth()->user()->id == $incident->client->id)
+    {{-- Boton: Desatender incidencia --}}
+    @if ($incident->support_id != null
+    && $incident->active
+    && (auth()->user()->canTake($incident) || auth()->user()->is_admin))
+    <a href="{{ route("incidencia.disatend", $incident->id) }}" class="btn btn-warning btn-sm btn-action-js"
+        data-success-message="Incidencia desatendida correctamente"
+        data-error-message="Error al desatender incidencia">
+        Desatender Incidencia
+    </a>
+    @endif
 
-            @if ($incident->active) {{-- Marcar como resuelta --}}
-                <a href="/incidencia/{{ $incident->id }}/resolver" class="btn btn-success btn-sm">
-                    Marcar como resuelta
-                </a>
-                <a href="/incidencia/{{ $incident->id }}/editar" class="btn btn-warning btn-sm">
-                    Editar incidencia
-                </a>
-            @else    {{--  Volver a abrir --}}
-                <a href="/incidencia/{{ $incident->id }}/abrir" class="btn btn-info btn-sm">
-                    Volver a abrir la incidencia
-                </a>
-            @endif
+    {{-- Botones: volver a abrir | marcar como resuelta --}}
+    @if (auth()->user()->id == $incident->client->id)
 
-        @endif
+    @if ($incident->active) {{-- Marcar como resuelta --}}
+    <a href="{{ route("incidencia.solve",$incident->id) }}" class="btn btn-success btn-sm btn-action-js"
+        data-success-message="Incidencia resuelta correctamente"
+        data-error-message="Error al resolver incidencia">
+        Marcar como resuelta
+    </a>
+    <a href="{{ route("incidencia.edit", $incident->id) }}" class="btn btn-warning btn-sm">
+        Editar incidencia
+    </a>
+    @else {{--  Volver a abrir --}}
+    <a href="{{ route("incidencia.open", $incident->id) }}" class="btn btn-info btn-sm btn-action-js"
+        data-success-message="Incidencia abierta correctamente"
+        data-error-message="Error al abrir incidencia">
+        Volver a abrir la incidencia
+    </a>
+    @endif
 
-        {{-- Boton: Derivar al siguiente nivel --}}
-        @if ((auth()->user()->id == $incident->support_id
-            && $incident->active) || ($incident->active && auth()->user()->is_admin))
-            <a href="/incidencia/{{ $incident->id }}/derivar" class="btn btn-danger btn-sm">
-                Derivar al siguiente nivel
-            </a>
-        @endif
+    @endif
 
-    @include('layouts.chat')
+    {{-- Boton: Derivar al siguiente nivel --}}
+    @if ((auth()->user()->id == $incident->support_id
+    && $incident->active) || ($incident->active && auth()->user()->is_admin))
+    <a href="/incidencia/{{ $incident->id }}/derivar" class="btn btn-danger btn-sm">
+        Derivar al siguiente nivel
+    </a>
+    @endif
+</div>
+
+@include('incidents.layouts.chat')
+@endsection
+
+
+{{-- Script para cambiar de pagina dinamicamente --}}
+@section('scripts')
+<script src="{{ asset('/js/incidents/show.js') }}"></script>
+<script src="{{ asset('/js/library/jquery-toast-plugin.min.js') }}"></script>
+
+@endsection
+
+{{-- Agregar css para esta pagina --}}
+@section('css')
+<link href="{{ asset('/css/library/jquery-toast-plugin.min.css') }}" rel="stylesheet">
 @endsection

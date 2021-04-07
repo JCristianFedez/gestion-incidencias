@@ -55,7 +55,9 @@ class LoginController extends Controller
             }else{
                 // support
                 // Y si el usuario de soporte no esta asignado a ningun proyecto
-                $user->selected_project_id = $user->projects->first()->id;
+                if($user->projects->first()){
+                    $user->selected_project_id = $user->projects->first()->id;
+                }
             }
             $user->save();   
         }
