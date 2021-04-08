@@ -70,6 +70,8 @@ Route::group(["middleware" => "admin"], function (){
     Route::get('/usuario/{id}',[UserController::class, "edit"])->name("usuario.edit");
     Route::put('/usuario/{id}',[UserController::class, "update"])->name("usuario.update");
     Route::delete('/usuario/{id}',[UserController::class, "destroy"])->name("usuario.destroy");
+    Route::delete('/usuario/{id}/delete',[UserController::class, "forcedestroy"])->name("usuario.force.destroy");
+    Route::get('/usuario/{id}/restaurar',[UserController::class, "restore"])->name("usuario.restore");
 
     // Projects
     Route::get('/proyectos',[ProjectController::class, "index"])->name("proyectos");
@@ -77,6 +79,7 @@ Route::group(["middleware" => "admin"], function (){
     Route::get('/proyecto/{id}',[ProjectController::class, "edit"])->name("proyecto.edit");
     Route::put('/proyecto/{id}',[ProjectController::class, "update"])->name("proyecto.update");
     Route::delete('/proyecto/{id}',[ProjectController::class, "destroy"])->name("proyecto.destroy");
+    Route::delete('/proyecto/{id}/delete',[ProjectController::class, "forcedestroy"])->name("proyecto.force.destroy");
     Route::get('/proyecto/{id}/restaurar',[ProjectController::class, "restore"])->name("proyecto.restore");
 
     // Category

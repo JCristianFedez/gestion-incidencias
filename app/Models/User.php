@@ -124,4 +124,12 @@ class User extends Authenticatable
         }
     }
 
+    public function getStatusAttribute(){
+        if($this->trashed()){
+            return "Inactivo";
+        }else{
+            return "Activo";
+        }
+    }
+
 }

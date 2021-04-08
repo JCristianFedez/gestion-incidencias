@@ -126,7 +126,20 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
 		$user->delete();
-        return back()->with("notification","Usuario eliminado exitosamente.");
+        return back()->with("notification","Usuario desactivado exitosamente.");
 
 	}
+
+    public function forceDestroy($id){
+        $user = User::withTrashed()->findOrFail($id);
+        // TODO: Eliminar todas los registros realcionados con este usuario
+		$user->forceDelete();
+        return back()->with("notification","Usuario eliminado completametnte exitosamente.");
+
+	}
+
+    public function restore($id){
+        User::withTrashed()->find($id)->restore();
+        return back()->with('notification', 'El usuario se ha activado correctamente.');
+    }
 }

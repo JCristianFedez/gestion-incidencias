@@ -16,11 +16,14 @@ class DatatableController extends Controller
      */
     public function users(){
         
-        $users = User::all();
+        $users = User::withTrashed();
 
         return DataTables::of($users)
         ->addColumn('opciones', 'datatables.users.IndexOptions')
-        ->rawColumns(['opciones'])
+        ->addColumn('status', function ($users) {
+            return $users->status;
+        })
+        ->rawColumns(['opciones','status'])
         ->editColumn('role', function ($users) {
             return $users->role_name;
         })->editColumn('created_at', function ($users) {
