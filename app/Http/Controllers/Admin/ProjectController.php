@@ -44,11 +44,8 @@ class ProjectController extends Controller
     }
 
     public function forceDestroy($id){
-        $project = Project::withTrashed()->findOrFail($id);
+        Project::withTrashed()->findOrFail($id)->forceDelete();
 
-		$project->forceDelete();
-
-        //TODO: Eliminar todos los registros relacionados con este proyecto
         return back()->with("notification","Proyecto eliminado completametnte exitosamente.");
 	}
 

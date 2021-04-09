@@ -26,7 +26,7 @@ class CreateCategoriesTable extends Migration
             
             //Clave foranea a proyecto
             $table->unsignedBigInteger("project_id");
-            $table->foreign("project_id")->references("id")->on("projects");
+            $table->foreign("project_id")->references("id")->on("projects")->onDelete("cascade");
         });
     }
 

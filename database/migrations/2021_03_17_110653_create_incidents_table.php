@@ -26,23 +26,23 @@ class CreateIncidentsTable extends Migration
             
             //Clave foranea a categoria
             $table->unsignedBigInteger("category_id")->nullable();
-            $table->foreign("category_id")->references("id")->on("categories");
+            $table->foreign("category_id")->references("id")->on("categories")->onDelete("cascade");
 
             //Clave foranea a projects
             $table->unsignedBigInteger("project_id")->nullable();
-            $table->foreign("project_id")->references("id")->on("projects");
+            $table->foreign("project_id")->references("id")->on("projects")->onDelete("cascade");
 
             //Clave foranea a levels
             $table->unsignedBigInteger("level_id")->nullable();
-            $table->foreign("level_id")->references("id")->on("levels");
+            $table->foreign("level_id")->references("id")->on("levels")->onDelete("cascade");
 
             //Clave foranea a users, que tiene una incidencia
             $table->unsignedBigInteger("client_id");
-            $table->foreign("client_id")->references("id")->on("users");
+            $table->foreign("client_id")->references("id")->on("users")->onDelete("cascade");
             
             //Clave foranea a users, que resuelve una incidencia
             $table->unsignedBigInteger("support_id")->nullable();
-            $table->foreign("support_id")->references("id")->on("users");
+            $table->foreign("support_id")->references("id")->on("users")->onDelete("set null");
         });
     }
 

@@ -16,7 +16,7 @@ class AddForeignKeyUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
              //Clave foranea a proyecto
             $table->unsignedBigInteger("selected_project_id")->nullable();
-            $table->foreign("selected_project_id")->references("id")->on("projects");
+            $table->foreign("selected_project_id")->references("id")->on("projects")->onDelete("set null");
         });
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Incident;
+use App\Models\Message;
 use App\Models\Project;
 use App\Models\ProjectUser;
 use App\Models\User;
@@ -131,9 +132,9 @@ class UserController extends Controller
 	}
 
     public function forceDestroy($id){
-        $user = User::withTrashed()->findOrFail($id);
-        // TODO: Eliminar todas los registros realcionados con este usuario
-		$user->forceDelete();
+        // Elimino el usuario
+        User::withTrashed()->findOrFail($id)->forceDelete();
+
         return back()->with("notification","Usuario eliminado completametnte exitosamente.");
 
 	}

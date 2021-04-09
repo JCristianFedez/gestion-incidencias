@@ -132,7 +132,7 @@ function loadEventsDeleteUser(theElement) {
                 data: { '_method': 'DELETE' },
                 success: function success() {
                     Swal.fire(
-                        'Eliminado!',
+                        'Desactivado!',
                         'Usuario dado de baja correctamente.',
                         'success');
                     $('#users-table').DataTable().ajax.reload(null, false)

@@ -16,11 +16,11 @@ class AddForeignKeyMessagesTable extends Migration
         Schema::table('messages', function (Blueprint $table) {
               //Clave foranea a incidencia
             $table->unsignedBigInteger("incident_id");
-            $table->foreign("incident_id")->references("id")->on("incidents");
+            $table->foreign("incident_id")->references("id")->on("incidents")->onDelete("cascade");
             
             //Clave foranea a usuario
             $table->unsignedBigInteger("user_id");
-            $table->foreign("user_id")->references("id")->on("users");
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
         });
     }
 

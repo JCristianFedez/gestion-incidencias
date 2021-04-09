@@ -135,7 +135,7 @@ function loadEventsDeleteProject(theElement) {
                 data: { '_method': 'DELETE' },
                 success: function success() {
                     Swal.fire(
-                        'Eliminado!',
+                        'Deshabilitado!',
                         'Proyecto deshabilitado.',
                         'success');
                     $('#projects-table').DataTable().ajax.reload(null, false)
