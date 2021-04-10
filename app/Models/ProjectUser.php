@@ -19,4 +19,12 @@ class ProjectUser extends Model
     public function level(){
         return $this->belongsTo("App\Models\Level");
     }
+
+    public function getStatusAttribute(){
+        if($this->trashed()){
+            return "Inactivo";
+        }else{
+            return "Activo";
+        }
+    }
 }

@@ -101,8 +101,8 @@ Route::group(["middleware" => "admin"], function (){
 
     // Datatables para cargar las tablas dinamicamente
     Route::get("/datatables/usuarios", [DatatableController::class,"users"])->name("datatables.users");
+    Route::get("/datatables/usuario/{id}/proyectos", [DatatableController::class,"usersProjects"])->name("datatables.user.projects");
     Route::get("/datatables/proyectos", [DatatableController::class,"projects"])->name("datatables.projects");
-    
 });
 
 Route::get("/datatables/dashboard/incidentsByMe", [DatatableController::class,"incidentsByMe"])->name("datatables.dashboard.incidentsByMe");

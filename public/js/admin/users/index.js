@@ -1,5 +1,5 @@
 
-$(document).on("DOMContentLoaded", function () {
+$(function () {
 
     // Agrego la tabla
     let table = $('#users-table').DataTable({

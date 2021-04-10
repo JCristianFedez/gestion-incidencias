@@ -33,6 +33,27 @@ class DatatableController extends Controller
     }
 
     /**
+     * Usado para la tabla de la relacion entre usuarios y proyectos
+     */
+    public function usersProjects($id){
+        
+        $projectUser = ProjectUser::withTrashed()->where("user_id",$id);
+
+        return DataTables::of($projectUser)
+        ->addColumn('options', 'datatables.users.editOptions')
+        ->addColumn('projectsName', function($projectUser){
+            return $projectUser->project->name;
+        })->addColumn('levelsName' , function($projectUser){
+            return $projectUser->level->name;
+        })
+        ->rawColumns(['options'])
+        ->editColumn('created_at', function ($projectUser) {
+            return $projectUser->created_at->format('d/m/Y');
+        })
+        ->make(true);
+    }
+
+    /**
      * Usado para la tabla de todos los proyectos
      */
     public function projects(){

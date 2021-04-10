@@ -23,7 +23,7 @@ class ProjectUserFactory extends Factory
         //TODO: Hacer factory agregandole a usuarios y proyectos, project_id y level_id deven existir
 
         return [
-            'project_id' => $this->faker->unique(true)->numberBetween(1, 300),
+            'project_id' => 1,
             'user_id' => 3,
             'level_id' => $this->faker->unique(true)->numberBetween(1, 300)
         ];

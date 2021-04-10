@@ -57,7 +57,7 @@
 
 {{-- Tabla de usuarios registrados --}}
 <div id="all-users-table">
-    @include('admin.users.includes.table')
+    @include('admin.users.includes.index-table')
 </div>
 @endsection
 

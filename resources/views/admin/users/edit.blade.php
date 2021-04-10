@@ -86,7 +86,10 @@
 </form>
 
 {{-- Tavla de los poryectos y nivel del usuario --}}
-<div class="table-responsive">
+<div id="all-proyects-user-table">
+    @include('admin.users.includes.edit-table')
+</div>
+{{-- <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
@@ -123,7 +126,7 @@
             @endforeach
         </tbody>
     </table>
-</div>
+</div> --}}
 @endif
 @endsection
 
@@ -167,4 +170,12 @@
 
 @section('scripts')
 <script src="{{ asset('/js/admin/users/edit.js') }}"></script>
+<script src="{{ asset('/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('/js/library/sweetalert2-all.min.js') }}"></script>
+@endsection
+
+{{-- Agregar css para esta pagina --}}
+@section('css')
+<link href="{{ asset('/datatables/datatables.min.css') }}" rel="stylesheet">
+
 @endsection
