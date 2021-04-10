@@ -53,7 +53,7 @@ class Incident extends Model
     // Accesors
 
     /**
-     * Return full name of the severity
+     * @return String full name of the severity
      */
     public function getSeverityFullAttribute(){
         switch ($this->severity) {
@@ -73,14 +73,14 @@ class Incident extends Model
     }
 
     /**
-     * Return short title
+     * @return String short title
      */
     public function getTitleShortAttribute(){
         return mb_strimwidth($this->title, 0, 20, "...");
     }
 
     /**
-     * Return name of category
+     * @return String name of category
      */
     public function getCategoryNameAttribute(){
         if($this->category){
@@ -90,7 +90,7 @@ class Incident extends Model
     }
 
     /**
-     * Return name of Support
+     * @return String name of Support
      */
     public function getSupportNameAttribute(){
         if($this->support){
@@ -100,7 +100,7 @@ class Incident extends Model
     }
 
     /**
-     * Return name of state
+     * @return String name of state
      */
     public function getStateAttribute(){
         if($this->active == 0){
@@ -112,5 +112,39 @@ class Incident extends Model
         }
 
         return "Pendiente";
+    }
+
+    /**
+     * Returns the id of the next possible level of the incident, 
+     * if it does not have more levels, it returns null
+     * 
+     * @return id
+     */
+    public function getNextLevelIdAttribute(){
+        $level_id = $this->level_id;
+        $project = $this->project;
+        $levels = $project->levels;
+
+        if(sizeof($levels) <= 1){
+            return null;
+        }
+
+        $position = -1;
+        for ($i=0; $i < sizeof($levels); $i++) { 
+            if($levels[$i]->id == $level_id){
+                $position = $i;
+                break;
+            }
+        }
+
+        if($position == -1){
+            return null;
+        }
+
+        if($position == sizeof($levels)-1){
+            return null;
+        }
+
+        return $levels[$position+1]->id;
     }
 }

@@ -35,5 +35,8 @@ class CategoriesTableSeeder extends Seeder
             //"description" => "",
             "project_id" => 2
         ]);
+
+        Category::factory(300)
+        ->create();
     }
 }

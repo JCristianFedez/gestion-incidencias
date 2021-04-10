@@ -31,5 +31,8 @@ class LevelsTableSeeder extends Seeder
             "name" => "Consulta especializada",
             "project_id" => 2
         ]);
+
+        Level::factory(300)
+            ->create();
     }
 }
