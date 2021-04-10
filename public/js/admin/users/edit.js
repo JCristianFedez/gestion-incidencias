@@ -62,9 +62,19 @@ $(function () {
             'colvis', 'colvisRestore'
         ],
         drawCallback: function () {
+            // Limpio los eventos para que no se dupliquen
+            $("#select-project").off("change");
             $("#select-project").on("change", onSelectProjectChange);
+
+            $("[data-relation]").off("click");
             $("[data-relation]").on("click", editRealtionModal);
             
+            $("#users-relation-table").off('click', '.delete-user-project'); 
+            $("#users-relation-table").on('click', '.delete-user-project', function (e) {
+                e.preventDefault();
+                loadEventsDeleteUserProject(this);
+            });
+
             $('.dtsp-searchPanes').hide(); // Por defecto oculto el panel de busqueda
         },
     });
@@ -125,3 +135,54 @@ function editRealtionModal() {
     });
 }
 
+
+/**
+ * Eliminar usuario
+ */
+ function loadEventsDeleteUserProject(theElement) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+
+
+    // Recojo Url
+    let url = $(theElement).parent().attr("action");
+    url = url.split("gestion.incidencias")[1];
+    
+    Swal.fire({
+        title: 'Atencion !',
+        text: `¿ Esta seguro de eliminar la relacion ?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si!',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: { '_method': 'DELETE' },
+                success: function success() {
+                    Swal.fire(
+                        'Eliminada!',
+                        'Relacion eliminada correctamente.',
+                        'success');
+                    $('#users-relation-table').DataTable().ajax.reload(null, false)
+                },
+                error: function error() {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: "Ha abido un error en la eliminacion",
+                        type: 'error',
+                        timer: 5000
+                    });
+                }
+            });
+        }
+    })
+
+}

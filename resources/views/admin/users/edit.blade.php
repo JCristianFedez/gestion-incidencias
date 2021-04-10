@@ -54,7 +54,8 @@
 
 @if ($user->is_support)
 {{-- Forumlario para agregar asignar proyecto y nivel --}}
-<form action="/proyecto-usuario" method="POST" class="mb-3 row needs-validation border-top pt-4 border-secondary" novalidate>
+<form action="{{ route("proyecto-user.store") }}" method="POST" class="mb-3 row needs-validation border-top pt-4 border-secondary"
+    novalidate>
     @csrf
     <input type="hidden" name="user_id" value="{{ $user->id }}">
     <div class="col-md-5 form-group">
@@ -89,44 +90,6 @@
 <div id="all-proyects-user-table">
     @include('admin.users.includes.edit-table')
 </div>
-{{-- <div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th>Proyecto</th>
-                <th>Nivel</th>
-                <th>Opciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($projects_user as $project_user)
-            <tr>
-                <td>{{ $project_user->project->name }}</td>
-                <td>{{ $project_user->level->name }}</td>
-                <td>
-                    <span data-toggle="modal" data-target="#modalEditProjectRelation">
-                        <button type="button" class="btn btn-sm btn-primary" title="Editar"
-                            data-level-id="{{ $project_user->level->id }}"
-                            data-project-id="{{ $project_user->project->id }}"
-                            data-project-name="{{ $project_user->project->name }}" data-relation=""
-                            data-placement="left" data-toggle-second="tooltip" value="{{ $project_user->id }}">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </span>
-                    <form action="/proyecto-usuario/{{ $project_user->id }}" method="POST" class="d-inline-block">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja" data-toggle="tooltip"
-                            data-placement="right">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div> --}}
 @endif
 @endsection
 

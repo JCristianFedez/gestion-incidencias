@@ -37,7 +37,7 @@ class DatatableController extends Controller
      */
     public function usersProjects($id){
         
-        $projectUser = ProjectUser::withTrashed()->where("user_id",$id);
+        $projectUser = ProjectUser::all()->where("user_id",$id);
 
         return DataTables::of($projectUser)
         ->addColumn('options', 'datatables.users.editOptions')

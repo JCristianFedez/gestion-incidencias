@@ -7,11 +7,11 @@
         <i class="fas fa-edit"></i>
     </button>
 </span>
-<form action="/proyecto-usuario/{{ $user_id }}" method="POST" class="d-inline-block">
+<form action="{{ route("proyecto-user.destory",$id) }}" method="POST" class="d-inline-block">
     @csrf
     @method('DELETE')
-    <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja" data-toggle="tooltip"
-        data-placement="right">
+    <button type="submit" class="btn btn-sm btn-danger delete-user-project" title="Dar de baja" data-toggle="tooltip"
+        data-placement="right" data-action="delete-user-project">
         <i class="fas fa-trash-alt"></i>
     </button>
 </form>
