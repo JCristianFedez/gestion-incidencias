@@ -4,11 +4,11 @@
 
 @section('content')
 
-@include('layouts.includes.status')
+@include('layouts.includes.messages.status')
 
-@include('layouts.includes.notification')
+@include('layouts.includes.messages.notification')
 
-@include('layouts.includes.errors')
+@include('layouts.includes.messages.errors')
 
 {{-- Tabla con la info de la incidencia --}}
 <div class="table-responsive mb-3">

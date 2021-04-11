@@ -7,7 +7,7 @@
             <div class="card-header bg-gradient-primary text-white h4">{{ __('Reset Password') }}</div>
 
             <div class="card-body">
-                @include('layouts.includes.status')
+                @include('layouts.includes.messages.status')
 
                 <form method="POST" action="{{ route('password.email') }}">
                     @csrf

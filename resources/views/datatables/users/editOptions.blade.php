@@ -3,7 +3,7 @@
         data-level-id="{{ $level_id }}"
         data-project-id="{{ $project_id }}"
         data-relation=""
-        data-placement="left" data-toggle-second="tooltip" value="{{ $id }}">
+        data-placement="left" data-toggle="tooltip" value="{{ $id }}">
         <i class="fas fa-edit"></i>
     </button>
 </span>

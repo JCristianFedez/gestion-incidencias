@@ -5,11 +5,11 @@
 
 @section('content')
 
-@include('layouts.includes.status')
+@include('layouts.includes.messages.status')
 
-@include('layouts.includes.notification')
+@include('layouts.includes.messages.notification')
 
-@include('layouts.includes.errors')
+@include('layouts.includes.messages.errors')
 
 {{-- Formulario para editar usuario --}}
 <form action="" method="POST" class="row g-3 needs-validation mb-4" novalidate>

@@ -37,7 +37,7 @@ class DatatableController extends Controller
      */
     public function usersProjects($id){
         
-        $projectUser = ProjectUser::all()->where("user_id",$id);
+        $projectUser = ProjectUser::where("user_id",$id);
 
         return DataTables::of($projectUser)
         ->addColumn('options', 'datatables.users.editOptions')
@@ -66,7 +66,41 @@ class DatatableController extends Controller
         ->editColumn('status', function($projects){
             return $projects->status;
         })->make(true);
+    }
 
+    /**
+     * Usado para la tabla de todos las categorias de los proyectos
+     */
+    public function projectsCategories($id){
+
+        $categories = Project::find($id)->categories;
+
+        return DataTables::of($categories)
+        ->addColumn('options', 'datatables.projects.edit.categoriesOption')
+        ->rawColumns(['options'])
+        ->editColumn('created_at', function ($category) {
+            return $category->created_at->format('d/m/Y');
+        })
+        ->make(true);
+    }
+
+    /**
+     * Usado para la tabla de todos las categorias de los proyectos
+     */
+    public function projectsLevels($id){
+
+        $levels = Project::find($id)->levels;
+
+        return DataTables::of($levels)
+        ->addColumn('idPlusOne', function($level){
+            return "N" . ($level->id + 1);
+        })
+        ->addColumn('options', 'datatables.projects.edit.levelsOption')
+        ->rawColumns(['options'])
+        ->editColumn('created_at', function ($level) {
+            return $level->created_at->format('d/m/Y');
+        })
+        ->make(true);
     }
 
     /**

@@ -4,11 +4,11 @@
 
 @section('content')
 
-@include('layouts.includes.status')
+@include('layouts.includes.messages.status')
 
-@include('layouts.includes.notification')
+@include('layouts.includes.messages.notification')
 
-@include('layouts.includes.errors')
+@include('layouts.includes.messages.errors')
 
 <form action="" method="POST" class="row needs-validation mb-4" novalidate>
     @csrf
@@ -47,7 +47,7 @@
 
 {{-- Tabla de todos los proyectos --}}
 <div id="all-projects-table" style="min-height: 600px" id="allProjectsTable">
-    @include('admin.projects.includes.table')
+    @include('admin.projects.includes.index.projects-table')
 </div>
 @endsection
 

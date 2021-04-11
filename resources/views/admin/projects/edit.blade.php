@@ -5,11 +5,13 @@
 
 @section('content')
 
-@include('layouts.includes.status')
+@include('layouts.includes.messages.status')
 
-@include('layouts.includes.notification')
+@include('layouts.includes.messages.notification')
 
-@include('layouts.includes.errors')
+@include('layouts.includes.messages.notification-error')
+
+@include('layouts.includes.messages.errors')
 
 {{-- Formulario para editar proyecto --}}
 <form action="" method="POST" class="row needs-validation mb-4" novalidate>
@@ -50,7 +52,7 @@
 {{-- Categorias y niveles --}}
 <div class="row">
     {{-- Categorias --}}
-    <div class="col-md-6">
+    <div class="col-xl-6 mb-5 pb-5">
         <p>Categorías</p>
 
         {{-- Agregar Categoria --}}
@@ -68,41 +70,13 @@
         </form>
 
         {{-- Categorias del proyecto --}}
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($categories as $category)
-                    <tr>
-                        <td>{{ $category->name }}</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                data-target="#modalEditCategory" title="Editar" data-category="{{ $category->id }}"
-                                data-name="{{ $category->name }}">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <form action="/categoria/{{$category->id}}" method="POST" class="d-inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div id="all-categories-table">
+            @include('admin.projects.includes.edit.categories-table')
         </div>
     </div>
 
     {{-- Niveles --}}
-    <div class="col-md-6">
+    <div class="col-xl-6 mb-5 pb-5"> 
         <p>Niveles</p>
         {{-- Agregar Nivel --}}
         <form action="/niveles" method="POST" class="form-inline mb-3 needs-validation" novalidate>
@@ -119,113 +93,31 @@
         </form>
 
         {{-- Niveles del proyecto --}}
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Nivel</th>
-                        <th>Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($levels as $key => $level)
-                    <tr>
-                        <td>N{{ $key+1 }}</td>
-                        <td>{{ $level->name }}</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
-                                data-target="#modalEditLevel" data-level="{{ $level->id }}"
-                                data-name="{{ $level->name }}" title="Editar">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <form action="/nivel/{{ $level->id }}" method="POST" class="d-inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" title="Dar de baja">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <div id="all-levels-table">
+            @include('admin.projects.includes.edit.levels-table')
         </div>
     </div>
 </div>
 
 <!-- Modal editar categoria -->
-<div class="modal fade" id="modalEditCategory" tabindex="-1" aria-labelledby="EditCategoryModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="EditCategoryModalLabel">Editar Categoría</h5>
-                <button type="button" class="close text-black-50" data-dismiss="modal" aria-label="Close"
-                     aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="/categoria" method="POST" class="needs-validation" novalidate>
-                <div class="modal-body row">
-                    @csrf
-                    @method("PUT")
-                    <input type="hidden" name="category_id" id="category_id" value="">
-                    <div class="form-group col-12">
-                        <label for="name">Nombre de la categoría</label>
-                        <input type="text" name="name" id="category_name" class="form-control" value="" required
-                            minlength="5" maxlength="255">
-                        <div class="invalid-feedback">
-                            Porfavor introduzca un nombre valido.
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+@include('admin.projects.includes.edit.modal-edit-category')
 
 <!-- Modal editar nivel -->
-<div class="modal fade" id="modalEditLevel" tabindex="-1" aria-labelledby="EditLevelModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="EditLevelModalLabel">Editar Nivel</h5>
-                <button type="button" class="close text-black-50" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="/nivel" method="POST" class="needs-validation" novalidate>
-                <div class="modal-body row">
-                    @csrf
-                    @method("PUT")
-                    <input type="hidden" name="level_id" id="level_id" value="">
-                    <div class="form-group col-12">
-                        <label for="name">Nombre del nivel</label>
-                        <input type="text" name="name" id="level_name" class="form-control" value="" required
-                            minlength="5" maxlength="15">
-                        <div class="invalid-feedback">
-                            Porfavor introduzca un nombre valido.
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+@include('admin.projects.includes.edit.modal-edit-level')
 
 @endsection
 
 
 {{-- Script para la edicion de categorias --}}
 @section('scripts')
-<script src="{{ asset('/js/admin/projects/edit.js') }}"></script>
+<script src="{{ asset('/js/admin/projects/edit.js') }}" type="module"></script>
+<script src="{{ asset('/datatables/datatables.min.js') }}"></script>
+<script src="{{ asset('js/library/sweetalert2-all.min.js') }}"></script>
+<script src="{{ asset('/js/library/jquery-toast-plugin.min.js') }}"></script>
+@endsection
+
+{{-- Agregar css para esta pagina --}}
+@section('css')
+<link href="{{ asset('/datatables/datatables.min.css') }}" rel="stylesheet">
+<link href="{{ asset('/css/library/jquery-toast-plugin.min.css') }}" rel="stylesheet">
 @endsection
