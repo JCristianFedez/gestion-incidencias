@@ -8,7 +8,7 @@
                 </button>
             </div>
             <form action="{{ route("nivel.update") }}" method="POST" class="needs-validation" novalidate
-            data-level-name="">
+                data-level-name="">
                 <div class="modal-body row">
                     @csrf
                     @method("PUT")
@@ -16,9 +16,16 @@
                     <div class="form-group col-12">
                         <label for="name">Nombre del nivel</label>
                         <input type="text" name="name" id="level_name" class="form-control" value="" required
-                            minlength="5" maxlength="15">
+                            minlength="5" maxlength="255">
                         <div class="invalid-feedback">
-                            Porfavor introduzca un nombre valido.
+                            Campo obligatorio y con mas de 5 caracteres
+                        </div>
+                    </div>
+                    <div class="form-group col-12">
+                        <input type="number" name="difficulty" class="form-control" id="level_difficulty"
+                            placeholder="Dificultad" value="" required min="1" max="{{ count($levels) }}">
+                        <div class="invalid-feedback">
+                            Campo obligatorio
                         </div>
                     </div>
                 </div>

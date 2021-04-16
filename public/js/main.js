@@ -21,7 +21,8 @@ $(document).ready(function () {
 $(function () {
   $('body').tooltip({selector: '[data-toggle="tooltip"]'});
   $('body').tooltip({selector: '[data-toggle-second="tooltip"]'});
-  $('[data-toggle-second="tooltip"]').tooltip()
+  $('[data-toggle-second="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip()
 });
 
 // Validar formulario

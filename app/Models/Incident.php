@@ -90,6 +90,15 @@ class Incident extends Model
     }
 
     /**
+     * @return String name of level
+     */
+    public function getLevelNameAttribute(){
+        if($this->level){
+            return $this->level->name;
+        }
+        return "General";
+    }
+    /**
      * @return String name of Support
      */
     public function getSupportNameAttribute(){
@@ -114,37 +123,37 @@ class Incident extends Model
         return "Pendiente";
     }
 
-    /**
-     * Returns the id of the next possible level of the incident, 
-     * if it does not have more levels, it returns null
-     * 
-     * @return id
-     */
-    public function getNextLevelIdAttribute(){
-        $level_id = $this->level_id;
-        $project = $this->project;
-        $levels = $project->levels;
+    // /**
+    //  * Returns the id of the next possible level of the incident, 
+    //  * if it does not have more levels, it returns null
+    //  * 
+    //  * @return id
+    //  */
+    // public function getNextLevelIdAttribute(){
+    //     $level_id = $this->level_id;
+    //     $project = $this->project;
+    //     $levels = $project->levels;
 
-        if(sizeof($levels) <= 1){
-            return null;
-        }
+    //     if(sizeof($levels) <= 1){
+    //         return null;
+    //     }
 
-        $position = -1;
-        for ($i=0; $i < sizeof($levels); $i++) { 
-            if($levels[$i]->id == $level_id){
-                $position = $i;
-                break;
-            }
-        }
+    //     $position = -1;
+    //     for ($i=0; $i < sizeof($levels); $i++) { 
+    //         if($levels[$i]->id == $level_id){
+    //             $position = $i;
+    //             break;
+    //         }
+    //     }
 
-        if($position == -1){
-            return null;
-        }
+    //     if($position == -1){
+    //         return null;
+    //     }
 
-        if($position == sizeof($levels)-1){
-            return null;
-        }
+    //     if($position == sizeof($levels)-1){
+    //         return null;
+    //     }
 
-        return $levels[$position+1]->id;
-    }
+    //     return $levels[$position+1]->id;
+    // }
 }

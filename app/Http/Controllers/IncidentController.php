@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Incident;
+use App\Models\Level;
 use App\Models\Project;
 use App\Models\ProjectUser;
 use Illuminate\Http\Request;
@@ -28,13 +29,14 @@ class IncidentController extends Controller
     }
 
     public function create(){
-        $categories = Category::where("project_id",1)->get();
-        return view("incidents.create",compact("categories"));
+        $categories = Category::where("project_id",auth()->user()->selected_project_id)->get();
+        $levels = Level::where("project_id",auth()->user()->selected_project_id)->get();
+        return view("incidents.create",compact("categories","levels"));
     }
 
     public function store(Request $request){
-        
         $this->validate($request, Incident::$rules, Incident::$messages);
+        
         $user = auth()->user();
         $incident = new Incident();
         $incident->category_id = $request->category_id ?: null;
@@ -43,7 +45,7 @@ class IncidentController extends Controller
         $incident->description = $request->description;
         $incident->client_id = $user->id;
         $incident->project_id = $user->selected_project_id;
-        $incident->level_id = Project::find($user->selected_project_id)->first_level_id;
+        $incident->level_id = $request->level_id ?: null;
         $incident->save();
 
         return back()->with("notification","Incidencia registrada exitosamente.");
@@ -67,6 +69,9 @@ class IncidentController extends Controller
         $this->validate($request, Incident::$rules, Incident::$messages);
         
         $incident = Incident::findOrFail($id);
+
+        if($request->level_id)
+            $incident->level_id = $request->level_id;
 
         $incident->category_id = $request->category_id ?: null;
         $incident->severity = $request->severity;
@@ -179,18 +184,40 @@ class IncidentController extends Controller
     /**
      * Enviar al siguiente nivel la incidencia
      */
-    public function nextLevel($id){
-        $incident = Incident::findOrFail($id);
+    public function nextLevel($id,Request $request){
+        
+        $incident = Incident::findOrFail($id);        
+        $level = Level::find($incident->level_id);
 
-        $next_level_id = $incident->next_level_id;
-    
-        if($next_level_id){
-            $incident->level_id = $next_level_id;
+        if(!$level){
+            $nextLevel = Level::where("project_id",$incident->project->id)->orderBy('difficulty')->first();
+        }else{
+            $nextLevel = $level->next_level;
+        }
+
+        if($nextLevel){
+            $incident->level_id = $nextLevel->id;
             $incident->support_id = null;
             $incident->save();
+
+            if($request->ajax()){
+                return response()->json([
+                    "head" => "¡Correcto!",
+                    "message" => "Incidencia derivada al siguiente nivel.",
+                    "type" => "success",
+                    ]);
+            }
+
             return back()->with("notification","Incidencia derivada al siguiente nivel");
         }
 
+        if($request->ajax()){
+            return response()->json([
+                "head" => "¡Error!",
+                "message" => "No es posible derivar porque no hay un siguiente nivel",
+                "type" => "error",
+                ]);
+        }
         return back()->with("notification","No es posible derivar porque no hay un siguiente nivel");
     }
 

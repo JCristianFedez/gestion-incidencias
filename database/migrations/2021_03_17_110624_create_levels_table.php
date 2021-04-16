@@ -16,7 +16,7 @@ class CreateLevelsTable extends Migration
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-
+            $table->integer("difficulty");
             $table->softDeletes();
             $table->timestamps();
         });
@@ -26,6 +26,9 @@ class CreateLevelsTable extends Migration
             //Clave foranea a proyecto
             $table->unsignedBigInteger("project_id");
             $table->foreign("project_id")->references("id")->on("projects")->onDelete("cascade");
+
+            $table->unique(['difficulty', 'project_id'],'difficulty_project_unique');
+
         });
     }
 

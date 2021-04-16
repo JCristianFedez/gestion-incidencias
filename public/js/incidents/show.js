@@ -32,12 +32,13 @@ function ejecutarFuncionDelBoton(e){
         url: url,
         type: 'GET',
         data: { '_method': 'GET' },
-        success: function success() {
+        success: function success(data) {
+            console.log(data.head);
             $.toast({
-                heading: 'Correcto',
-                text: successMessage,
+                heading: data.head,
+                text: data.message,
                 showHideTransition: 'slide',
-                icon: 'success',
+                icon: data.type,
                 loader: true,
             });
             $("#action-butons").load(" #action-butons", function(){

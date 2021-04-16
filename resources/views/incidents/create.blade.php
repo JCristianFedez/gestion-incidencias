@@ -14,7 +14,7 @@
 <form action="" method="POST" class="row needs-validation" novalidate>
     @csrf
     {{-- Categoria --}}
-    <div class="col-md-6 form-group">
+    <div class="form-group @if (auth()->user()->is_admin) col-md-4  @else col-md-6 @endif">
         <label for="category_id" class="form-label">Categoria</label>
         <select name="category_id" id="category_id" class="custom-select">
             <option value="">General</option>
@@ -24,8 +24,21 @@
         </select>
     </div>
 
+    @if (auth()->user()->is_admin)
+    {{-- Niveles --}}
+    <div class="col-md-4 form-group">
+        <label for="level_id" class="form-label">Nivel</label>
+        <select name="level_id" id="level_id" class="custom-select">
+            <option value="">General</option>
+            @foreach ($levels as $level)
+            <option value="{{ $level->id }}">{{ $level->name }}</option>
+            @endforeach
+        </select>
+    </div>
+    @endif
+
     {{-- Severidad --}}
-    <div class="col-md-6 form-group">
+    <div class="form-group @if (auth()->user()->is_admin) col-md-4  @else col-md-6 @endif">
         <label for="severity" class="form-label">Severidad</label>
         <select name="severity" id="severity" class="custom-select">
             <option value="M">Menor</option>

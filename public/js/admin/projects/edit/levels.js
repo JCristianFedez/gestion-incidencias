@@ -2,13 +2,14 @@
 ////////////// START LEVELS TABLE ///////////////////////
 $(function () {
     let project = $('#levels-table').data("projectId");
+    let host = $(location).attr('host');
 
     // Agrego la tabla
     let table = $('#levels-table').DataTable({
         responsive: true,
         processing: true,
         language: {
-            url: "http://gestion.incidencias/datatables/plugin-Spanish.json"
+            url: `//${host}/datatables/plugin-Spanish.json`
         },
         ajax: `/datatables/proyecto/${project}/niveles`,
         dom:
@@ -18,7 +19,7 @@ $(function () {
             "<'row'<'col-12'tr>>" +
             "<'row'<'col-lg'i><'col-lg'p >>",
         columns: [
-            { data: "idPlusOne" },
+            { data: "difficulty" },
             { data: "name" },
             { data: "created_at" },
             { data: "options" }
@@ -66,12 +67,12 @@ $(function () {
         drawCallback: function () {
 
             $("#levels-table").off("click", "[data-level-id]");
-            $("#levels-table").on("click", "[data-level-id]" , function (e) {
+            $("#levels-table").on("click", "[data-level-id]", function (e) {
                 editLevelModal(this);
             });
 
             $("body").off("submit", "#modalEditLevel");
-            $("body").on("submit", "#modalEditLevel" , function (e) {
+            $("body").on("submit", "#modalEditLevel", function (e) {
                 e.preventDefault();
                 editLevel(this);
             });
@@ -83,7 +84,16 @@ $(function () {
             });
 
             $('.dtsp-searchPanes').hide(); // Por defecto oculto el panel de busqueda
+
+            // Cargo los tooltips secundarios
+            $('[data-toggle-second="tooltip"]').tooltip();
+
         },
+    });
+
+    // Cargo los tooltips secundarios cuando la tabla se hace responsive
+    table.on('responsive-display', function (e, datatable, row, showHide, update) {
+        $('[data-toggle-second="tooltip"]').tooltip();
     });
 
 
@@ -95,9 +105,11 @@ $(function () {
 function editLevelModal(theElement) {
     let level_id = $(theElement).data("levelId");
     let level_name = $(theElement).data("levelName");
+    let levelDifficulty = $(theElement).data("levelDifficulty");
 
     $("#modalEditLevel #level_id").val(level_id);
     $("#modalEditLevel #level_name").val(level_name);
+    $("#modalEditLevel #level_difficulty").val(levelDifficulty);
     $("#modalEditLevel").data("levelName", level_name);
 }
 
@@ -115,16 +127,17 @@ function editLevel(theElement) {
 
     // Recojo Url
     let url = $(theElement).find("form").attr("action");
-    url = url.split("gestion.incidencias")[1];
-    
+    url = url.split($(location).attr('host'))[1];
+
     // Recojo nombre
     let newName = $("#modalEditLevel #level_name").val();
+    let newDifficulty = $("#modalEditLevel #level_difficulty").val();
     let levelId = $("#modalEditLevel #level_id").val();
-    
+
     $.ajax({
         url: url,
         type: 'POST',
-        data: { '_method': 'PUT', 'level_id': levelId, 'name': newName },
+        data: { '_method': 'PUT', 'level_id': levelId, 'name': newName, 'difficulty': newDifficulty },
         success: function success(data) {
             $.toast({
                 heading: data.head,
@@ -151,7 +164,7 @@ function editLevel(theElement) {
 /**
  * Eliminar nivel
  */
- function deleteLevel(theElement) {
+function deleteLevel(theElement) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -160,11 +173,13 @@ function editLevel(theElement) {
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
-    url = url.split("gestion.incidencias")[1];
+    url = url.split($(location).attr('host'))[1];
 
     // Recojo nombre
     let form = $(theElement).parent();
     let name = form.data("levelName");
+
+    let cantLevls = $("#level-difficulty").val();
 
     Swal.fire({
         title: '¡Atencion!',
@@ -185,7 +200,16 @@ function editLevel(theElement) {
                         '¡Eliminada!',
                         'Nivel eliminado.',
                         'success');
-                    $('#levels-table').DataTable().ajax.reload(null, false)
+                    $('#levels-table').DataTable().ajax.reload(null, false);
+
+                    // Update max value and auto-value
+                    $("#level-difficulty").val(cantLevls - 1);
+                    $("#level-difficulty").attr({
+                        "max": cantLevls - 1,
+                    });
+                    $("#level_difficulty").attr({
+                        "max": cantLevls - 2,
+                    });
                 },
                 error: function error() {
                     Swal.fire({

@@ -3,7 +3,7 @@
     @csrf
     <input type="hidden" data-project-name="{{$name}}" value="{{$name}}">
     <button type="submit" class="btn btn-sm btn-success restore-project" title="Restaurar" data-toggle="tooltip"
-        data-placement="left" data-action="restore-project">
+        data-placement="top" data-action="restore-project">
         <i class="fas fa-trash-restore"></i>
     </button>
 </form>
@@ -11,7 +11,7 @@
     @csrf
     <input type="hidden" data-project-name="{{$name}}" value="{{$name}}">
     <button type="submit" class="btn btn-sm btn-danger force-destroy-project" title="Eliminar" data-toggle="tooltip"
-        data-placement="left" data-action="force-destroy-project">
+        data-placement="top" data-action="force-destroy-project">
         <i class="fas fa-minus-circle"></i>
     </button>
 </form>
@@ -22,7 +22,7 @@
 </a> --}}
 @else
 <a href="{{ route('proyecto.edit', $id) }}" class="btn btn-sm btn-primary" title="Editar"
-    data-toggle="tooltip" data-placement="left">
+    data-toggle="tooltip" data-placement="top">
     <i class="fas fa-edit"></i>
 </a>
 
@@ -31,7 +31,7 @@
     @method('DELETE')
     <input type="hidden" data-project-name="{{$name}}" value="{{$name}}">
     <button type="submit" class="btn btn-sm btn-danger delete-project" title="Dar de baja" data-toggle="tooltip"
-        data-placement="right" data-action="delete-project">
+        data-placement="top" data-action="delete-project">
         <i class="fas fa-trash"></i>
     </button>
 </form>

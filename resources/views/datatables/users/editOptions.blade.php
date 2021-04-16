@@ -3,7 +3,7 @@
         data-level-id="{{ $level_id }}"
         data-project-id="{{ $project_id }}"
         data-relation=""
-        data-placement="left" data-toggle="tooltip" value="{{ $id }}">
+        data-placement="top" data-toggle="tooltip" value="{{ $id }}">
         <i class="fas fa-edit"></i>
     </button>
 </span>
@@ -11,7 +11,7 @@
     @csrf
     @method('DELETE')
     <button type="submit" class="btn btn-sm btn-danger delete-user-project" title="Dar de baja" data-toggle="tooltip"
-        data-placement="right" data-action="delete-user-project">
+        data-placement="top" data-action="delete-user-project">
         <i class="fas fa-trash-alt"></i>
     </button>
 </form>

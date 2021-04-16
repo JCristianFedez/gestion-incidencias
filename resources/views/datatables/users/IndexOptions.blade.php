@@ -3,7 +3,7 @@
     @csrf
     <input type="hidden" data-user-name="{{$name}}" value="{{$name}}">
     <button type="submit" class="btn btn-sm btn-success restore-user" title="Restaurar" data-toggle="tooltip"
-        data-placement="left" data-action="restore-user">
+        data-placement="top" data-action="restore-user">
         <i class="fas fa-trash-restore"></i>
     </button>
 </form>
@@ -11,13 +11,13 @@
     @csrf
     <input type="hidden" data-user-name="{{$name}}" value="{{$name}}">
     <button type="submit" class="btn btn-sm btn-danger force-destroy-user" title="Eliminar" data-toggle="tooltip"
-        data-placement="left" data-action="force-destroy-user">
+        data-placement="top" data-action="force-destroy-user">
         <i class="fas fa-minus-circle"></i>
     </button>
 </form>
 @else
 <a href="{{ route('usuario.edit', $id) }}" class="btn btn-sm btn-primary" title="Editar" data-toggle="tooltip"
-    data-placement="left">
+    data-placement="top">
     <i class="fas fa-user-edit"></i>
 </a>
 <form action="{{ route('usuario.destroy', $id) }}" method="POST" class="d-inline-block not-send">

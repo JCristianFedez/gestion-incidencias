@@ -16,20 +16,24 @@ class LevelsTableSeeder extends Seeder
     {
         Level::create([
             "name" => "Atención por teléfono",
-            "project_id" => 1
+            "project_id" => 1,
+            "difficulty" => 1
         ]);
         Level::create([
             "name" => "Envío de técnico",
-            "project_id" => 1
+            "project_id" => 1,
+            "difficulty" => 2
         ]);
 
         Level::create([
             "name" => "Mesa de ayuda",
-            "project_id" => 2
+            "project_id" => 2,
+            "difficulty" => 1
         ]);
         Level::create([
             "name" => "Consulta especializada",
-            "project_id" => 2
+            "project_id" => 2,
+            "difficulty" => 2
         ]);
 
         Level::factory(300)

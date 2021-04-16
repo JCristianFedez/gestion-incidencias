@@ -56,16 +56,21 @@
         <p>Categorías</p>
 
         {{-- Agregar Categoria --}}
-        <form action="/categorias" method="POST" class="form-inline mb-3 needs-validation" novalidate>
-            @csrf
-            <input type="hidden" name="project_id" value="{{ $project->id }}">
+        <form action="/categorias" method="POST" class="mb-3 needs-validation" novalidate>
+            <div class="form-row">
+                @csrf
+                <input type="hidden" name="project_id" value="{{ $project->id }}">
 
-            <div class="form-group">
-                <input type="text" name="name" class="form-control" placeholder="Ingrese nombre" required minlength="5"
-                    maxlength="255">
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Añadir" class="btn btn-primary">
+                <div class="form-group col-xl-6 mb-xl-0 mb-3">
+                    <input type="text" name="name" class="form-control " placeholder="Ingrese nombre" required
+                        minlength="5" maxlength="255">
+                    <div class="invalid-feedback">
+                        Campo obligatorio y con mas de 5 caracteres
+                    </div>
+                </div>
+                <div class="form-group col-xl-3 mb-xl-0 mb-3">
+                    <input type="submit" value="Añadir" class="btn btn-primary w-100">
+                </div>
             </div>
         </form>
 
@@ -76,19 +81,34 @@
     </div>
 
     {{-- Niveles --}}
-    <div class="col-xl-6 mb-5 pb-5"> 
+    <div class="col-xl-6 mb-5 pb-5">
         <p>Niveles</p>
         {{-- Agregar Nivel --}}
-        <form action="/niveles" method="POST" class="form-inline mb-3 needs-validation" novalidate>
-            @csrf
-            <input type="hidden" name="project_id" value="{{ $project->id }}">
+        <form action="/niveles" method="POST" class="mb-3 needs-validation" novalidate>
+            <div class="form-row">
+                @csrf
+                <input type="hidden" name="project_id" value="{{ $project->id }}">
 
-            <div class="form-group">
-                <input type="text" name="name" class="form-control" placeholder="Ingrese nombre" required minlength="5"
-                    maxlength="255">
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Añadir" class="btn btn-primary">
+                <div class="form-group col-xl-3 mb-xl-0 mb-3">
+                    <input type="number" id="level-difficulty" name="difficulty" class="form-control" placeholder="Dificultad" required
+                        min="1" max="{{ count($levels)+1 }}" value="{{ count($levels)+1 }}">
+                    <div class="invalid-feedback">
+                        Campo obligatorio
+                    </div>
+                </div>
+
+                <div class="form-group col-xl-6 mb-xl-0 mb-3">
+                    <input type="text" name="name" class="form-control" placeholder="Ingrese nombre" required
+                        minlength="5" maxlength="255">
+                    <div class="invalid-feedback">
+                        Campo obligatorio y con mas de 5 caracteres
+                    </div>
+                </div>
+
+
+                <div class="form-group col-xl-3 mb-xl-0 mb-3">
+                    <input type="submit" value="Añadir" class="btn btn-primary w-100">
+                </div>
             </div>
         </form>
 

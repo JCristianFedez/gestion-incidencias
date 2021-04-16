@@ -92,9 +92,6 @@ class DatatableController extends Controller
         $levels = Project::find($id)->levels;
 
         return DataTables::of($levels)
-        ->addColumn('idPlusOne', function($level){
-            return "N" . ($level->id + 1);
-        })
         ->addColumn('options', 'datatables.projects.edit.levelsOption')
         ->rawColumns(['options'])
         ->editColumn('created_at', function ($level) {

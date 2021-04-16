@@ -40,6 +40,7 @@ class ProjectController extends Controller
 
     public function destroy($id){
         Project::find($id)->delete();
+        ProjectUser::where("project_id",$id)->delete();
         return back()->with('notification', 'El proyecto se ha deshabilitado correctamente.');
     }
 
@@ -51,6 +52,8 @@ class ProjectController extends Controller
 
     public function restore($id){
         Project::withTrashed()->find($id)->restore();
+        ProjectUser::withTrashed("project_id",$id)->restore();
+
         return back()->with('notification', 'El proyecto se ha habilitado correctamente.');
     }
 

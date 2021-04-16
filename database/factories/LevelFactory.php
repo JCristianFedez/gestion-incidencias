@@ -21,10 +21,11 @@ class LevelFactory extends Factory
      */
     public function definition()
     {
-        //TODO: Hacer tambien este factory
+        static $order = 3;   
         return [
             'name' => $this->faker->name,
-            'project_id' => 1
+            'project_id' => 1,
+            'difficulty' => $order++,
         ];
     }
 }

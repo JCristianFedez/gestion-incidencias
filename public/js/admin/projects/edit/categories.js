@@ -1,13 +1,14 @@
 ////////////// START CATEGORIES TABLE ///////////////////////
 $(function () {
     let project = $('#categories-table').data("projectId");
+    let host = $(location).attr('host');
 
     // Agrego la tabla
     let table = $('#categories-table').DataTable({
         responsive: true,
         processing: true,
         language: {
-            url: "http://gestion.incidencias/datatables/plugin-Spanish.json"
+            url: `//${host}/datatables/plugin-Spanish.json`
         },
         ajax: `/datatables/proyecto/${project}/categorias`,
         dom:
@@ -82,9 +83,17 @@ $(function () {
             });
 
             $('.dtsp-searchPanes').hide(); // Por defecto oculto el panel de busqueda
+
+            // Cargo los tooltips secundarios
+            $('[data-toggle-second="tooltip"]').tooltip();
+
         },
     });
 
+    // Cargo los tooltips secundarios cuando la tabla se hace responsive
+    table.on('responsive-display', function (e, datatable, row, showHide, update) {
+        $('[data-toggle-second="tooltip"]').tooltip();
+    });
 
 });
 
@@ -114,7 +123,7 @@ function editCategory(theElement) {
 
     // Recojo Url
     let url = $(theElement).find("form").attr("action");
-    url = url.split("gestion.incidencias")[1];
+    url = url.split($(location).attr('host'))[1];
 
     // Recojo nombre
     let newName = $("#modalEditCategory #category_name").val();
@@ -159,7 +168,7 @@ function deleteCategory(theElement) {
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
-    url = url.split("gestion.incidencias")[1];
+    url = url.split($(location).attr('host'))[1];
 
     // Recojo nombre
     let form = $(theElement).parent();

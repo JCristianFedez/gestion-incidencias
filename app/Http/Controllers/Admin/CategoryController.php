@@ -83,6 +83,7 @@ class CategoryController extends Controller
     public function destroy($id){
 
         Category::find($id)->delete();
+        Category::withTrashed()->find($id)->forceDelete();
         return back()->with('notification', 'La categoria se ha eliminado correctamente.');
     }
 }

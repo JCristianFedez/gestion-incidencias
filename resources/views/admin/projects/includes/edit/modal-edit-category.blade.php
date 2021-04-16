@@ -14,12 +14,14 @@
                     @csrf
                     @method("PUT")
                     <input type="hidden" name="category_id" id="category_id" value="">
+                    <input type="hidden" name="project_id" value="{{ $project->id }}">
+
                     <div class="form-group col-12">
                         <label for="name">Nombre de la categoría</label>
                         <input type="text" name="name" id="category_name" class="form-control" value="" required
                             minlength="5" maxlength="255">
                         <div class="invalid-feedback">
-                            Porfavor introduzca un nombre valido.
+                            Campo obligatorio y con mas de 5 caracteres.
                         </div>
                     </div>
                 </div>

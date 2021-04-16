@@ -1,12 +1,13 @@
 
 $(function () {
+    let host = $(location).attr('host');
 
     // Agrego la tabla
     let table = $('#users-table').DataTable({
         responsive: true,
         processing: true,
         language: {
-            url: "http://gestion.incidencias/datatables/plugin-Spanish.json"
+            url: `//${host}/datatables/plugin-Spanish.json`
         },
         ajax: "datatables/usuarios",
         dom:
@@ -110,7 +111,7 @@ function loadEventsDeleteUser(theElement) {
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
-    url = url.split("gestion.incidencias")[1];
+    url = url.split($(location).attr('host'))[1];
 
     // Recojo nombre
     let form = $(theElement).parent();
@@ -166,7 +167,7 @@ function loadEventsDeleteUser(theElement) {
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
-    url = url.split("gestion.incidencias")[1];
+    url = url.split($(location).attr('host'))[1];
 
     // Recojo nombre
     let form = $(theElement).parent();
@@ -221,7 +222,7 @@ function loadEventsDeleteUser(theElement) {
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
-    url = url.split("gestion.incidencias")[1];
+    url = url.split($(location).attr('host'))[1];
 
     // Recojo nombre
     let form = $(theElement).parent();

@@ -2,12 +2,14 @@
 
 $(function () {
     let user = $('#users-relation-table').data("userId");
+    let host = $(location).attr('host');
+
     // Agrego la tabla
     let table = $('#users-relation-table').DataTable({
         responsive: true,
         processing: true,
         language: {
-            url: "http://gestion.incidencias/datatables/plugin-Spanish.json"
+            url: `//${host}/datatables/plugin-Spanish.json`
         },
         ajax: `/datatables/usuario/${user}/proyectos`,
         dom:
@@ -17,7 +19,7 @@ $(function () {
             "<'row'<'col-12'tr>>" +
             "<'row'<'col-lg'i><'col-lg'p>>",
         columns: [
-            { data: "projectsName", class: "projectsName" },
+            { data: "projectsName"},
             { data: "levelsName" },
             { data: "created_at" },
             { data: "options" },
@@ -150,7 +152,7 @@ function editRealtionModal() {
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
-    url = url.split("gestion.incidencias")[1];
+    url = url.split($(location).attr('host'))[1];
     
     Swal.fire({
         title: 'Atencion !',

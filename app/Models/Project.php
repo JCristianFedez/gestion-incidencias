@@ -41,7 +41,7 @@ class Project extends Model
     }
 
     public function levels(){
-        return $this->hasMany("App\Models\Level");
+        return $this->hasMany("App\Models\Level")->orderBy('difficulty');
     }
 
     public function users(){
@@ -50,7 +50,10 @@ class Project extends Model
 
     // Accesors
     public function getFirstLevelIdAttribute(){
-        return $this->levels->first()->id;
+        if($this->levels->first())
+            return $this->levels->first()->id;
+        
+        return null;
     }
 
     public function getStatusAttribute(){

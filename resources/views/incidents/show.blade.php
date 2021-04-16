@@ -40,7 +40,7 @@
         <tbody>
             <tr>
                 <td>{{ $incident->support_name }}</td>
-                <td>{{ $incident->level->name }}</td>
+                <td>{{ $incident->level_name }}</td>
                 <td>{{ $incident->state }}</td>
                 <td>{{ $incident->severity_full }}</td>
             </tr>
@@ -109,12 +109,14 @@
 
     @endif
     {{-- Boton: Derivar al siguiente nivel --}}
-    @if (((auth()->user()->id == $incident->support_id && $incident->active) || ($incident->active && auth()->user()->is_admin))
-    && ($incident->next_level_id))
+    @if ((auth()->user()->id == $incident->support_id && $incident->active) || ($incident->active &&
+    auth()->user()->is_admin))
+    @if (!$incident->level && count($incident->project->levels) > 0)
     <a href="{{ route("incidencia.nextLevel", $incident->id) }}" class="btn btn-danger btn-sm btn-action-js"
         data-success-message="Incidencia derivada correctamente" data-error-message="Error al derivar incidencia">
         Derivar al siguiente nivel
-    </a>
+    </a> 
+    @endif
     @endif
 </div>
 
