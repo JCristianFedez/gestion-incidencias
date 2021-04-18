@@ -17,8 +17,12 @@ class Level extends Model
     ];
 
     public function project(){
-        return $this->belongsTo("App\Models\Category");
+        return $this->belongsTo("App\Models\Project");
     }
+
+    // public function category(){
+    //     return $this->belongsTo("App\Models\Category");
+    // }
 
     /**
      * Returns the next level
@@ -36,4 +40,22 @@ class Level extends Model
         
         return $nextLevel;
     }
+
+    /**
+     * Returns the previous level
+     */
+    public function getPreviousLevelAttribute(){
+        $project = $this->project;
+
+        if($this->difficulty == null){
+            $nextLevel = Level::where("project_id",$project->id)->where("difficulty",1)->first();
+            
+            return $nextLevel;
+        }
+
+        $nextLevel = Level::where("project_id",$project->id)->where("difficulty",($this->difficulty-1))->first();
+        
+        return $nextLevel;
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Incident;
 use App\Models\Level;
 use App\Models\ProjectUser;
 use Illuminate\Http\Request;
@@ -44,7 +45,6 @@ class LevelController extends Controller
         return back()->with('notification', 'El nivel se ha creado correctamente.');
     }
 
-    // FIXME: Cuando creo nuevos niveles, luego los borro y al editarlos falla
     public function update(Request $request){
         $rules = [
             'name' => ["required","min:5","max:255"],
@@ -77,12 +77,14 @@ class LevelController extends Controller
             return back()->with('notificationError', 'El proyecto ya tiene un nivel con ese nombre.');
         }
 
+        
         if($level->difficulty != $request->difficulty){
             // Arranged the difficulty of the levels between the current difficulty of the level and the later one
             if($request->difficulty > $level->difficulty){
-                $prevLevels = Level::where("difficulty",">",$level->difficulty)
+                $prevLevels = Level::where("project_id",$level->project_id)->where("difficulty",">",$level->difficulty)
                 ->where("difficulty","<=",$request->difficulty)->orderBy('difficulty')->get();
                 
+
                 $level->difficulty = -1;
                 $level->save();
     
@@ -91,7 +93,7 @@ class LevelController extends Controller
                     $prevLevels[$i]->save();
                 }
             }else{
-                $prevLevels = Level::where("difficulty","<",$level->difficulty)
+                $prevLevels = Level::where("project_id",$level->project_id)->where("difficulty","<",$level->difficulty)
                 ->where("difficulty",">=",$request->difficulty)->orderBy('difficulty')->get();
     
 
@@ -121,11 +123,36 @@ class LevelController extends Controller
         return back()->with('notification', 'El nivel se ha actualizado correctamente.');
     }
 
-    public function destroy($id){
+    public function destroy($id, Request $request){
         $level = Level::find($id);
         $project = $level->project;
         $difficulty = $level->difficulty;
 
+        $incidents = Incident::where("level_id",$id)->get();
+
+        // If there are incidents assigned at this level, they will try to go first 
+        // to the next level, if it is not possible to the previous one and if neither 
+        // can the general
+        if($incidents){
+            if($level->next_level){
+                for ($i=0; $i < count($incidents); $i++) { 
+                    $incidents[$i]->level_id = $level->next_level->id;
+                    $incidents[$i]->save();
+                }
+
+            }else if($level->previous_level){
+                for ($i=0; $i < count($incidents); $i++) { 
+                    $incidents[$i]->level_id = $level->previous_level->id;
+                    $incidents[$i]->save();
+                }
+
+            }else{
+                for ($i=0; $i < count($incidents); $i++) { 
+                    $incidents[$i]->level_id = null;
+                    $incidents[$i]->save();
+                }
+            }
+        }
         $level->forceDelete();
         ProjectUser::where("level_id",$id)->delete();
 
@@ -136,6 +163,14 @@ class LevelController extends Controller
         for ($i = 0; $i < count($nextsLevels); $i++) { 
             $nextsLevels[$i]->difficulty--;
             $nextsLevels[$i]->save();
+        }
+
+        if($request->ajax()){
+            return response()->json([
+                "head" => "¡Correcto!",
+                "message" => "El nivel se ha eliminado correctamente.",
+                "type" => "success",
+                ]);
         }
 
         return back()->with('notification', 'El nivel se ha eliminado correctamente.');

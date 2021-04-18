@@ -11,7 +11,7 @@
 @include('layouts.includes.messages.errors')
 
 {{-- Formulario para crear incidencia --}}
-<form action="" method="POST" class="row needs-validation" novalidate>
+<form action="" method="POST" class="row needs-validation" novalidate enctype="multipart/form-data">
     @csrf
     {{-- Categoria --}}
     <div class="form-group @if (auth()->user()->is_admin) col-md-4  @else col-md-6 @endif">
@@ -67,6 +67,7 @@
 
     <div class="col-md-12 form-group">
         <input type="submit" value="Registrar Incidencia" class="btn btn-primary">
+        <input type="file" name="adjunto" id="" accept="*">
     </div>
 </form>
 @endsection

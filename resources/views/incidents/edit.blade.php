@@ -11,13 +11,13 @@
 @include('layouts.includes.messages.errors')
 
 {{-- Formulario para editar incidencia --}}
-<form action="" method="POST" class="row needs-validation" novalidate>
+<form action="" method="POST" class="row needs-validation" novalidate enctype="multipart/form-data">
     @csrf
     {{-- Categoria --}}
     <div class="col-md-4 form-group">
         <label for="category_id" class="form-label">Categoria</label>
         <select name="category_id" id="category_id" class="form-control">
-            <option value="">General</option>
+            <option value="" @if (!$incident->category_id) selected @endif >General</option>
             @foreach ($categories as $category)
             <option value="{{ $category->id }}" @if($incident->category_id == $category->id) selected @endif>
                 {{ $category->name }}
@@ -31,8 +31,9 @@
     <div class="col-md-4 form-group">
         <label for="level_id" class="form-label">Nivel</label>
         <select name="level_id" id="level_id" class="custom-select">
-            @foreach ($incident->project->levels as $level)
-            <option value="{{ $level->id }}" @if ($level->id == $incident->level->id) selected @endif >{{ $level->name }}</option>
+            <option value="" @if (!$incident->level_id) selected @endif >General</option>
+            @foreach ($levels as $level)
+            <option value="{{ $level->id }}" @if ($incident->level_id == $level->id) selected @endif >{{ $level->name }}</option>
             @endforeach
         </select>
     </div>
@@ -74,6 +75,7 @@
 
     <div class="col-md-12 form-group">
         <input type="submit" value="Guardar cambios" class="btn btn-primary">
+        <input type="file" name="adjunto" id="" accept="*">
     </div>
 </form>
 @endsection

@@ -62,7 +62,16 @@
             </tr>
             <tr>
                 <th>Adjuntos</th>
+                @if ($incident->attached_file)
+                <td>
+                    <a href="{{$incident->attached_file}}" aria-label="Descargar fichero adjunto" data-toggle="tooltip"
+                        data-placement="top" title="Descargar fichero">
+                        {{$incident->file_name}}
+                    </a>
+                </td>
+                @else
                 <td>No se han adjuntado archivos</td>
+                @endif
             </tr>
         </tbody>
     </table>
@@ -111,11 +120,11 @@
     {{-- Boton: Derivar al siguiente nivel --}}
     @if ((auth()->user()->id == $incident->support_id && $incident->active) || ($incident->active &&
     auth()->user()->is_admin))
-    @if (!$incident->level && count($incident->project->levels) > 0)
+    @if ((!$incident->level && count($incident->project->levels) > 0) || $incident->level->next_level)
     <a href="{{ route("incidencia.nextLevel", $incident->id) }}" class="btn btn-danger btn-sm btn-action-js"
         data-success-message="Incidencia derivada correctamente" data-error-message="Error al derivar incidencia">
         Derivar al siguiente nivel
-    </a> 
+    </a>
     @endif
     @endif
 </div>

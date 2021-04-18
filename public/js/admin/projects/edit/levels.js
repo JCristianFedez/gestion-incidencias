@@ -195,12 +195,17 @@ function deleteLevel(theElement) {
                 url: url,
                 type: 'POST',
                 data: { '_method': 'DELETE' },
-                success: function success() {
-                    Swal.fire(
-                        '¡Eliminada!',
-                        'Nivel eliminado.',
-                        'success');
-                    $('#levels-table').DataTable().ajax.reload(null, false);
+                success: function success(data) {
+                    $.toast({
+                        heading: data.head,
+                        text: data.message,
+                        showHideTransition: 'slide',
+                        icon: data.type,
+                        loader: true,
+                    });
+                    if (data.type != "error") {
+                        $('#levels-table').DataTable().ajax.reload(null, false);
+                    }
 
                     // Update max value and auto-value
                     $("#level-difficulty").val(cantLevls - 1);

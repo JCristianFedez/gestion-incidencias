@@ -19,7 +19,7 @@ class CreateIncidentsTable extends Migration
             $table->string("description");
             $table->string("severity",1);
             $table->boolean("active")->default(1);
-
+            $table->string("attached_file")->nullable();
             $table->timestamps();
         });
         Schema::table("incidents", function (Blueprint $table){
@@ -34,7 +34,7 @@ class CreateIncidentsTable extends Migration
 
             //Clave foranea a levels
             $table->unsignedBigInteger("level_id")->nullable();
-            $table->foreign("level_id")->references("id")->on("levels")->onDelete("cascade");
+            $table->foreign("level_id")->references("id")->on("levels");//->onDelete("cascade");
 
             //Clave foranea a users, que tiene una incidencia
             $table->unsignedBigInteger("client_id");

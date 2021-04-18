@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -81,9 +82,13 @@ class CategoryController extends Controller
 
     
     public function destroy($id){
+        $category = Category::find($id);
+        $publicPath = $category->public_directory_path;
 
-        Category::find($id)->delete();
-        Category::withTrashed()->find($id)->forceDelete();
+        Storage::deleteDirectory($publicPath);
+
+        $category->delete();
+        $category->forceDelete();
         return back()->with('notification', 'La categoria se ha eliminado correctamente.');
     }
 }

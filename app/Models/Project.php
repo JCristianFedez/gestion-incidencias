@@ -63,4 +63,13 @@ class Project extends Model
             return "Activo";
         }
     }
+
+        /**
+     * @return String Returns a string with the path of the public directory
+     */
+    public function getPublicDirectoryPathAttribute(){
+        $path = "/public";
+        $path .= "/Project-".$this->name;
+        return $path;
+    }
 }

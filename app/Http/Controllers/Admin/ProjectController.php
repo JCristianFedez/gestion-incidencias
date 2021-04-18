@@ -8,6 +8,7 @@ use App\Models\Level;
 use App\Models\Project;
 use App\Models\ProjectUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -45,7 +46,14 @@ class ProjectController extends Controller
     }
 
     public function forceDestroy($id){
-        Project::withTrashed()->findOrFail($id)->forceDelete();
+        $project = Project::withTrashed()->findOrFail($id);
+
+        $publicPath = $project->public_directory_path;
+
+        Storage::deleteDirectory($publicPath);
+
+
+        $project->forceDelete();
 
         return back()->with("notification","Proyecto eliminado completametnte exitosamente.");
 	}
