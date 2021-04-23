@@ -46,15 +46,13 @@ class IncidentController extends Controller
 
         // If an attachment is added
         if ($request->file("adjunto")) {
+
             $incidentId = Incident::all()->last()->id + 1;
 
             $projectName = Project::findOrFail(auth()->user()->selected_project_id)->name;
 
             $category = Category::find($request->category_id);
             $categoryName = ($category) ? $category->name : "general"; //If the category is null, it is assigned general
-
-            $level = Level::find($request->level_id);
-            $levelName = ($level) ? $level->name : "general"; //If the level is null, it is assigned general
 
             $adjunto = $request->file("adjunto")->storeAs(
                 "public/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")."/Incident-Id-$incidentId/attached-file",
@@ -108,9 +106,6 @@ class IncidentController extends Controller
 
             $category = Category::find($incident->category_id);
             $categoryName = ($category) ? $category->name : "general"; //If the category is null, it is assigned general
-
-            $level = Level::find($incident->level_id);
-            $levelName = ($level) ? $level->name : "general"; //If the level is null, it is assigned general
 
             // If a new file is added, the previous one is deleted
             if ($incident->attached_file) {

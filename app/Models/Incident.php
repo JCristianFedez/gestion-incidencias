@@ -14,7 +14,7 @@ class Incident extends Model
         "severity" => ["required", "in:M,N,A"],
         "title" => ["required", "min:5", "max:255"],
         "description" => ["required", "min:15", "max:255"],
-        "adjunto" => ["max:1024"]
+        "adjunto" => ["max:1048576","file","mimes:jpg,jpeg,bmp,png,doc,docx,csv,rtf,xlsx,xls,txt,pdf,zip,txt"],
     ];
 
     public static $messages = [
@@ -25,7 +25,7 @@ class Incident extends Model
         "description.required" => "Es necesario ingresar una descripción para la incidencia.",
         "description.min" => "La descripción debe presentar al menos 15 caracteres.",
         "description.max" => "La descripción debe presentar menos de 255 caracteres.",
-        "adjunto.max" => ["El tamaño maximo del archivo adjunto es de 1GB"]
+        "adjunto.max" => "El tamaño maximo del archivo adjunto es de 1GB"
     ];
 
     public function category()

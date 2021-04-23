@@ -75,7 +75,7 @@
 
     <div class="col-md-12 form-group">
         <input type="submit" value="Guardar cambios" class="btn btn-primary">
-        <input type="file" name="adjunto" id="" accept="*">
+        <input type="file" name="adjunto" id="" accept=".jpg,.jpeg,.bmp,.png,.doc,.docx,.csv,.rtf,.xlsx,.xls,.txt,.pdf,.zip,.txt">
     </div>
 </form>
 @endsection
