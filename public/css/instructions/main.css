@@ -4,6 +4,6 @@
     overflow-y: scroll;
 }
 
-#instructions-container div {
-    height: 200px;
+#instructions-container h2, #instructions-container h4 {
+    height: 400px;
 }
