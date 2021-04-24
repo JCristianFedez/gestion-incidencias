@@ -1,0 +1,9 @@
+#instructions-container {
+    position: relative;
+    height: 80vh;
+    overflow-y: scroll;
+}
+
+#instructions-container div {
+    height: 200px;
+}

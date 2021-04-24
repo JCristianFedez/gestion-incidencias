@@ -113,7 +113,7 @@
 
                 {{-- Contenido --}}
                 <main class="container-fluid">
-                    <div class="page-content px-5 pt-3 pb-5" id="content">
+                    <div class="page-content px-3 pt-3 pb-5" id="content">
                         <h1 class="h2 border-bottom mb-3">@yield('tituloPagina')</h1>
                         @yield('content')
                     </div>
