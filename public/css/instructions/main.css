@@ -1,9 +1,11 @@
-#instructions-container {
-    position: relative;
-    height: 80vh;
-    overflow-y: scroll;
-}
 
-#instructions-container h2, #instructions-container h4 {
-    height: 400px;
+@media (min-width: 992px) { 
+    #index-container {
+        position: sticky;
+        top: 60px;
+        height: max-content;
+    }
+}
+#instructions-container section {
+    padding-top: 100px;
 }
