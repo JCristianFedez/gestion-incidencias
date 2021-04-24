@@ -16,6 +16,9 @@
                                 <a class="dropdown-item rounded" href="#create-user">Crear</a>
                                 <a class="dropdown-item rounded" href="#edit-user">Modificar</a>
                                 <a class="dropdown-item rounded" href="#delete-user">Eliminar</a>
+                                <a class="dropdown-item rounded" href="#create-project-user">Asignar proyecto</a>
+                                <a class="dropdown-item rounded" href="#edit-project-user">Editar asignación con proyecto</a>
+                                <a class="dropdown-item rounded" href="#delete-project-user">Eliminar asignación con proyecto</a>
                         </div>
                 </li>
 

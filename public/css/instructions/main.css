@@ -9,3 +9,8 @@
 #instructions-container section {
     padding-top: 100px;
 }
+
+/* Dropdown menu permite introducir texto en mas de una linea */
+.dropdown-menu,.dropdown-item{
+    white-space: normal;
+}
