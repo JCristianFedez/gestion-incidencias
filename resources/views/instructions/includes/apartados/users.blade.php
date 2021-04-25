@@ -45,7 +45,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, busca el registro del usuario que quiere
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del usuario que quiere
         editar y en la columna <em>opciones</em> pinche en el botón de <strong>Editar usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
@@ -68,7 +68,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior busca el registro del usuario que quiere
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior buscar el registro del usuario que quiere
         dar de baja y en la columna <em>opciones</em> pinche en el botón de <strong>Dar de baja</strong>
         <a class="btn btn-sm btn-warning" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Dar de baja">
@@ -129,7 +129,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior busca el registro del usuario que quiere
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del usuario que quiere
         asignar un proyecto y en la columna <em>opciones</em> pinche en el botón de <strong>Editar usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
@@ -157,7 +157,7 @@
     </p>
 
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, busca el registro del usuario que quiere
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del usuario que quiere
         editar la asignacion de un proyecto y en la columna <em>opciones</em> pinche en el botón de <strong>Editar
             usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
@@ -168,7 +168,7 @@
 
     <p>
         Se le redirigirá a una ventana en la cual en la parte inferior aparecerá una tabla con todos los proyectos a los
-        que pertenece el usuario seleccionado, en la tabla busca la relación que quiere editar y pincha en el botón de
+        que pertenece el usuario seleccionado, en la tabla debe de buscar la relación que quiere editar y pinchar en el botón de
         <strong>Editar</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
@@ -196,7 +196,7 @@
     </p>
 
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior y busca el registro del usuario que quiere
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del usuario que quiere
         eliminar la asignacion de un proyecto y en la columna <em>opciones</em> pinche en el botón de <strong>Editar
             usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
@@ -207,7 +207,7 @@
 
     <p>
         Se le redirigirá a una ventana en la cual en la parte inferior aparecerá una tabla con todos los proyectos a los
-        que pertenece el usuario seleccionado, en la tabla busca la relación que quiere editar y pincha en el botón de
+        que pertenece el usuario seleccionado, en la tabla debe de buscar la relación que quiere editar y pinchar en el botón de
         <strong>Eliminar</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Dar de baja">

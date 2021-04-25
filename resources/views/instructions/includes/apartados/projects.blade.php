@@ -42,8 +42,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, busca el registro del proyecto que quiere
-        editar y en la columna <em>opciones</em> pinche en el botón de <strong>Editar proyecto</strong>
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto que
+        quiere editar y en la columna <em>opciones</em> pinche en el botón de <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
             <i class="fas fa-edit"></i>
@@ -65,7 +65,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior busca el registro del proyecto que quiere
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto que
+        quiere
         dar de baja y en la columna <em>opciones</em> pinche en el botón de <strong>Dar de baja</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Dar de baja">
@@ -85,8 +86,7 @@
     </p>
     <p>
         Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto que
-        quiere
-        restaurar y en la columna <em>opciones</em> pinche en el botón de <strong>Restaurar proyecto</strong>
+        quiere restaurar y en la columna <em>opciones</em> pinche en el botón de <strong>Restaurar proyecto</strong>
         <a class="btn btn-sm btn-success" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Restaurar">
             <i class="fas fa-trash-restore"></i>
@@ -105,8 +105,7 @@
     </p>
     <p>
         Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto que
-        quiere
-        eliminar y en la columna <em>opciones</em> pinche en el botón de <strong>Eliminar proyecto</strong>
+        quiere eliminar y en la columna <em>opciones</em> pinche en el botón de <strong>Eliminar proyecto</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Eliminar">
             <i class="fas fa-minus-circle"></i>
@@ -122,7 +121,6 @@
     <h4>Cambiar de proyecto</h4>
     <p>
         Para cambiar de proyecto debe de pinchar en el selector del menú superior
-        @auth
         @if (auth()->user()->selected_project_id)
         <select id="select-project-instruction" class="custom-select d-inline-block w-auto">
             @foreach (auth()->user()->list_of_projects as $project)
@@ -137,7 +135,6 @@
             <option selected>No pertenece a ningun proyecto</option>
         </select>
         @endif
-        @endauth
         .
     </p>
     <p>

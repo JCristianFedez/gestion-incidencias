@@ -12,8 +12,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, busca el registro del proyecto del cual
-        quiere ver sus niveles y en la columna <em>opciones</em> pinche en el botón de <strong>Editar proyecto</strong>
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto del cual
+        quiere ver sus niveles y en la columna <em>opciones</em> pinchar en el botón de <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
             <i class="fas fa-edit"></i>
@@ -35,16 +35,17 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, busca el registro del proyecto al cual le
-        quiere agregar un nivel y en la columna <em>opciones</em> pinche en el botón de <strong>Editar proyecto</strong>
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto al cual
+        le quiere agregar un nivel y en la columna <em>opciones</em> pinchar en el botón de
+        <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
             <i class="fas fa-edit"></i>
         </a>.
     </p>
     <p>
-        Se le redirigirá a una ventana en la cual en la parte inferior aparecerá un campo numérico en el cual se indica
-        la importancia y otro campo de texto en el cual se agregara el nombre del nivel.
+        Se le redirigirá a una ventana en la cual en la parte inferior aparecerá un campo numérico en el cual se debe de
+        indicar la importancia y otro campo de texto en el cual debe de ingresar el nombre del nivel.
     </p>
     <p class="text-muted">
         Tenga en cuenta el nivel 1 tiene menos importancia que el nivel 2, por lo que cuando una incidencia de nivel 1
@@ -62,8 +63,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, busca el registro del proyecto del cual
-        quiere editar un nivel y en la columna <em>opciones</em> pinche en el botón de <strong>Editar proyecto</strong>
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto del cual
+        quiere editar un nivel y en la columna <em>opciones</em> pinchar en el botón de <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
             <i class="fas fa-edit"></i>
@@ -71,16 +72,16 @@
     </p>
     <p>
         Se le redirigirá a una ventana en la cual en la parte inferior aparecerá una tabla con todos los niveles
-        del proyecto seleccionado, en ella buscas el registro del nivel a editar y en la columna <em>opciones</em>
-        pinche en el botón de <strong>Editar</strong>
+        del proyecto seleccionado, en ella debe de buscar el registro del nivel a editar y en la columna
+        <em>opciones</em> pinchar en el botón de <strong>Editar</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
             <i class="fas fa-edit"></i>
         </a>.
     </p>
     <p>
-        Se abrirá un modal con dos campos, el primero es un campo de texto en el cual introducirá el nuevo nombre del
-        nivel y el segundo es un campo numérico en el cual ingresara la importancia del nivel
+        Se abrirá un modal con dos campos, el primero es un campo de texto en el cual debe de introducir el nuevo nombre
+        del nivel y el segundo es un campo numérico en el cual debe de ingresar la importancia del nivel
     </p>
     <p class="text-muted">
         Tenga en cuenta el nivel 1 tiene menos importancia que el nivel 2, por lo que cuando una incidencia de nivel 1
@@ -98,8 +99,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, busca el registro del proyecto del cual
-        quiere eliminar un nivel y en la columna <em>opciones</em> pinche en el botón de
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto del cual
+        quiere eliminar un nivel y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
@@ -108,11 +109,15 @@
     </p>
     <p>
         Se le redirigirá a una ventana en la cual en la parte inferior aparecerá una tabla con todos los niveles
-        del proyecto seleccionado, en ella buscas el registro del nivel a eliminar y en la columna <em>opciones</em>
-        pinche en el botón de <strong>Eliminar</strong>
+        del proyecto seleccionado, en ella debe de buscar el registro del nivel a eliminar y en la columna
+        <em>opciones</em> pinchar en el botón de <strong>Eliminar</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Eliminar">
             <i class="fas fa-trash"></i>
         </a>.
+    </p>
+    <p class="text-muted">
+        Tenga en cuenta que al eliminar un nivel, todas las incidencias de dicho nivel pasaran al siguiente nivel. De no
+        ser posible pasaran al nivel general.
     </p>
 </section>

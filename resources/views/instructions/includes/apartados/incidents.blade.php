@@ -80,7 +80,7 @@
     </p>
     <p>
         Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>mis incidencias</em>,
-        busca el registro de la incidencia que quiere editar y en la columna <em>opciones</em> pinche en el botón de
+        buscar el registro de la incidencia que quiere editar y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Ver</strong>
         <a class="btn btn-info btn-sm">
             Ver
@@ -88,17 +88,21 @@
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
-        de la incidencia. En esta ventana pinchamos en el botón <strong>Editar incidencia</strong>
+        de la incidencia. En esta ventana debe de pinchar en el botón <strong>Editar incidencia</strong>
         <a class="btn btn-warning btn-sm">
             Editar incidencia
         </a>.
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá un formulario, el cual debe de rellenar con los nuevos datos
-        del usuario.
+        de la incidencia.
+    </p>
+    <p class="text-muted">
+        Las incidencias solo las puede editar el usuario que la haya creado.
     </p>
 </section>
 
+@if (! auth()->user()->is_client)
 <section id="take-incident">
     <h4>Atender incidencia</h4>
     <p>
@@ -110,7 +114,7 @@
     </p>
     <p>
         Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>incidencias sin asignar</em>,
-        busca el registro de la incidencia que quiere atender y en la columna <em>opciones</em> pinche en el botón de
+        busca el registro de la incidencia que quiere atender y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Atender</strong>
         <a class="btn btn-primary btn-sm">
             Atender
@@ -124,10 +128,14 @@
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
-        de la incidencia. En esta ventana pinchamos en el botón <strong>Atender incidencia</strong>
+        de la incidencia. En esta ventana debe de pinchar en el botón <strong>Atender incidencia</strong>
         <a class="btn btn-primary btn-sm">
             Atender incidencia
         </a>.
+    </p>
+    <p class="text-muted">
+        Las incidencias solo pueden ser atendidas por usuarios de administración o usuarios de soporte con suficiente
+        nivel en el proyecto en el que se ha creado.
     </p>
 </section>
 
@@ -142,7 +150,8 @@
     </p>
     <p>
         Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>incidencias asignadas a mi</em>,
-        busca el registro de la incidencia que quiere desatender y en la columna <em>opciones</em> pinche en el botón de
+        busca el registro de la incidencia que quiere desatender y en la columna <em>opciones</em> pinchar en el botón
+        de
         <strong>Desatender</strong>
         <a class="btn btn-warning btn-sm">
             Desatender
@@ -156,12 +165,13 @@
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
-        de la incidencia. En esta ventana pinchamos en el botón <strong>Desatender incidencia</strong>
+        de la incidencia. En esta ventana debe de pinchar en el botón <strong>Desatender incidencia</strong>
         <a class="btn btn-warning btn-sm">
             Desatender incidencia
         </a>.
     </p>
 </section>
+@endif
 
 <section id="solve-incident">
     <h4>Marcar incidencia como resuelta</h4>
@@ -174,7 +184,7 @@
     </p>
     <p>
         Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>mis incidencias</em>,
-        busca el registro de la incidencia que quiere marcar como resuelta y en la columna <em>opciones</em> pinche en
+        buscar el registro de la incidencia que quiere marcar como resuelta y en la columna <em>opciones</em> pinchar en
         el botón de <strong>Ver</strong>
         <a class="btn btn-info btn-sm">
             Ver
@@ -182,10 +192,13 @@
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
-        de la incidencia. En esta ventana pinchamos en el botón <strong>Marcar como resuelta</strong>
+        de la incidencia. En esta ventana debe de pinchar en el botón <strong>Marcar como resuelta</strong>
         <a class="btn btn-success btn-sm">
             Marcar como resuelta
         </a>.
+    </p>
+    <p class="text-muted">
+        Las incidencias solo pueden ser marcadas como resuelta por el usuario que las creo.
     </p>
 </section>
 
@@ -200,7 +213,7 @@
     </p>
     <p>
         Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>mis incidencias</em>,
-        busca el registro de la incidencia que quiere volver a abrir y en la columna <em>opciones</em> pinche en
+        buscar el registro de la incidencia que quiere volver a abrir y en la columna <em>opciones</em> pinchar en
         el botón de <strong>Ver</strong>
         <a class="btn btn-info btn-sm">
             Ver
@@ -208,16 +221,18 @@
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
-        de la incidencia. En esta ventana pinchamos en el botón <strong>Volver a abrir la incidencia</strong>
+        de la incidencia. En esta ventana debe de pinchar en el botón <strong>Volver a abrir la incidencia</strong>
         <a class="btn btn-info btn-sm">
             Volver a abrir la incidencia
         </a>.
     </p>
     <p class="text-muted">
-        Esta acción solo se puede realizar si la incidencia se había marcado como resuelta anteriormente
+        Esta acción solo se puede realizar si la incidencia se había marcado como resuelta anteriormente y por el
+        usuario que la creo.
     </p>
 </section>
 
+@if (! auth()->user()->is_client)
 <section id="nextlevel-incident">
     <h4>Derivar incidencia al siguiente nivel</h4>
     <p>
@@ -229,15 +244,15 @@
     </p>
     <p>
         Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>Incidencias asignadas a mi</em>,
-        busca el registro de la incidencia que quiere derivar al siguiente nivel y en la columna <em>opciones</em>
-        pinche en el botón de <strong>Ver</strong>
+        buscar el registro de la incidencia que quiere derivar al siguiente nivel y en la columna <em>opciones</em>
+        pinchar en el botón de <strong>Ver</strong>
         <a class="btn btn-info btn-sm">
             Ver
         </a>.
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
-        de la incidencia. En esta ventana pinchamos en el botón <strong>Derivar al siguiente nivel</strong>
+        de la incidencia. En esta ventana debe de pinchar en el botón <strong>Derivar al siguiente nivel</strong>
         <a class="btn btn-danger btn-sm">
             Derivar al siguiente nivel
         </a>.
@@ -247,3 +262,4 @@
         como atender una incidencia <a href="#take-incident">pinche aqui</a>
     </p>
 </section>
+@endif

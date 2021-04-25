@@ -1,12 +1,13 @@
 <nav class="navbar navbar-light navbar-expand-lg bg-gradient-light shadow flex-lg-column">
         <span class="navbar-brand text-center mx-auto rounded">Indice</span>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#index"
-                aria-controls="index" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#index" aria-controls="index"
+                aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
         </button>
         <ul class="nav nav-pills flex-column collapse navbar-collapse" id="index">
                 <li class="nav-item"><a class="nav-link" href="#introduction">Introducción</a></li>
-                
+
+                @if (auth()->user()->is_admin)
                 {{-- Usuarios --}}
                 <li class="nav-item dropdown rounded">
                         <a class="nav-link dropdown-toggle rounded" data-toggle="dropdown" href="#" role="button"
@@ -17,8 +18,10 @@
                                 <a class="dropdown-item rounded" href="#edit-user">Modificar</a>
                                 <a class="dropdown-item rounded" href="#delete-user">Eliminar</a>
                                 <a class="dropdown-item rounded" href="#create-project-user">Asignar proyecto</a>
-                                <a class="dropdown-item rounded" href="#edit-project-user">Editar asignación con proyecto</a>
-                                <a class="dropdown-item rounded" href="#delete-project-user">Eliminar asignación con proyecto</a>
+                                <a class="dropdown-item rounded" href="#edit-project-user">Editar asignación con
+                                        proyecto</a>
+                                <a class="dropdown-item rounded" href="#delete-project-user">Eliminar asignación con
+                                        proyecto</a>
                         </div>
                 </li>
 
@@ -32,22 +35,6 @@
                                 <a class="dropdown-item rounded" href="#edit-project">Modificar</a>
                                 <a class="dropdown-item rounded" href="#delete-project">Eliminar</a>
                                 <a class="dropdown-item rounded" href="#change-project">Cambiar</a>
-                        </div>
-                </li>
-
-                {{-- Incidencias --}}
-                <li class="nav-item dropdown rounded">
-                        <a class="nav-link dropdown-toggle rounded" data-toggle="dropdown" href="#" role="button"
-                                aria-haspopup="true" aria-expanded="false">Incidencias</a>
-                        <div class="dropdown-menu rounded">
-                                <a class="dropdown-item rounded" href="#see-incidents">Ver</a>
-                                <a class="dropdown-item rounded" href="#create-incident">Crear</a>
-                                <a class="dropdown-item rounded" href="#edit-incident">Modificar</a>
-                                <a class="dropdown-item rounded" href="#take-incident">Atender</a>
-                                <a class="dropdown-item rounded" href="#disregard-incident">Desatender</a>
-                                <a class="dropdown-item rounded" href="#solve-incident">Marcar como resuelta</a>
-                                <a class="dropdown-item rounded" href="#open-incident">Volver a abrir</a>
-                                <a class="dropdown-item rounded" href="#nextlevel-incident">Derivar al siguiente nivel</a>
                         </div>
                 </li>
 
@@ -72,7 +59,32 @@
                                 <a class="dropdown-item rounded" href="#create-category">Crear</a>
                                 <a class="dropdown-item rounded" href="#edit-category">Modificar</a>
                                 <a class="dropdown-item rounded" href="#delete-category">Eliminar</a>
-                                <a class="dropdown-item rounded" href="#change-category">Cambiar</a>
+                        </div>
+                </li>
+                @endif
+
+                {{-- Incidencias --}}
+                <li class="nav-item dropdown rounded">
+                        <a class="nav-link dropdown-toggle rounded" data-toggle="dropdown" href="#" role="button"
+                                aria-haspopup="true" aria-expanded="false">Incidencias</a>
+                        <div class="dropdown-menu rounded">
+                                <a class="dropdown-item rounded" href="#see-incidents">Ver</a>
+                                <a class="dropdown-item rounded" href="#create-incident">Crear</a>
+                                <a class="dropdown-item rounded" href="#edit-incident">Modificar</a>
+
+                                @if (! auth()->user()->is_client)
+                                <a class="dropdown-item rounded" href="#take-incident">Atender</a>
+                                <a class="dropdown-item rounded" href="#disregard-incident">Desatender</a>
+                                @endif
+
+                                <a class="dropdown-item rounded" href="#solve-incident">Marcar como resuelta</a>
+                                <a class="dropdown-item rounded" href="#open-incident">Volver a abrir</a>
+
+                                @if (! auth()->user()->is_client)
+                                <a class="dropdown-item rounded" href="#nextlevel-incident">
+                                        Derivar al siguiente nivel
+                                </a>
+                                @endif
                         </div>
                 </li>
         </ul>
