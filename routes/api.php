@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// TODO: Intentar que solo los usuarios autorizados puedan usar las api
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

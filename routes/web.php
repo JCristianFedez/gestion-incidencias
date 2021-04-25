@@ -33,15 +33,16 @@ Route::get('/creditos', function () {
     return view('credits.credit');
 })->name("credits");
 
-Route::get("/instrucciones", function () {
-    return view('instructions.instructions');
-})->name("instructions");
-
 Auth::routes();
 
-Route::middleware(['middleware' => 'project.selected'])->group(function () {
+Route::middleware(['middleware' => 'project.selected', 'auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    Route::get("/instrucciones", function () {
+        return view('instructions.instructions');
+    })->name("instructions");
+
+    //TODO: Intentar pasar a api
     Route::get("/seleccionar/proyecto/{id}", [HomeController::class, "selectProject"])->name("seleccionar.proyecto");
 
 
@@ -64,6 +65,11 @@ Route::middleware(['middleware' => 'project.selected'])->group(function () {
 
     // Rutas de los mensages
     Route::post("/incidencia/{id}/mensajes", [MessageController::class, "store"])->name("incidencia.message.store");
+
+    // Datatables
+    Route::get("/datatables/dashboard/incidentsByMe", [DatatableController::class, "incidentsByMe"])->name("datatables.dashboard.incidentsByMe");
+    Route::get("/datatables/dashboard/myIncidents", [DatatableController::class, "myIncidents"])->name("datatables.dashboard.myIncidents");
+    Route::get("/datatables/dashboard/pendingIncidents", [DatatableController::class, "pendingIncidents"])->name("datatables.dashboard.pendingIncidents");
 });
 
 Route::group(["middleware" => "admin"], function () {
@@ -109,7 +115,3 @@ Route::group(["middleware" => "admin"], function () {
     Route::get("/datatables/proyecto/{id}/categorias", [DatatableController::class, "projectsCategories"])->name("datatables.project.categories");
     Route::get("/datatables/proyecto/{id}/niveles", [DatatableController::class, "projectsLevels"])->name("datatables.project.levels");
 });
-
-Route::get("/datatables/dashboard/incidentsByMe", [DatatableController::class, "incidentsByMe"])->name("datatables.dashboard.incidentsByMe");
-Route::get("/datatables/dashboard/myIncidents", [DatatableController::class, "myIncidents"])->name("datatables.dashboard.myIncidents");
-Route::get("/datatables/dashboard/pendingIncidents", [DatatableController::class, "pendingIncidents"])->name("datatables.dashboard.pendingIncidents");

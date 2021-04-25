@@ -5,28 +5,30 @@
 <section id="see-users">
     <h4>Ver usuarios</h4>
     <p>
-        Para ver usuarios, debe de dirigirse en el menú izquierdo al apartado de
+        Para ver a los usuarios registrados en la aplicacion, debe de dirigirse en el menú izquierdo al apartado de
         <a href="{{ route("usuarios") }}" class="btn btn-light">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
     </p>
     <p>
-        Ahora le aparecera en la parte inferior de la ventana una tabla con todos los usuarios.
+        Una vez le haya cargado la pagina, le aparecerá en la parte inferior de la pagina una tabla con todos los
+        usuarios registrados.
     </p>
 </section>
 
 <section id="create-user">
-    <h4>Crear usuarios</h4>
+    <h4>Crear usuario</h4>
     <p>
-        Para crear usuarios, debe de dirigirse en el menú izquierdo al apartado de
+        Para crear un usuario, debe de dirigirse en el menú izquierdo al apartado de
         <a href="{{ route("usuarios") }}" class="btn btn-light">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
     </p>
     <p>
-        Ahora rellene el formulario que aparece en la parte superior con los datos del nuevo usuario
+        Una vez le haya cargado la pagina, le aparecerá en la parte superior de la pagina un formulario, el cual debe de
+        rellenar con los datos del nuevo usuario.
     </p>
     <p class="text-muted">
         La contraseña se almacena cifrada para una mayor seguridad.
@@ -34,17 +36,17 @@
 </section>
 
 <section id="edit-user">
-    <h4>Editar usuarios</h4>
+    <h4>Editar usuario</h4>
     <p>
-        Para editar usuarios, debe de dirigirse en el menú izquierdo al apartado de
+        Para editar un usuario, debe de dirigirse en el menú izquierdo al apartado de
         <a href="{{ route("usuarios") }}" class="btn btn-light">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
     </p>
     <p>
-        Una vez haya cargado la ventana debe dirigirse a la tabla inferior busca el registro del usuario que quiere
-        editar y en la columna opciones pinche en el icono de <strong>Eliminar usuario</strong>
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, busca el registro del usuario que quiere
+        editar y en la columna <em>opciones</em> pinche en el botón de <strong>Editar usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
             <i class="fas fa-user-edit"></i>
@@ -52,22 +54,22 @@
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecera un formulario en la
-        parte superior el cual debe de rellenar con los nuevos datos del usuario.
+        parte superior, el cual debe de rellenar con los nuevos datos del usuario.
     </p>
 </section>
 
 <section id="disabled-user">
-    <h4>Dar de baja usuarios</h4>
+    <h4>Dar de baja a un usuario</h4>
     <p>
-        Para dar de baja usuarios, debe de dirigirse en el menú izquierdo al apartado de
+        Para dar de baja a un usuario, debe de dirigirse en el menú izquierdo al apartado de
         <a href="{{ route("usuarios") }}" class="btn btn-light">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
     </p>
     <p>
-        Una vez haya cargado la ventana debe dirigirse a la tabla inferior busca el registro del usuario que quiere
-        dar de baja y en la columna opciones pinche en el icono de <strong>Dar de baja</strong>
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior busca el registro del usuario que quiere
+        dar de baja y en la columna <em>opciones</em> pinche en el botón de <strong>Dar de baja</strong>
         <a class="btn btn-sm btn-warning" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Dar de baja">
             <i class="fas fa-user-times"></i>
@@ -76,7 +78,7 @@
 </section>
 
 <section id="enabled-user">
-    <h4>Restaurar usuarios</h4>
+    <h4>Restaurar usuario</h4>
     <p>
         Para volver a activar una cuenta de usuario, debe de dirigirse en el menú izquierdo al apartado de
         <a href="{{ route("usuarios") }}" class="btn btn-light">
@@ -85,8 +87,8 @@
         </a>.
     </p>
     <p>
-        Una vez haya cargado la ventana debe dirigirse a la tabla inferior busca el registro del usuario que quiere
-        restaurar y en la columna opciones pinche en el icono de <strong>Restaurar usuario</strong>
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del usuario que quiere
+        restaurar y en la columna <em>opciones</em> pinche en el botón de <strong>Restaurar usuario</strong>
         <a class="btn btn-sm btn-success" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Restaurar">
             <i class="fas fa-trash-restore"></i>
@@ -97,17 +99,17 @@
 <section id="delete-user">
     <h4>Eliminar usuarios</h4>
     <p>
-        Para eliminar usuarios, debe de dirigirse en el menú izquierdo al apartado de
+        Para eliminar un usuario, debe de dirigirse en el menú izquierdo al apartado de
         <a href="{{ route("usuarios") }}" class="btn btn-light">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
     </p>
     <p>
-        Una vez haya cargado la ventana debe dirigirse a la tabla inferior busca el registro del usuario que quiere
-        eliminar y en la columna opciones pinche en el icono de <strong>Eliminar usuario</strong>
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del usuario que quiere
+        eliminar y en la columna <em>opciones</em> pinche en el botón de <strong>Eliminar usuario</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Restaurar">
+            data-original-title="Eliminar">
             <i class="fas fa-minus-circle"></i>
         </a>.
     </p>
@@ -127,8 +129,8 @@
         </a>.
     </p>
     <p>
-        Una vez haya cargado la ventana debe dirigirse a la tabla inferior busca el registro del usuario que quiere
-        asignar un proyecto y en la columna opciones pinche en el icono de <strong>Editar usuario</strong>
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior busca el registro del usuario que quiere
+        asignar un proyecto y en la columna <em>opciones</em> pinche en el botón de <strong>Editar usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
             <i class="fas fa-user-edit"></i>
@@ -155,8 +157,8 @@
     </p>
 
     <p>
-        Una vez haya cargado la ventana debe dirigirse a la tabla inferior, busca el registro del usuario que quiere
-        editar la asignacion de un proyecto y en la columna opciones pinche en el icono de <strong>Editar
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, busca el registro del usuario que quiere
+        editar la asignacion de un proyecto y en la columna <em>opciones</em> pinche en el botón de <strong>Editar
             usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
@@ -194,8 +196,8 @@
     </p>
 
     <p>
-        Una vez haya cargado la ventana debe dirigirse a la tabla inferior y busca el registro del usuario que quiere
-        eliminar la asignacion de un proyecto y en la columna opciones pinche en el icono de <strong>Editar
+        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior y busca el registro del usuario que quiere
+        eliminar la asignacion de un proyecto y en la columna <em>opciones</em> pinche en el botón de <strong>Editar
             usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
