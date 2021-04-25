@@ -8,7 +8,7 @@
     data-level-name="{{$name}}">
     @csrf
     @method('DELETE')
-    <button type="submit" class="btn btn-sm btn-danger delete-level" title="Dar de baja" data-toggle="tooltip"
+    <button type="submit" class="btn btn-sm btn-danger delete-level" title="Eliminar" data-toggle="tooltip"
         data-placement="top" data-action="delete-level">
         <i class="fas fa-trash-alt"></i>
     </button>

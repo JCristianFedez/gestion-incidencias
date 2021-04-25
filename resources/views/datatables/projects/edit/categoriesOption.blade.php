@@ -6,7 +6,7 @@
 <form action="{{ route("categoria.destroy", $id) }}" method="POST" class="d-inline-block" data-category-name="{{$name}}">
     @csrf
     @method('DELETE')
-    <button type="submit" class="btn btn-sm btn-danger delete-category" title="Dar de baja" data-toggle="tooltip"
+    <button type="submit" class="btn btn-sm btn-danger delete-category" title="Eliminar" data-toggle="tooltip"
         data-placement="top" data-action="delete-category">
         <i class="fas fa-trash-alt"></i>
     </button>
