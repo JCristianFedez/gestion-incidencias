@@ -1,4 +1,4 @@
-// TODO: Cuando este terminado agregar imagenes de los botones
+// TODO: Cuando este terminado agregar imagenes de los botones, quitar las lineas [======] y ademas para referenciar por id usar Ej: eliminar-usuario y arriba del titulo acregar un <span id="eliminar-usuario"></span>
 
 # Sistema de Gestion de Incidencias
 
