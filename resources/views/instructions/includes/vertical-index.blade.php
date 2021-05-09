@@ -15,7 +15,9 @@
                         <div class="dropdown-menu rounded">
                                 <a class="dropdown-item rounded" href="#see-users">Ver</a>
                                 <a class="dropdown-item rounded" href="#create-user">Crear</a>
-                                <a class="dropdown-item rounded" href="#edit-user">Modificar</a>
+                                <a class="dropdown-item rounded" href="#edit-user">Editar</a>
+                                <a class="dropdown-item rounded" href="#disabled-user">Dar de baja</a>
+                                <a class="dropdown-item rounded" href="#enabled-user">Restaurar</a>
                                 <a class="dropdown-item rounded" href="#delete-user">Eliminar</a>
                                 <a class="dropdown-item rounded" href="#create-project-user">Asignar proyecto</a>
                                 <a class="dropdown-item rounded" href="#edit-project-user">Editar asignación con
@@ -32,7 +34,7 @@
                         <div class="dropdown-menu rounded">
                                 <a class="dropdown-item rounded" href="#see-projects">Ver</a>
                                 <a class="dropdown-item rounded" href="#create-project">Crear</a>
-                                <a class="dropdown-item rounded" href="#edit-project">Modificar</a>
+                                <a class="dropdown-item rounded" href="#edit-project">Editar</a>
                                 <a class="dropdown-item rounded" href="#delete-project">Eliminar</a>
                                 <a class="dropdown-item rounded" href="#change-project">Cambiar</a>
                         </div>
@@ -45,7 +47,7 @@
                         <div class="dropdown-menu rounded">
                                 <a class="dropdown-item rounded" href="#see-levels">Ver</a>
                                 <a class="dropdown-item rounded" href="#create-level">Crear</a>
-                                <a class="dropdown-item rounded" href="#edit-level">Modificar</a>
+                                <a class="dropdown-item rounded" href="#edit-level">Editar</a>
                                 <a class="dropdown-item rounded" href="#delete-level">Eliminar</a>
                         </div>
                 </li>
@@ -57,7 +59,7 @@
                         <div class="dropdown-menu rounded">
                                 <a class="dropdown-item rounded" href="#see-categories">Ver</a>
                                 <a class="dropdown-item rounded" href="#create-category">Crear</a>
-                                <a class="dropdown-item rounded" href="#edit-category">Modificar</a>
+                                <a class="dropdown-item rounded" href="#edit-category">Editar</a>
                                 <a class="dropdown-item rounded" href="#delete-category">Eliminar</a>
                         </div>
                 </li>
@@ -70,7 +72,7 @@
                         <div class="dropdown-menu rounded">
                                 <a class="dropdown-item rounded" href="#see-incidents">Ver</a>
                                 <a class="dropdown-item rounded" href="#create-incident">Crear</a>
-                                <a class="dropdown-item rounded" href="#edit-incident">Modificar</a>
+                                <a class="dropdown-item rounded" href="#edit-incident">Editar</a>
 
                                 @if (! auth()->user()->is_client)
                                 <a class="dropdown-item rounded" href="#take-incident">Atender</a>

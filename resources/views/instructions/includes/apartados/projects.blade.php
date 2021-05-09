@@ -35,7 +35,7 @@
 <section id="edit-project">
     <h4>Editar proyecto</h4>
     <p>
-        Para crear proyectos, debe de dirigirse en el menú izquierdo al apartado de
+        Para editar un proyecto, debe de dirigirse en el menú izquierdo al apartado de
         <a href="{{ route("proyectos") }}" class="btn btn-light">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
