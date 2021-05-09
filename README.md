@@ -59,7 +59,7 @@ Las mayoría de las tablas en esta aplicación tienen varias opciones para busca
 
 ## <a name="usuarios">Usuarios</a>
 ### <a name="usuarios-ver">Ver usuarios</a>
-Para ver a los usuarios registrados en la aplicacion, debe de dirigirse en el menú izquierdo al apartado de **Usuarios**.
+Para ver a los usuarios registrados en la aplicacion, debe de dirigirse en el menú izquierdo al apartado de ![Usuarios](https://raw.githubusercontent.com/JCristianFedez/gestion-incidencias/main/documentation/Imagenes-botones/btn-usuarios.png).
 
 Una vez le haya cargado la pagina, le aparecerá en la parte inferior de la pagina una tabla con todos los usuarios registrados.
 <br>
