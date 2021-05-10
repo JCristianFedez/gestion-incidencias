@@ -17,18 +17,19 @@ class MessageController extends Controller
         $this->middleware('auth');
     }
 
-    public function store(Request $request, $id){
+    public function store(Request $request, $id)
+    {
 
         $rules = [
-            "message" => ["required","min:5","max:255","string"]
+            "message" => ["required", "max:255", "string"]
         ];
 
         $messages = [
             "message.required" => "Olvido ingresar un mensaje.",
-            "message.min" => "Ingrese al menos 5 caracteres.",
-            "message.max" => "Ingrese como máximo 255 caracteres"        ];
+            "message.max" => "Ingrese como máximo 255 caracteres"
+        ];
 
-        $this->validate($request,$rules,$messages);
+        $this->validate($request, $rules, $messages);
 
         $message = new Message();
         $message->incident_id = $id;
@@ -36,6 +37,6 @@ class MessageController extends Controller
         $message->user_id = auth()->user()->id;
         $message->save();
 
-        return back()->with("notification","Mensaje enviado");
+        return back()->with("notification", "Mensaje enviado");
     }
 }

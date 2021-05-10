@@ -1,20 +1,30 @@
-$(function() {
-    darEventos();    
+const REFRESH_CHAT = 1000;
+let oldChat;
+let newChat;
+
+$(function () {
+    darEventos();
+    oldChat = $("#chat-messages li").length;
 });
 
 /**
  * Especifico los eventos a los botones
  */
-function darEventos(){
-    $(".btn-action-js").off("click",ejecutarFuncionDelBoton);
-    $(".btn-action-js").on("click",ejecutarFuncionDelBoton);
+function darEventos() {
+    $(".btn-action-js").off("click");
+    $(".btn-action-js").on("click", ejecutarFuncionDelBoton);
+    $("#btn-submit-message").on("click", enviarMensaje);
+
+    setInterval(() => {
+        $("#chat-messages").load(" #chat-messages");
+    }, REFRESH_CHAT);
 }
 
 /**
  * Ejecuta la funcion de cada boton por ajax
  * @param {event} e 
  */
-function ejecutarFuncionDelBoton(e){
+function ejecutarFuncionDelBoton(e) {
     e.preventDefault();
 
     $.ajaxSetup({
@@ -41,7 +51,7 @@ function ejecutarFuncionDelBoton(e){
                 icon: data.type,
                 loader: true,
             });
-            $("#action-butons").load(" #action-butons", function(){
+            $("#action-butons").load(" #action-butons", function () {
                 darEventos();
             });
             $("#tabla-incidencia").load(" #tabla-incidencia");
@@ -51,6 +61,47 @@ function ejecutarFuncionDelBoton(e){
             $.toast({
                 heading: 'Error',
                 text: errorMessage,
+                showHideTransition: 'fade',
+                icon: 'error'
+            })
+        }
+    });
+}
+
+function enviarMensaje(e) {
+    e.preventDefault();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    let form = $(this).closest("form");
+    let message = form.find("#message").val();
+    form.find("#message").val("");
+    if (message.length <= 0) return;
+    let url = form.attr("action");
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: { message: message },
+        success: function success() {
+            $("#chat-messages").load(" #chat-messages");
+            
+            $.toast({
+                heading: 'Correcto',
+                text: `Mensaje enviado correctamente`,
+                showHideTransition: 'slide',
+                icon: 'success',
+                loader: true,
+            });
+        },
+        error: function error() {
+            $.toast({
+                heading: 'Error',
+                text: "Error al enviar mensaje",
                 showHideTransition: 'fade',
                 icon: 'error'
             })

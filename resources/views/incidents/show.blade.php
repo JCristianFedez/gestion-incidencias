@@ -129,7 +129,7 @@
     @endif
 </div>
 
-@include('incidents.layouts.chat')
+@include('incidents.includes.chat')
 @endsection
 
 

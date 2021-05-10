@@ -8,7 +8,7 @@
             </div>
         @endif
 
-        <ul class="list-unstyled">
+        <ul class="list-unstyled" id="chat-messages">
             @foreach ($messages as $message)
                 <li class="media">
                     @if (auth()->user()->id != $message->user_id)
@@ -22,7 +22,7 @@
                             <hr>
                         </div>
                     @endif
-
+        
                     @if (auth()->user()->id == $message->user_id)
                         <div class="media-body text-right">
                             {{ $message->message }}
@@ -40,12 +40,12 @@
     </div>
 
     <div class="card-footer">
-        <form action="/incidencia/{{ $incident->id }}/mensajes" method="POST">
+        <form action="{{ route("incidencia.message.store",$incident->id) }}" method="POST">
             @csrf
             <div class="input-group">
-                <input type="text" class="form-control" name="message">
+                <input type="text" class="form-control" name="message" id="message">
                 <span class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Enviar</button>
+                    <button class="btn btn-primary" type="submit" id="btn-submit-message">Enviar</button>
                 </span>
             </div>    
         </form>        
