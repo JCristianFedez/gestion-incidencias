@@ -104,21 +104,22 @@ function onSelectProjectChange() {
         select_level.html(html_select);
     });
 }
-
+let a;
 /**
  * Setting the modal to edit the relationship
  */
 function editRealtionModal() {
     let project_id = $(this).data("project-id");
-    let project_name = $(this).parent().parent().parent().find(".projectsName").text();
-    console.log(project_name);
+    a = $(this);
+    let project_name = $(this).parent().parent().parent().find("td").first().text();
+    console.log(project_id);
     let level_id = $(this).data("level-id");
     let title = $("#EditProjectRelationModalLabel");
     let select_level = $("#select_level_relation");
     let html_select = "";
     $("#project_id_relation").val(project_id);
     $("#project_user_id_relation").val($(this).val());
-    console.log($("#project_user_id_relation").val());
+
     title.text(`Editar Relacion con ${project_name}`);
 
     $("#project_id").val(project_id);
