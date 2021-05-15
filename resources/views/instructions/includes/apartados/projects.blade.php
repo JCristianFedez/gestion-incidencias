@@ -12,7 +12,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, le aparecerá en la parte inferior de la pagina una tabla con todos los
+        Una vez le haya cargado la página, le aparecerá en la <strong>parte inferior de la página</strong> una tabla con
+        todos los
         proyectos.
     </p>
 </section>
@@ -27,7 +28,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, le aparecerá en la parte superior de la pagina un formulario, el cual debe de
+        Una vez le haya cargado la página, le aparecerá en la <strong>parte superior de la página</strong> un
+        formulario, el cual debe de
         rellenar con los datos del nuevo proyecto.
     </p>
 </section>
@@ -42,7 +44,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto que
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del
+        proyecto que
         quiere editar y en la columna <em>opciones</em> pinche en el botón de <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
@@ -51,7 +54,7 @@
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecera un formulario en la
-        parte superior, el cual debe de rellenar con los nuevos datos del proyecto.
+        <strong>parte superior</strong>, el cual debe de rellenar con los nuevos datos del proyecto.
     </p>
 </section>
 
@@ -65,7 +68,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto que
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del
+        proyecto que
         quiere
         dar de baja y en la columna <em>opciones</em> pinche en el botón de <strong>Dar de baja</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
@@ -85,7 +89,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto que
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del
+        proyecto que
         quiere restaurar y en la columna <em>opciones</em> pinche en el botón de <strong>Restaurar proyecto</strong>
         <a class="btn btn-sm btn-success" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Restaurar">
@@ -104,7 +109,8 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto que
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del
+        proyecto que
         quiere eliminar y en la columna <em>opciones</em> pinche en el botón de <strong>Eliminar proyecto</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Eliminar">
@@ -120,7 +126,7 @@
 <section id="change-project">
     <h4>Cambiar de proyecto</h4>
     <p>
-        Para cambiar de proyecto debe de pinchar en el selector del menú superior
+        Para cambiar de proyecto debe de pinchar en el <strong>selector del menú superior</strong>
         @if (auth()->user()->selected_project_id)
         <select id="select-project-instruction" class="custom-select d-inline-block w-auto">
             @foreach (auth()->user()->list_of_projects as $project)
@@ -138,9 +144,9 @@
         .
     </p>
     <p>
-        Se le desplegara una lista con todos los proyectos en los que puede participar, en ella debe de pinchar en el
-        proyecto que desea, automáticamente la aplicación se actualizara mostrando las incidencias de dicho proyecto así
-        como cuando se cree una nueva se creara sobre dicho proyecto.
+        Se le desplegara una lista con todos los proyectos en los que puede participar, en ella debe de <strong> pinchar
+            en el proyecto que desea </strong>, automáticamente la aplicación se actualizara mostrando las incidencias
+        de dicho proyecto así como cuando se cree una nueva se creara sobre dicho proyecto.
     </p>
     <p class="text-muted">
         Los usuarios de soporte que no tengan ningún proyecto asignado no podrán usar esta funcionalidad.

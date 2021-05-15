@@ -14,18 +14,18 @@
 
     <p>
         @if (auth()->user()->is_client)
-        Una vez le haya cargado la pagina, le aparecerá la siguiente tabla.
+        Una vez le haya cargado la página, le aparecerá la siguiente tabla.
         @else
-        Una vez le haya cargado la pagina, le aparecerán las siguientes tablas.
+        Una vez le haya cargado la página, le aparecerán las siguientes tablas.
         @endif
     </p>
 
     <ol>
         @if (! auth()->user()->is_client)
         <li>
-            <strong>Incidencias asignadas a mi</strong>
+            <strong>Incidencias asignadas a mí</strong>
             <ul>
-                <li>En esta tabla puede ver todas las incidencias que esta atendiendo.</li>
+                <li>En esta tabla puede ver todas las incidencias que está atendiendo.</li>
             </ul>
         </li>
         @endif
@@ -39,7 +39,7 @@
         <li>
             <strong>Incidencias sin asignar</strong>
             <ul>
-                <li>En esta tabla puede ver todas las incidencias que esta atendiendo.</li>
+                <li>En esta tabla puede ver todas las incidencias que está atendiendo.</li>
             </ul>
         </li>
         @endif
@@ -64,7 +64,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, le aparecerá en la parte superior de la pagina un formulario, el cual debe de
+        Una vez le haya cargado la página, le aparecerá en la parte superior de la página un formulario, el cual debe de
         rellenar con los datos de la incidencia.
     </p>
 </section>
@@ -79,7 +79,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>mis incidencias</em>,
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de mis incidencias</strong>,
         buscar el registro de la incidencia que quiere editar y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Ver</strong>
         <a class="btn btn-info btn-sm">
@@ -113,7 +113,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>incidencias sin asignar</em>,
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de incidencias sin asignar</strong>,
         busca el registro de la incidencia que quiere atender y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Atender</strong>
         <a class="btn btn-primary btn-sm">
@@ -121,7 +121,7 @@
         </a>.
     </p>
     <p>
-        Tambien la puede atender pinchando en el botón de <strong>Ver</strong>
+        También la puede atender pinchando en el botón de <strong>Ver</strong>
         <a class="btn btn-info btn-sm">
             Ver
         </a>.
@@ -149,16 +149,15 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>incidencias asignadas a mi</em>,
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de incidencias asignadas a mí</strong>,
         busca el registro de la incidencia que quiere desatender y en la columna <em>opciones</em> pinchar en el botón
-        de
-        <strong>Desatender</strong>
+        de <strong>Desatender</strong>
         <a class="btn btn-warning btn-sm">
             Desatender
         </a>.
     </p>
     <p>
-        Tambien la puede desatender pinchando en el botón de <strong>Ver</strong>
+        También la puede desatender pinchando en el botón de <strong>Ver</strong>
         <a class="btn btn-info btn-sm">
             Ver
         </a>.
@@ -183,7 +182,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>mis incidencias</em>,
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de mis incidencias</strong>,
         buscar el registro de la incidencia que quiere marcar como resuelta y en la columna <em>opciones</em> pinchar en
         el botón de <strong>Ver</strong>
         <a class="btn btn-info btn-sm">
@@ -212,7 +211,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>mis incidencias</em>,
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de mis incidencias</strong>,
         buscar el registro de la incidencia que quiere volver a abrir y en la columna <em>opciones</em> pinchar en
         el botón de <strong>Ver</strong>
         <a class="btn btn-info btn-sm">
@@ -243,7 +242,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla de <em>Incidencias asignadas a mi</em>,
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de Incidencias asignadas a mí</strong>,
         buscar el registro de la incidencia que quiere derivar al siguiente nivel y en la columna <em>opciones</em>
         pinchar en el botón de <strong>Ver</strong>
         <a class="btn btn-info btn-sm">

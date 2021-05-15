@@ -55,7 +55,7 @@
                 {{-- Categorias --}}
                 <li class="nav-item dropdown rounded">
                         <a class="nav-link dropdown-toggle rounded" data-toggle="dropdown" href="#" role="button"
-                                aria-haspopup="true" aria-expanded="false">Categorias</a>
+                                aria-haspopup="true" aria-expanded="false">Categorías</a>
                         <div class="dropdown-menu rounded">
                                 <a class="dropdown-item rounded" href="#see-categories">Ver</a>
                                 <a class="dropdown-item rounded" href="#create-category">Crear</a>

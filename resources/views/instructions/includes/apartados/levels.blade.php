@@ -12,7 +12,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto del cual
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del proyecto del cual
         quiere ver sus niveles y en la columna <em>opciones</em> pinchar en el botón de <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
@@ -20,7 +20,7 @@
         </a>.
     </p>
     <p>
-        Se le redirigirá a una ventana en la cual en la parte inferior aparecerá una tabla con todos los niveles
+        Se le redirigirá a una ventana en la cual en la <strong>parte inferior</strong> aparecerá una tabla con todos los niveles
         del proyecto seleccionado.
     </p>
 </section>
@@ -35,7 +35,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto al cual
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del proyecto al cual
         le quiere agregar un nivel y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
@@ -44,7 +44,7 @@
         </a>.
     </p>
     <p>
-        Se le redirigirá a una ventana en la cual en la parte inferior aparecerá un campo numérico en el cual se debe de
+        Se le redirigirá a una ventana en la cual en la <strong>parte inferior</strong> aparecerá un campo numérico en el cual se debe de
         indicar la importancia y otro campo de texto en el cual debe de ingresar el nombre del nivel.
     </p>
     <p class="text-muted">
@@ -63,7 +63,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto del cual
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del proyecto del cual
         quiere editar un nivel y en la columna <em>opciones</em> pinchar en el botón de <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Editar">
@@ -71,7 +71,7 @@
         </a>.
     </p>
     <p>
-        Se le redirigirá a una ventana en la cual en la parte inferior aparecerá una tabla con todos los niveles
+        Se le redirigirá a una ventana en la cual en la <strong>parte inferior</strong> aparecerá una tabla con todos los niveles
         del proyecto seleccionado, en ella debe de buscar el registro del nivel a editar y en la columna
         <em>opciones</em> pinchar en el botón de <strong>Editar</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
@@ -99,7 +99,7 @@
         </a>.
     </p>
     <p>
-        Una vez le haya cargado la pagina, debe dirigirse a la tabla inferior, buscar el registro del proyecto del cual
+        Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del proyecto del cual
         quiere eliminar un nivel y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
@@ -108,7 +108,7 @@
         </a>.
     </p>
     <p>
-        Se le redirigirá a una ventana en la cual en la parte inferior aparecerá una tabla con todos los niveles
+        Se le redirigirá a una ventana en la cual en la <strong>parte inferior</strong> aparecerá una tabla con todos los niveles
         del proyecto seleccionado, en ella debe de buscar el registro del nivel a eliminar y en la columna
         <em>opciones</em> pinchar en el botón de <strong>Eliminar</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
