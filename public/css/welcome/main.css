@@ -1,0 +1,25 @@
+body {
+    background-image: url("../../images/backgrounds/geometric-blue.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo{
+    display: none;
+}
+
+h1.sub-titulo{
+    font-weight: 700;
+    font-family: initial;
+}
+
+h3.sub-titulo{
+    font-weight: 700;
+}

@@ -74,6 +74,13 @@ class User extends Authenticatable
     }
 
     /**
+     * Devuelve las incidencias que esta atendiendo
+     */
+    public function getListOfIncidentsTakeAttribute(){
+        return Incident::where("support_id",$this->id)->get();
+    }
+
+    /**
      * Devuelve true si es admin
      */
     public function getIsAdminAttribute(){

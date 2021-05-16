@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Level;
-use App\Models\Project;
 use App\Models\ProjectUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectUserController extends Controller
 {
-    public function store(Request $request){
-        
+    public function store(Request $request)
+    {
+
         $rules = [
             'project_id' => ['required', 'exists:projects,id'],
             'level_id' => ['required', 'exists:levels,id'],
@@ -24,21 +25,21 @@ class ProjectUserController extends Controller
         ];
 
         $this->validate($request, $rules, $messages);
-        
+
         // Si hay un usuario malicioso e intenta enlacar un proyecto con un nivel que no le corresponde
         $level = Level::find($request->level_id);
-        if($level->project_id != $request->project_id){
+        if ($level->project_id != $request->project_id) {
             return back();
         }
 
         // Comprobamos que el usuario no pertenezca ya al proyecto
         $project_user = ProjectUser::where("project_id", $request->project_id)
-            ->where("user_id",$request->user_id)->first();
+            ->where("user_id", $request->user_id)->first();
 
-        if($project_user){
-            if($project_user->deleted_at == null){
+        if ($project_user) {
+            if ($project_user->deleted_at == null) {
                 return back()->with("notification", "El usuario ya pertenece a este proyecto.");
-            }else{
+            } else {
                 $project_user->restore();
                 return back()->with("notification", "Usuario agregado al proyecto.");
             }
@@ -53,8 +54,9 @@ class ProjectUserController extends Controller
         return back()->with("notification", "Usuario agregado al proyecto.");
     }
 
-    public function update(Request $request){
-        
+    public function update(Request $request)
+    {
+
         $rules = [
             'project_id' => ['required', 'exists:projects,id'],
             'level_id' => ['required', 'exists:levels,id'],
@@ -67,14 +69,28 @@ class ProjectUserController extends Controller
         ];
 
         $this->validate($request, $rules, $messages);
-        
+
         // Si hay un usuario malicioso e intenta enlacar un proyecto con un nivel que no le corresponde
         $level = Level::find($request->level_id);
-        if($level->project_id != $request->project_id){
+        if ($level->project_id != $request->project_id) {
             return back();
         }
-
+        
         $project_user = ProjectUser::find($request->project_user_id);
+
+        // Se desatienden todas las incidencias que estaba atendiendo el usuario si se le cambia el nivel
+        if ($project_user->level_id != $request->level_id) {
+
+            $user = User::find($project_user->user_id);
+            $incidents = $user->list_of_incidents_take;
+            if ($incidents) {
+                foreach ($incidents as $incident) {
+                    $incident->support_id = null;
+                    $incident->save();
+                }
+            }
+        }
+
         $project_user->project_id = $request->project_id;
         $project_user->user_id = $request->user_id;
         $project_user->level_id = $request->level_id;
@@ -84,7 +100,8 @@ class ProjectUserController extends Controller
     }
 
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         ProjectUser::find($id)->delete();
         return back()->with("notification", "Relacion eliminada.");
     }
