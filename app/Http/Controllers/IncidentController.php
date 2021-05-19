@@ -54,12 +54,24 @@ class IncidentController extends Controller
             $category = Category::find($request->category_id);
             $categoryName = ($category) ? $category->name : "general"; //If the category is null, it is assigned general
 
-            $adjunto = $request->file("adjunto")->storeAs(
+            // Parte en local
+            /*$adjunto = $request->file("adjunto")->storeAs(
                 "public/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")."/Incident-Id-$incidentId/attached-file",
                 $request->file("adjunto")->getClientOriginalName()
             );
-
             $url = Storage::url($adjunto);
+            */
+
+            // Descomentar para infinityfree
+            $path = "storage/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")      ."/Incident-Id-$incidentId/attached-file";
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            move_uploaded_file($_FILES["adjunto"]["tmp_name"],$path ."/". $_FILES["adjunto"]["name"]);
+
+            $url = "/".$path."/".$_FILES["adjunto"]["name"];
+            //FIn infinityfree
         }
 
 
@@ -108,6 +120,7 @@ class IncidentController extends Controller
             $categoryName = ($category) ? $category->name : "general"; //If the category is null, it is assigned general
 
             // If a new file is added, the previous one is deleted
+            // Parte local
             if ($incident->attached_file) {
                 $publicRoute = $incident->file_public_path;
                 if (Storage::exists($publicRoute))
@@ -120,6 +133,22 @@ class IncidentController extends Controller
             );
 
             $url = Storage::url($adjunto);
+
+            // Descomentar para infinityfree
+            /*if ($incident->attached_file) {
+                if (file_exists(substr($incident->attached_file, 1)))
+                    unlink(substr($incident->attached_file, 1));
+            }
+
+            $path = "storage/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")      ."/Incident-Id-$incidentId/attached-file";
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+            move_uploaded_file($_FILES["adjunto"]["tmp_name"],$path ."/". $_FILES["adjunto"]["name"]);
+
+            $url = "/".$path."/".$_FILES["adjunto"]["name"];*/
+            //FIn infinityfree
         }
 
         $incident->level_id = $request->level_id ?: null;
