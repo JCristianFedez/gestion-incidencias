@@ -3,9 +3,9 @@
 @section('content')
 <div>
 
-    <div class="container text-center text">
-        <h1 class="mb-1 display-1 sub-titulo">Sistema de Gestion de Incidencias</h1>
-        <h3 class="mb-5 text-white sub-titulo"><em>Gestiona tus incidencias de forma rapida y sencilla</em></h3>
+    <div class="text-center">
+        <h1 class="mb-1 bolder-text responsive-text font-initial">Sistema de Gestion de Incidencias</h1>
+        <h3 class="mb-5 text-white bolder-text responsive-text"><em>Gestiona tus incidencias de forma rapida y sencilla</em></h3>
     </div>
 
 

@@ -15,11 +15,17 @@ body {
     display: none;
 }
 
-h1.sub-titulo{
+.bolder-text{
     font-weight: 700;
+}
+
+.font-initial{
     font-family: initial;
 }
 
-h3.sub-titulo{
-    font-weight: 700;
+h1.responsive-text{
+    font-size: calc(1rem + 10vmin);
+}
+h3.responsive-text{
+    font-size: calc(1rem + 4vmin);
 }
