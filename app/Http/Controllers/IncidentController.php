@@ -55,22 +55,22 @@ class IncidentController extends Controller
             $categoryName = ($category) ? $category->name : "general"; //If the category is null, it is assigned general
 
             // Parte en local
-            /*$adjunto = $request->file("adjunto")->storeAs(
+            $adjunto = $request->file("adjunto")->storeAs(
                 "public/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")."/Incident-Id-$incidentId/attached-file",
                 $request->file("adjunto")->getClientOriginalName()
             );
             $url = Storage::url($adjunto);
-            */
+            
 
             // Descomentar para infinityfree
-            $path = "storage/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")      ."/Incident-Id-$incidentId/attached-file";
+            /*$path = "storage/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")      ."/Incident-Id-$incidentId/attached-file";
 
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
             }
             move_uploaded_file($_FILES["adjunto"]["tmp_name"],$path ."/". $_FILES["adjunto"]["name"]);
 
-            $url = "/".$path."/".$_FILES["adjunto"]["name"];
+            $url = "/".$path."/".$_FILES["adjunto"]["name"];*/
             //FIn infinityfree
         }
 
