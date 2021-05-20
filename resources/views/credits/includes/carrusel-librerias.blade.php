@@ -24,7 +24,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://jquery.com/" target="_blank" class="btn btn-primary">Mas informacion</a>
+                    <a href="https://jquery.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://fontawesome.com/" target="_blank" class="btn btn-primary">Mas informacion</a>
+                    <a href="https://fontawesome.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://datatables.net/" target="_blank" class="btn btn-primary">Mas informacion</a>
+                    <a href="https://datatables.net/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://owlcarousel2.github.io/OwlCarousel2/" target="_blank" class="btn btn-primary">Mas
+                    <a href="https://owlcarousel2.github.io/OwlCarousel2/" target="_blank" class="btn btn-primary" role="button">Mas
                         informacion</a>
                 </div>
             </div>
@@ -116,7 +116,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://sweetalert2.github.io/" target="_blank" class="btn btn-primary">
+                    <a href="https://sweetalert2.github.io/" target="_blank" class="btn btn-primary" role="button">
                         Mas informacion
                     </a>
                 </div>
@@ -141,7 +141,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://kamranahmed.info/toast" target="_blank" class="btn btn-primary">Mas informacion</a>
+                    <a href="https://kamranahmed.info/toast" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
                 </div>
             </div>
         </div>
@@ -166,7 +166,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://craftpip.github.io/jquery-confirm/" target="_blank" class="btn btn-primary">Mas
+                    <a href="https://craftpip.github.io/jquery-confirm/" target="_blank" class="btn btn-primary" role="button">Mas
                         informacion</a>
                 </div>
             </div>

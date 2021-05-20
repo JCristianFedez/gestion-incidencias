@@ -21,7 +21,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://laravel.com/" target="_blank" class="btn btn-primary">Mas informacion</a>
+                    <a href="https://laravel.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://httpd.apache.org/" target="_blank" class="btn btn-primary">Mas informacion</a>
+                    <a href="https://httpd.apache.org/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://www.mysql.com/" target="_blank" class="btn btn-primary">Mas informacion</a>
+                    <a href="https://www.mysql.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
                         potentes complementos de JavaScript.</p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://getbootstrap.com/" target="_blank" class="btn btn-primary">Mas informacion</a>
+                    <a href="https://getbootstrap.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
                 </div>
             </div>
         </div>

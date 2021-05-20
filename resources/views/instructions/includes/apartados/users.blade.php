@@ -6,7 +6,7 @@
     <h4>Ver usuarios</h4>
     <p>
         Para ver a los usuarios registrados en la aplicación, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("usuarios") }}" class="btn btn-light">
+        <a href="{{ route("usuarios") }}" class="btn btn-light" role="button">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
@@ -21,7 +21,7 @@
     <h4>Crear usuario</h4>
     <p>
         Para crear un usuario, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("usuarios") }}" class="btn btn-light">
+        <a href="{{ route("usuarios") }}" class="btn btn-light" role="button">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
@@ -39,7 +39,7 @@
     <h4>Editar usuario</h4>
     <p>
         Para editar un usuario, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("usuarios") }}" class="btn btn-light">
+        <a href="{{ route("usuarios") }}" class="btn btn-light" role="button">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
@@ -49,7 +49,7 @@
         usuario que quiere editar y en la columna <em>opciones</em> pinche en el botón de <strong>Editar
             usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-user-edit"></i>
         </a>.
     </p>
@@ -63,7 +63,7 @@
     <h4>Dar de baja a un usuario</h4>
     <p>
         Para dar de baja a un usuario, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("usuarios") }}" class="btn btn-light">
+        <a href="{{ route("usuarios") }}" class="btn btn-light" role="button">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
@@ -73,7 +73,7 @@
         usuario que quiere
         dar de baja y en la columna <em>opciones</em> pinche en el botón de <strong>Dar de baja</strong>
         <a class="btn btn-sm btn-warning" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Dar de baja">
+            data-original-title="Dar de baja" role="button">
             <i class="fas fa-user-times"></i>
         </a>.
     </p>
@@ -83,7 +83,7 @@
     <h4>Restaurar usuario</h4>
     <p>
         Para volver a activar una cuenta de usuario, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("usuarios") }}" class="btn btn-light">
+        <a href="{{ route("usuarios") }}" class="btn btn-light" role="button">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
@@ -93,7 +93,7 @@
         usuario que quiere
         restaurar y en la columna <em>opciones</em> pinche en el botón de <strong>Restaurar usuario</strong>
         <a class="btn btn-sm btn-success" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Restaurar">
+            data-original-title="Restaurar" role="button">
             <i class="fas fa-trash-restore"></i>
         </a>.
     </p>
@@ -103,7 +103,7 @@
     <h4>Eliminar usuarios</h4>
     <p>
         Para eliminar un usuario, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("usuarios") }}" class="btn btn-light">
+        <a href="{{ route("usuarios") }}" class="btn btn-light" role="button">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
@@ -113,7 +113,7 @@
         usuario que quiere
         eliminar y en la columna <em>opciones</em> pinche en el botón de <strong>Eliminar usuario</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Eliminar">
+            data-original-title="Eliminar" role="button">
             <i class="fas fa-minus-circle"></i>
         </a>.
     </p>
@@ -127,7 +127,7 @@
     <h4>Asignar un proyecto a un usuario de soporte</h4>
     <p>
         Para asignar un proyecto a un usuario, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("usuarios") }}" class="btn btn-light">
+        <a href="{{ route("usuarios") }}" class="btn btn-light" role="button">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
@@ -137,7 +137,7 @@
         usuario que quiere
         asignar un proyecto y en la columna <em>opciones</em> pinche en el botón de <strong>Editar usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-user-edit"></i>
         </a>.
     </p>
@@ -157,7 +157,7 @@
     <h4>Editar la asignación de un proyecto a un usuario de Soporte</h4>
     <p>
         Para editar la asignación de un proyecto a un usuario, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("usuarios") }}" class="btn btn-light">
+        <a href="{{ route("usuarios") }}" class="btn btn-light" role="button">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
@@ -169,7 +169,7 @@
         editar la asignación de un proyecto y en la columna <em>opciones</em> pinche en el botón de <strong>Editar
             usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-user-edit"></i>
         </a>.
     </p>
@@ -181,7 +181,7 @@
         botón de
         <strong>Editar</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-edit"></i>
         </a>.
     </p>
@@ -199,7 +199,7 @@
     <h4>Eliminar la asignación de un proyecto a un usuario de Soporte</h4>
     <p>
         Para eliminar la asignación de un proyecto a un usuario, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("usuarios") }}" class="btn btn-light">
+        <a href="{{ route("usuarios") }}" class="btn btn-light" role="button">
             <i class="fas fa-users-cog mr-3 fa-fw"></i>
             Usuarios
         </a>.
@@ -211,7 +211,7 @@
         eliminar la asignación de un proyecto y en la columna <em>opciones</em> pinche en el botón de <strong>Editar
             usuario</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-user-edit"></i>
         </a>.
     </p>
@@ -223,7 +223,7 @@
         botón de
         <strong>Eliminar</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Dar de baja">
+            data-original-title="Dar de baja" role="button">
             <i class="fas fa-trash"></i>
         </a>.
     </p>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Incident;
 use App\Models\ProjectUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,11 +33,14 @@ class HomeController extends Controller
         return view("home");
     }
 
+    /**
+     * Funcion encargada de seleccionar un proyecto (Selector del menu superior)
+     */
     public function selectProject($id){
         // Validar que el usuario esta asociado con el proyecto
 
-        $user = auth()->user();
-        
+        $user = User::find(auth()->user()->id);
+
         // Usuario de soporte solo puede acceder a los proyectos que tenga asignados
         if(! $user->projects->find($id) && $user->is_support){
             return back();

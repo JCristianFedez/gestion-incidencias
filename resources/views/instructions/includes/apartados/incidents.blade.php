@@ -6,7 +6,7 @@
     <h4>Ver incidencias</h4>
     <p>
         Para ver las incidencias, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("home") }}" class="btn btn-light">
+        <a href="{{ route("home") }}" class="btn btn-light" role="button">
             <i class="fa fa-th-large mr-3 fa-fw"></i>
             Dashboard
         </a>.
@@ -48,7 +48,7 @@
     <p>
         Si desea ver mas información acerca de una incidencia dirigase a la columna <em>opciones</em> de dicha
         incidencia y pinche en el botón de <strong>Ver</strong>
-        <a class="btn btn-info btn-sm">
+        <a class="btn btn-info btn-sm" role="button">
             Ver
         </a>
     </p>
@@ -58,7 +58,7 @@
     <h4>Crear incidencia</h4>
     <p>
         Para crear una incidencia, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("reportar.create") }}" class="btn btn-light">
+        <a href="{{ route("reportar.create") }}" class="btn btn-light" role="button">
             <i class="fa fa-address-card mr-3 fa-fw"></i>
             Reportar
         </a>.
@@ -73,7 +73,7 @@
     <h4>Editar incidencia</h4>
     <p>
         Para editar una incidencia, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("home") }}" class="btn btn-light">
+        <a href="{{ route("home") }}" class="btn btn-light" role="button">
             <i class="fa fa-th-large mr-3 fa-fw"></i>
             Dashboard
         </a>.
@@ -82,14 +82,14 @@
         Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de mis incidencias</strong>,
         buscar el registro de la incidencia que quiere editar y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Ver</strong>
-        <a class="btn btn-info btn-sm">
+        <a class="btn btn-info btn-sm" role="button">
             Ver
         </a>.
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
         de la incidencia. En esta ventana debe de pinchar en el botón <strong>Editar incidencia</strong>
-        <a class="btn btn-warning btn-sm">
+        <a class="btn btn-warning btn-sm" role="button">
             Editar incidencia
         </a>.
     </p>
@@ -107,7 +107,7 @@
     <h4>Atender incidencia</h4>
     <p>
         Para atender una incidencia, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("home") }}" class="btn btn-light">
+        <a href="{{ route("home") }}" class="btn btn-light" role="button">
             <i class="fa fa-th-large mr-3 fa-fw"></i>
             Dashboard
         </a>.
@@ -116,20 +116,20 @@
         Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de incidencias sin asignar</strong>,
         busca el registro de la incidencia que quiere atender y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Atender</strong>
-        <a class="btn btn-primary btn-sm">
+        <a class="btn btn-primary btn-sm" role="button">
             Atender
         </a>.
     </p>
     <p>
         También la puede atender pinchando en el botón de <strong>Ver</strong>
-        <a class="btn btn-info btn-sm">
+        <a class="btn btn-info btn-sm" role="button">
             Ver
         </a>.
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
         de la incidencia. En esta ventana debe de pinchar en el botón <strong>Atender incidencia</strong>
-        <a class="btn btn-primary btn-sm">
+        <a class="btn btn-primary btn-sm" role="button">
             Atender incidencia
         </a>.
     </p>
@@ -143,7 +143,7 @@
     <h4>Desatender incidencia</h4>
     <p>
         Para desatender una incidencia, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("home") }}" class="btn btn-light">
+        <a href="{{ route("home") }}" class="btn btn-light" role="button">
             <i class="fa fa-th-large mr-3 fa-fw"></i>
             Dashboard
         </a>.
@@ -152,20 +152,20 @@
         Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de incidencias asignadas a mí</strong>,
         busca el registro de la incidencia que quiere desatender y en la columna <em>opciones</em> pinchar en el botón
         de <strong>Desatender</strong>
-        <a class="btn btn-warning btn-sm">
+        <a class="btn btn-warning btn-sm" role="button">
             Desatender
         </a>.
     </p>
     <p>
         También la puede desatender pinchando en el botón de <strong>Ver</strong>
-        <a class="btn btn-info btn-sm">
+        <a class="btn btn-info btn-sm" role="button">
             Ver
         </a>.
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
         de la incidencia. En esta ventana debe de pinchar en el botón <strong>Desatender incidencia</strong>
-        <a class="btn btn-warning btn-sm">
+        <a class="btn btn-warning btn-sm" role="button">
             Desatender incidencia
         </a>.
     </p>
@@ -185,14 +185,14 @@
         Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de mis incidencias</strong>,
         buscar el registro de la incidencia que quiere marcar como resuelta y en la columna <em>opciones</em> pinchar en
         el botón de <strong>Ver</strong>
-        <a class="btn btn-info btn-sm">
+        <a class="btn btn-info btn-sm" role="button">
             Ver
         </a>.
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
         de la incidencia. En esta ventana debe de pinchar en el botón <strong>Marcar como resuelta</strong>
-        <a class="btn btn-success btn-sm">
+        <a class="btn btn-success btn-sm" role="button">
             Marcar como resuelta
         </a>.
     </p>
@@ -205,7 +205,7 @@
     <h4>Volver a abrir incidencia</h4>
     <p>
         Para volver a abrir una incidencia, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("home") }}" class="btn btn-light">
+        <a href="{{ route("home") }}" class="btn btn-light" role="button">
             <i class="fa fa-th-large mr-3 fa-fw"></i>
             Dashboard
         </a>.
@@ -214,14 +214,14 @@
         Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de mis incidencias</strong>,
         buscar el registro de la incidencia que quiere volver a abrir y en la columna <em>opciones</em> pinchar en
         el botón de <strong>Ver</strong>
-        <a class="btn btn-info btn-sm">
+        <a class="btn btn-info btn-sm" role="button">
             Ver
         </a>.
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
         de la incidencia. En esta ventana debe de pinchar en el botón <strong>Volver a abrir la incidencia</strong>
-        <a class="btn btn-info btn-sm">
+        <a class="btn btn-info btn-sm" role="button">
             Volver a abrir la incidencia
         </a>.
     </p>
@@ -236,7 +236,7 @@
     <h4>Derivar incidencia al siguiente nivel</h4>
     <p>
         Para derivar una incidencia al siguiente nivel, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("home") }}" class="btn btn-light">
+        <a href="{{ route("home") }}" class="btn btn-light" role="button">
             <i class="fa fa-th-large mr-3 fa-fw"></i>
             Dashboard
         </a>.
@@ -245,14 +245,14 @@
         Una vez le haya cargado la página, debe dirigirse a la <strong>tabla de Incidencias asignadas a mí</strong>,
         buscar el registro de la incidencia que quiere derivar al siguiente nivel y en la columna <em>opciones</em>
         pinchar en el botón de <strong>Ver</strong>
-        <a class="btn btn-info btn-sm">
+        <a class="btn btn-info btn-sm" role="button">
             Ver
         </a>.
     </p>
     <p>
         Se le redirigirá a una ventana en la cual aparecerá toda la información
         de la incidencia. En esta ventana debe de pinchar en el botón <strong>Derivar al siguiente nivel</strong>
-        <a class="btn btn-danger btn-sm">
+        <a class="btn btn-danger btn-sm" role="button">
             Derivar al siguiente nivel
         </a>.
     </p>

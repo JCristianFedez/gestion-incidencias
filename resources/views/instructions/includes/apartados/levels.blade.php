@@ -6,7 +6,7 @@
     <h4>Ver niveles de proyecto</h4>
     <p>
         Para ver los niveles que tiene un proyecto, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -15,7 +15,7 @@
         Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del proyecto del cual
         quiere ver sus niveles y en la columna <em>opciones</em> pinchar en el botón de <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-edit"></i>
         </a>.
     </p>
@@ -29,7 +29,7 @@
     <h4>Agregar nivel a proyecto</h4>
     <p>
         Para agregar un nivel a un proyecto, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -39,7 +39,7 @@
         le quiere agregar un nivel y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-edit"></i>
         </a>.
     </p>
@@ -57,7 +57,7 @@
     <h4>Editar nivel</h4>
     <p>
         Para editar un nivel de un proyecto, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -66,7 +66,7 @@
         Una vez le haya cargado la página, debe dirigirse a la <strong>tabla inferior</strong>, buscar el registro del proyecto del cual
         quiere editar un nivel y en la columna <em>opciones</em> pinchar en el botón de <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-edit"></i>
         </a>.
     </p>
@@ -75,7 +75,7 @@
         del proyecto seleccionado, en ella debe de buscar el registro del nivel a editar y en la columna
         <em>opciones</em> pinchar en el botón de <strong>Editar</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-edit"></i>
         </a>.
     </p>
@@ -93,7 +93,7 @@
     <h4>Eliminar nivel</h4>
     <p>
         Para eliminar un nivel de un proyecto, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -103,7 +103,7 @@
         quiere eliminar un nivel y en la columna <em>opciones</em> pinchar en el botón de
         <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-edit"></i>
         </a>.
     </p>
@@ -112,7 +112,7 @@
         del proyecto seleccionado, en ella debe de buscar el registro del nivel a eliminar y en la columna
         <em>opciones</em> pinchar en el botón de <strong>Eliminar</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Eliminar">
+            data-original-title="Eliminar" role="button">
             <i class="fas fa-trash"></i>
         </a>.
     </p>

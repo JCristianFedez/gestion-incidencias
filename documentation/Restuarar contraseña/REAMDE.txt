@@ -1,0 +1,2 @@
+Cuando se vaya a restablecer contraseña el correo se enviara a una cuenta
+de mailtrap ya que no tengo un host propio y uso el servicio de mailtrap

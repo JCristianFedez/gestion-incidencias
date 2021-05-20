@@ -6,7 +6,7 @@
     <h4>Ver proyectos</h4>
     <p>
         Para ver los proyectos, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -22,7 +22,7 @@
     <h4>Crear proyecto</h4>
     <p>
         Para crear proyectos, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -38,7 +38,7 @@
     <h4>Editar proyecto</h4>
     <p>
         Para editar un proyecto, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -48,7 +48,7 @@
         proyecto que
         quiere editar y en la columna <em>opciones</em> pinche en el botón de <strong>Editar proyecto</strong>
         <a class="btn btn-sm btn-primary" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Editar">
+            data-original-title="Editar" role="button">
             <i class="fas fa-edit"></i>
         </a>.
     </p>
@@ -62,7 +62,7 @@
     <h4>Dar de baja a un proyecto</h4>
     <p>
         Para dar de baja a un proyecto, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -73,7 +73,7 @@
         quiere
         dar de baja y en la columna <em>opciones</em> pinche en el botón de <strong>Dar de baja</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Dar de baja">
+            data-original-title="Dar de baja" role="button">
             <i class="fas fa-trash"></i>
         </a>.
     </p>
@@ -83,7 +83,7 @@
     <h4>Restaurar proyecto</h4>
     <p>
         Para volver a activar un proyecto, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -93,7 +93,7 @@
         proyecto que
         quiere restaurar y en la columna <em>opciones</em> pinche en el botón de <strong>Restaurar proyecto</strong>
         <a class="btn btn-sm btn-success" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Restaurar">
+            data-original-title="Restaurar" role="button">
             <i class="fas fa-trash-restore"></i>
         </a>.
     </p>
@@ -103,7 +103,7 @@
     <h4>Eliminar proyecto</h4>
     <p>
         Para eliminar un proyecto, debe de dirigirse en el menú izquierdo al apartado de
-        <a href="{{ route("proyectos") }}" class="btn btn-light">
+        <a href="{{ route("proyectos") }}" class="btn btn-light" role="button">
             <i class="fas fa-project-diagram mr-3 fa-fw"></i>
             Proyectos
         </a>.
@@ -113,7 +113,7 @@
         proyecto que
         quiere eliminar y en la columna <em>opciones</em> pinche en el botón de <strong>Eliminar proyecto</strong>
         <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
-            data-original-title="Eliminar">
+            data-original-title="Eliminar" role="button">
             <i class="fas fa-minus-circle"></i>
         </a>.
     </p>

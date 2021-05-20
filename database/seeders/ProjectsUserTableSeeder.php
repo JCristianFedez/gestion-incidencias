@@ -26,7 +26,7 @@ class ProjectsUserTableSeeder extends Seeder
             "level_id" => 2
         ]);
 
-        ProjectUser::factory(100)
-            ->create();
+        // ProjectUser::factory(100)
+        //     ->create();
     }
 }

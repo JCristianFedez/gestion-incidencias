@@ -25,8 +25,8 @@
                 </div>
                 <div class="card-footer bg-transparent">
                     <a href="https://www.youtube.com/channel/UCWuyqD6Pm70GwjWtENF5XJA" target="_blank"
-                        class="btn btn-primary">Canal de Youtube</a>
-                    <a href="https://codersfree.com/" target="_blank" class="btn btn-primary">Pagina Web</a>
+                        class="btn btn-primary" role="button">Canal de Youtube</a>
+                    <a href="https://codersfree.com/" target="_blank" class="btn btn-primary" role="button">Pagina Web</a>
                 </div>
             </div>
         </div>

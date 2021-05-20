@@ -65,7 +65,7 @@
                 @if ($incident->attached_file)
                 <td>
                     <a href="{{$incident->attached_file}}" aria-label="Descargar fichero adjunto" data-toggle="tooltip"
-                        data-placement="top" title="Descargar fichero">
+                        data-placement="top" title="Descargar fichero" target="_blank" role="button">
                         {{$incident->file_name}}
                     </a>
                 </td>
@@ -83,7 +83,7 @@
     && $incident->active
     && (auth()->user()->canTake($incident) || auth()->user()->is_admin))
     <a href="{{ route("incidencia.take", $incident->id) }}" class="btn btn-primary btn-sm btn-action-js"
-        data-success-message="Incidencia atendida correctamente" data-error-message="Error al atender incidencia">
+        data-success-message="Incidencia atendida correctamente" data-error-message="Error al atender incidencia" role="button">
         Atender Incidencia
     </a>
     @endif
@@ -93,7 +93,7 @@
     && $incident->active
     && (auth()->user()->canTake($incident) || auth()->user()->is_admin))
     <a href="{{ route("incidencia.disatend", $incident->id) }}" class="btn btn-warning btn-sm btn-action-js"
-        data-success-message="Incidencia desatendida correctamente" data-error-message="Error al desatender incidencia">
+        data-success-message="Incidencia desatendida correctamente" data-error-message="Error al desatender incidencia" role="button">
         Desatender Incidencia
     </a>
     @endif
@@ -103,15 +103,15 @@
 
     @if ($incident->active) {{-- Marcar como resuelta --}}
     <a href="{{ route("incidencia.solve",$incident->id) }}" class="btn btn-success btn-sm btn-action-js"
-        data-success-message="Incidencia resuelta correctamente" data-error-message="Error al resolver incidencia">
+        data-success-message="Incidencia resuelta correctamente" data-error-message="Error al resolver incidencia" role="button">
         Marcar como resuelta
     </a>
-    <a href="{{ route("incidencia.edit", $incident->id) }}" class="btn btn-warning btn-sm">
+    <a href="{{ route("incidencia.edit", $incident->id) }}" class="btn btn-warning btn-sm" role="button">
         Editar incidencia
     </a>
     @else {{--  Volver a abrir --}}
     <a href="{{ route("incidencia.open", $incident->id) }}" class="btn btn-info btn-sm btn-action-js"
-        data-success-message="Incidencia abierta correctamente" data-error-message="Error al abrir incidencia">
+        data-success-message="Incidencia abierta correctamente" data-error-message="Error al abrir incidencia" role="button">
         Volver a abrir la incidencia
     </a>
     @endif
@@ -122,7 +122,7 @@
     auth()->user()->is_admin))
     @if ((!$incident->level && count($incident->project->levels) > 0) || $incident->level->next_level)
     <a href="{{ route("incidencia.nextLevel", $incident->id) }}" class="btn btn-danger btn-sm btn-action-js"
-        data-success-message="Incidencia derivada correctamente" data-error-message="Error al derivar incidencia">
+        data-success-message="Incidencia derivada correctamente" data-error-message="Error al derivar incidencia" role="button">
         Derivar al siguiente nivel
     </a>
     @endif

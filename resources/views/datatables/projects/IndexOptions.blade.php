@@ -22,7 +22,7 @@
 </a> --}}
 @else
 <a href="{{ route('proyecto.edit', $id) }}" class="btn btn-sm btn-primary" title="Editar"
-    data-toggle="tooltip" data-placement="top">
+    data-toggle="tooltip" data-placement="top" role="button">
     <i class="fas fa-edit"></i>
 </a>
 
