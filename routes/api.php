@@ -15,14 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// TODO: Intentar que solo los usuarios autorizados puedan usar las api
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::middleware(['auth:api'])->group(function () {
-//     Route::get('/proyecto/{id}/niveles',[LevelController::class, "byProject"])->name("level.api.projects");
-// });
-
+// Cargar los niveles de un proyecto en concreto (Usado para cargar select de niveles de proyectos de forma dinamica)
 Route::get('/proyecto/{id}/niveles',[LevelController::class, "byProject"])->name("level.api.projects");

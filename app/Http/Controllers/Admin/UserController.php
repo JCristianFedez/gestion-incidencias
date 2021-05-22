@@ -12,11 +12,16 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(Request $request){
-
+    /**
+     * Funcion para cargar la vista de usuarios
+     */
+    public function index(){
         return view("admin.users.index");
     }
 
+    /**
+     * Funcion para almacenar un nuevo usuario
+     */
     public function store(Request $request){
         $rules = [
             'name' => ['required', 'string', 'max:255'],
@@ -52,15 +57,19 @@ class UserController extends Controller
         return back()->with("notification","Usuario registrado exitosamente.");
     }
 
+    /**
+     * Funcion para mostrar el formulario para editar un usuario
+     */
     public function edit($id){
         $user = User::findOrFail($id);
         $projects = Project::all();
-        // $projects_user = ProjectUser::where("user_id",$user->id)->get();
 
-        // return view("admin.users.edit", compact("user","projects","projects_user"));
         return view("admin.users.edit", compact("user","projects"));
     }
 
+    /**
+     * Funcion para actualizar un usuario
+     */
     public function update($id, Request $request){
 
         $rules = [
@@ -124,6 +133,9 @@ class UserController extends Controller
         return back()->with("notification","Usuario modificado exitosamente.");
     }
 
+    /**
+     * Funcion para desactivar un usuario
+     */
     public function destroy($id){
         $user = User::findOrFail($id);
 
@@ -132,14 +144,19 @@ class UserController extends Controller
 
 	}
 
+    /**
+     * Funcion para eliminar un usuario definitivamente
+     */
     public function forceDestroy($id){
-        // Elimino el usuario
         User::withTrashed()->findOrFail($id)->forceDelete();
 
         return back()->with("notification","Usuario eliminado completametnte exitosamente.");
 
 	}
 
+    /**
+     * Funcion para restaurar un usuario
+     */
     public function restore($id){
         User::withTrashed()->find($id)->restore();
         return back()->with('notification', 'El usuario se ha activado correctamente.');

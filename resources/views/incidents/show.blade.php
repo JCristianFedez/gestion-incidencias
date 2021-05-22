@@ -120,11 +120,13 @@
     {{-- Boton: Derivar al siguiente nivel --}}
     @if ((auth()->user()->id == $incident->support_id && $incident->active) || ($incident->active &&
     auth()->user()->is_admin))
+    @if ($incident->level != null)
     @if ((!$incident->level && count($incident->project->levels) > 0) || $incident->level->next_level)
     <a href="{{ route("incidencia.nextLevel", $incident->id) }}" class="btn btn-danger btn-sm btn-action-js"
         data-success-message="Incidencia derivada correctamente" data-error-message="Error al derivar incidencia" role="button">
         Derivar al siguiente nivel
     </a>
+    @endif
     @endif
     @endif
 </div>

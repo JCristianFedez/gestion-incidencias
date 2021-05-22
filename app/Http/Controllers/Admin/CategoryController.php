@@ -4,29 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Project;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-    public function store(Request $request){
-        
-        $rules = [
-            'name' => ["required","min:5","max:255"],
-            'project_id' => ["required","exists:projects,id"]
-        ];
-    
-        $messages = [
-            'name.required' => 'Es necesario ingresar un nombre para la categoría.',
-            'name.min' => 'La categoría necesita un minimo de 5 caracteres.',
-            'name.max' => 'La categoría no puede tener mas de 255 caracteres.',
-        ];
+    /**
+     * Funcion para almacenar una nueva categoria
+     */
+    public function store(Request $request)
+    {
 
-        $this->validate($request, $rules, $messages);
+        $this->validate($request, Category::$rules, Category::$messages);
 
-        //It is verified that there is not a category with the same name in the same project
-        if(Category::where("project_id",$request->project_id)->where("name",$request->name)->first()){
+        //Se verifica que no existe una categoría con el mismo nombre en el mismo proyecto
+        if (Category::where("project_id", $request->project_id)->where("name", $request->name)->first()) {
             return back()->with('notificationError', 'El proyecto ya tiene una categoria con ese nombre.');
         }
 
@@ -35,32 +28,25 @@ class CategoryController extends Controller
         return back()->with('notification', 'La categoria se ha creado correctamente.');
     }
 
-    public function update(Request $request){
+    /**
+     * Funcion para actualizar una categoria
+     */
+    public function update(Request $request)
+    {
 
-        $rules = [
-            'name' => ["required","min:5","max:255"],
-            'category_id' => ["required","exists:projects,id"]
-        ];
-    
-        $messages = [
-            'name.required' => 'Es necesario ingresar un nombre para la categoría.',
-            'name.min' => 'La categoría necesita un minimo de 5 caracteres.',
-            'name.max' => 'La categoría no puede tener mas de 255 caracteres.',
-        ];
-
-        $this->validate($request, $rules, $messages);
-
-        $category = Category::find($request->category_id);
+        $this->validate($request, Category::$rules, Category::$messages);
         
-        //It is verified that there is not a category with the same name in the same project
-        if(Category::where("project_id",$category->project_id)->where("name",$request->name)->first()){
-            
-            if($request->ajax()){
+        $category = Category::find($request->category_id);
+
+        //Se verifica que no existe una categoría con el mismo nombre en el mismo proyecto
+        if (Category::where("project_id", $category->project_id)->where("name", $request->name)->first()) {
+
+            if ($request->ajax()) {
                 return response()->json([
                     "head" => "¡Error!",
                     "message" => "El proyecto ya tiene una categoria con ese nombre",
                     "type" => "error",
-                    ]);
+                ]);
             }
 
             return back()->with('notificationError', 'El proyecto ya tiene una categoria con ese nombre.');
@@ -69,26 +55,44 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        if($request->ajax()){
+        if ($request->ajax()) {
             return response()->json([
                 "head" => "¡Correcto!",
                 "message" => "La categoria se ha actualizado correctamente.",
                 "type" => "success",
-                ]);
+            ]);
         }
 
         return back()->with('notification', 'La categoria se ha actualizado correctamente.');
     }
 
-    
-    public function destroy($id){
+    /**
+     * Funcion para eliminar una categoria
+     */
+    public function destroy($id)
+    {
         $category = Category::find($id);
+
+        // Parte local //
         $publicPath = $category->public_directory_path;
 
+        // Elimino los archivos adjuntos de dicha categoria
         Storage::deleteDirectory($publicPath);
+        // Fin parte local//
+
+        // Parte para infinityfree //
+        /*
+            $publicPath = $category->infinity_free_directory_path;
+            // Elimino los archivos adjuntos a dicha categoria
+            $filesistem = new Filesystem();
+            $filesistem->deleteDirectory(substr($publicPath, 1));
+        */
+        //Fin parte infinityfree //
+
 
         $category->delete();
         $category->forceDelete();
         return back()->with('notification', 'La categoria se ha eliminado correctamente.');
     }
+
 }

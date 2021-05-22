@@ -19,7 +19,7 @@ $(function () {
             "<'row'<'col-12'tr>>" +
             "<'row'<'col-lg'i><'col-lg'p>>",
         columns: [
-            { data: "projectsName"},
+            { data: "projectsName" },
             { data: "levelsName" },
             { data: "created_at" },
             { data: "options" },
@@ -70,11 +70,17 @@ $(function () {
 
             $("[data-relation]").off("click");
             $("[data-relation]").on("click", editRealtionModal);
-            
-            $("#users-relation-table").off('click', '.delete-user-project'); 
+
+            $("#users-relation-table").off('click', '.delete-user-project');
             $("#users-relation-table").on('click', '.delete-user-project', function (e) {
                 e.preventDefault();
                 loadEventsDeleteUserProject(this);
+            });
+
+            $("#edit-relation-form").off('click', '#editar-relacion');
+            $("#edit-relation-form").on('click', '#editar-relacion', function (e) {
+                e.preventDefault();
+                loadEventsEditUserProject();
             });
 
             $('.dtsp-searchPanes').hide(); // Por defecto oculto el panel de busqueda
@@ -83,7 +89,7 @@ $(function () {
 });
 
 /**
- *  Load the levels of the selected project into the select of levels
+ *  Cargo los niveles del proyecto seleccionado en la selección de niveles
  */
 function onSelectProjectChange() {
     let project_id = $(this).val();
@@ -104,15 +110,14 @@ function onSelectProjectChange() {
         select_level.html(html_select);
     });
 }
-let a;
+
 /**
- * Setting the modal to edit the relationship
+ * Configurar el modal para editar la relación
  */
 function editRealtionModal() {
     let project_id = $(this).data("project-id");
-    a = $(this);
     let project_name = $(this).parent().parent().parent().find("td").first().text();
-    console.log(project_id);
+
     let level_id = $(this).data("level-id");
     let title = $("#EditProjectRelationModalLabel");
     let select_level = $("#select_level_relation");
@@ -138,23 +143,70 @@ function editRealtionModal() {
     });
 }
 
-
 /**
- * Eliminar usuario
+ * Editar la relacion de un usuario con un proyecto
  */
- function loadEventsDeleteUserProject(theElement) {
+function loadEventsEditUserProject() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
+    // Recojo Url
+    let form = $("#edit-relation-form");
+    let url = $(form).attr("action");
+    url = url.split($(location).attr('host'))[1];
 
+    let project_id = $(form).find('input[name="project_id"]').val();
+    let user_id = $(form).find('input[name="user_id"]').val();
+    let level_id = $('#select_level_relation option:selected').val();
+    let project_user_id = $(form).find('input[name="project_user_id"]').val();
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: {
+            '_method': 'PUT',
+            'project_id': project_id, 'user_id': user_id,
+            'level_id': level_id, 'project_user_id': project_user_id
+        },
+        success: function success() {
+            $.toast({
+                heading: 'Correcto',
+                text: `Relacion editada correctamente`,
+                showHideTransition: 'slide',
+                icon: 'success',
+                loader: true,
+            });
+            $('#users-relation-table').DataTable().ajax.reload(null, false);
+        },
+        error: function error() {
+            $.toast({
+                heading: 'Error',
+                text: "Error al editar relacion",
+                showHideTransition: 'fade',
+                icon: 'error'
+            })
+        }
+    });
+}
+
+
+/**
+ * Eliminar relacion de usuario con proyecto
+ */
+function loadEventsDeleteUserProject(theElement) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
     url = url.split($(location).attr('host'))[1];
-    
+
     Swal.fire({
         title: 'Atencion !',
         text: `¿ Esta seguro de eliminar la relacion ?`,
@@ -174,7 +226,7 @@ function editRealtionModal() {
                         'Eliminada!',
                         'Relacion eliminada correctamente.',
                         'success');
-                    $('#users-relation-table').DataTable().ajax.reload(null, false)
+                    $('#users-relation-table').DataTable().ajax.reload(null, false);
                 },
                 error: function error() {
                     Swal.fire({

@@ -17,6 +17,9 @@ class MessageController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Funcion encargada de almacenar un nuevo mensaje
+     */
     public function store(Request $request, $id)
     {
 

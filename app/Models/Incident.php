@@ -61,7 +61,7 @@ class Incident extends Model
     // Accesors
 
     /**
-     * @return String full name of the severity
+     * @return String Nombre completo de la severidad
      */
     public function getSeverityFullAttribute()
     {
@@ -82,7 +82,7 @@ class Incident extends Model
     }
 
     /**
-     * @return String short title
+     * @return String Titulo recortado
      */
     public function getTitleShortAttribute()
     {
@@ -90,7 +90,7 @@ class Incident extends Model
     }
 
     /**
-     * @return String name of category
+     * @return String Nombre de la categoria
      */
     public function getCategoryNameAttribute()
     {
@@ -101,7 +101,7 @@ class Incident extends Model
     }
 
     /**
-     * @return String name of level
+     * @return String Nombre del nivel
      */
     public function getLevelNameAttribute()
     {
@@ -111,7 +111,7 @@ class Incident extends Model
         return "General";
     }
     /**
-     * @return String name of Support
+     * @return String Nombre del usuario que la esta atendiendo
      */
     public function getSupportNameAttribute()
     {
@@ -122,7 +122,7 @@ class Incident extends Model
     }
 
     /**
-     * @return String name of state
+     * @return String Nombre del estado
      */
     public function getStateAttribute()
     {
@@ -138,7 +138,7 @@ class Incident extends Model
     }
 
     /**
-     * @return String name of attached file
+     * @return String Nombre del archivo adjunto
      */
     public function getFileNameAttribute()
     {
@@ -152,7 +152,7 @@ class Incident extends Model
 
 
     /**
-     * @return String public path of the attached file
+     * @return String Ruta publica del archivo para local
      */
     public function getFilePublicPathAttribute()
     {

@@ -17,7 +17,7 @@ $(function () {
             "<'row'<'col-lg'i><'col-lg'p>>",
         columns: [
             { data: "name" },
-            { data: "description"},
+            { data: "description" },
             { data: "start" },
             { data: "status" },
             { data: "opciones" },
@@ -29,7 +29,7 @@ $(function () {
                     show: true,
                 },
                 targets: [0, 1, 2, 3],
-            },            
+            },
         ],
         buttons: [
             {
@@ -63,19 +63,20 @@ $(function () {
             'colvis', 'colvisRestore'
         ],
         drawCallback: function () {
-            $("#projects-table").off('click', '.delete-project'); // Limpio los eventos para que no se dupliquen
+            // Limpio los eventos para que no se dupliquen
+            $("#projects-table").off('click', '.delete-project');
             $("#projects-table").on('click', '.delete-project', function (e) {
                 e.preventDefault();
                 loadEventsDeleteProject(this);
             });
 
-            $("#projects-table").off('click', '.restore-project'); // Limpio los eventos para que no se dupliquen
+            $("#projects-table").off('click', '.restore-project'); 
             $("#projects-table").on('click', '.restore-project', function (e) {
                 e.preventDefault();
                 loadEventsRestoreProject(this);
             });
 
-            $("#projects-table").off('click', '.force-destroy-project'); // Limpio los eventos para que no se dupliquen
+            $("#projects-table").off('click', '.force-destroy-project');
             $("#projects-table").on('click', '.force-destroy-project', function (e) {
                 e.preventDefault();
                 loadEventsForceDeleteProject(this);
@@ -87,9 +88,6 @@ $(function () {
             $(".dtsp-searchPane").eq(4).hide();
 
             $('.dtsp-searchPanes').hide(); // Por defecto oculto el panel de busqueda
-            
-   
-
 
         },
     });
@@ -108,7 +106,6 @@ function loadEventsDeleteProject(theElement) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
 
 
     // Recojo Url
@@ -138,7 +135,7 @@ function loadEventsDeleteProject(theElement) {
                         'Deshabilitado!',
                         'Proyecto deshabilitado.',
                         'success');
-                    $('#projects-table').DataTable().ajax.reload(null, false)
+                    $('#projects-table').DataTable().ajax.reload(null, false);
                 },
                 error: function error() {
                     Swal.fire({
@@ -157,14 +154,12 @@ function loadEventsDeleteProject(theElement) {
 /**
  * Resturar proyecto
  */
- function loadEventsRestoreProject(theElement) {
+function loadEventsRestoreProject(theElement) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
@@ -193,7 +188,7 @@ function loadEventsDeleteProject(theElement) {
                         'Restaurado!',
                         'Proyecto habilitado.',
                         'success');
-                    $('#projects-table').DataTable().ajax.reload(null, false)
+                    $('#projects-table').DataTable().ajax.reload(null, false);
                 },
                 error: function error() {
                     Swal.fire({
@@ -209,19 +204,15 @@ function loadEventsDeleteProject(theElement) {
 
 }
 
-
-
 /**
  * Eliminar proyecto
  */
- function loadEventsForceDeleteProject(theElement) {
+function loadEventsForceDeleteProject(theElement) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
@@ -250,12 +241,12 @@ function loadEventsDeleteProject(theElement) {
                         'Eliminado!',
                         'Proyecto eliminado completamente.',
                         'success');
-                    $('#projects-table').DataTable().ajax.reload(null, false)
+                    $('#projects-table').DataTable().ajax.reload(null, false);
                 },
                 error: function error() {
                     Swal.fire({
                         title: 'Error!',
-                        text: "Ha abido un error en la eliminacino",
+                        text: "Ha abido un error en la eliminacion",
                         type: 'error',
                         timer: 5000
                     });

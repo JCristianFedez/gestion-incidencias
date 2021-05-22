@@ -18,7 +18,7 @@ $(function () {
             "<'row'<'col-lg'i><'col-lg'p>>",
         columns: [
             { data: "email" },
-            { data: "name"},
+            { data: "name" },
             { data: "created_at" },
             { data: "role" },
             { data: "status" },
@@ -83,7 +83,7 @@ $(function () {
                 loadEventsRestoreUser(this);
             });
 
-             // Oculto el ultimo serachpanel que es el de las opciones
+            // Oculto el ultimo serachpanel que es el de las opciones
             // ya que por ahora (7 - abril - 2021) datatables al usar withtrashed en laravel
             // no funciona el ocultar paneles
             $(".dtsp-searchPane").eq(5).hide();
@@ -106,8 +106,6 @@ function loadEventsDeleteUser(theElement) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-
-
 
     // Recojo Url
     let url = $(theElement).parent().attr("action");
@@ -152,11 +150,10 @@ function loadEventsDeleteUser(theElement) {
 
 }
 
-
 /**
  * Resturar usuario
  */
- function loadEventsRestoreUser(theElement) {
+function loadEventsRestoreUser(theElement) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -211,7 +208,7 @@ function loadEventsDeleteUser(theElement) {
 /**
  * Eliminar usuario completamente
  */
- function loadEventsForceDestoryUser(theElement) {
+function loadEventsForceDestoryUser(theElement) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

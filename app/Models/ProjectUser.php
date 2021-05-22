@@ -20,6 +20,9 @@ class ProjectUser extends Model
         return $this->belongsTo("App\Models\Level");
     }
 
+    /**
+     * Devuelve el estado del proyecto
+     */
     public function getStatusAttribute(){
         if($this->trashed()){
             return "Inactivo";

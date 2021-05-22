@@ -112,7 +112,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Return full name of the severity
+     * Devuelve el nombre completo del rol
      */
     public function getRoleNameAttribute(){
         switch ($this->role) {
@@ -131,6 +131,9 @@ class User extends Authenticatable
         }
     }
 
+    /**
+     * Devuelve el estado (Activo / Inactivo)
+     */
     public function getStatusAttribute(){
         if($this->trashed()){
             return "Inactivo";

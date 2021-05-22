@@ -21,15 +21,10 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Funcion encargada de cargar la vista del dashboard
      */
     public function index()
-    {
-
-        //Tablas cargadas con datatables
-        
+    {        
         return view("home");
     }
 

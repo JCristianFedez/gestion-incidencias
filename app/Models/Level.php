@@ -25,7 +25,7 @@ class Level extends Model
     // }
 
     /**
-     * Returns the next level
+     * Devuelve el siguiente nivel
      */
     public function getNextLevelAttribute(){
         $project = $this->project;
@@ -42,7 +42,7 @@ class Level extends Model
     }
 
     /**
-     * Returns the previous level
+     * Devuelve el nivel anterior
      */
     public function getPreviousLevelAttribute(){
         $project = $this->project;

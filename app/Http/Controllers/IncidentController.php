@@ -25,6 +25,9 @@ class IncidentController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * Funcion para cargar la vista de una incidencia en aprticular
+     */
     public function show($id)
     {
         $incident = Incident::findOrFail($id);
@@ -32,6 +35,9 @@ class IncidentController extends Controller
         return view("incidents.show", compact("incident", "messages"));
     }
 
+    /**
+     * Funcion encargada de mostrar un formulario para crear una nueva incidencia
+     */
     public function create()
     {
         $categories = Category::where("project_id", auth()->user()->selected_project_id)->get();
@@ -39,12 +45,15 @@ class IncidentController extends Controller
         return view("incidents.create", compact("categories", "levels"));
     }
 
+    /**
+     * Funcion encargada de almacenar una nueva incidencia
+     */
     public function store(Request $request)
     {
 
         $this->validate($request, Incident::$rules, Incident::$messages);
 
-        // If an attachment is added
+        // Si tiene archivo adjunto
         if ($request->file("adjunto")) {
 
             $incidentId = Incident::all()->last()->id + 1;
@@ -52,17 +61,18 @@ class IncidentController extends Controller
             $projectName = Project::findOrFail(auth()->user()->selected_project_id)->name;
 
             $category = Category::find($request->category_id);
-            $categoryName = ($category) ? $category->name : "general"; //If the category is null, it is assigned general
+            $categoryName = ($category) ? $category->name : "general";
 
-            // Parte en local
+            // Parte en local //
             $adjunto = $request->file("adjunto")->storeAs(
                 "public/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")."/Incident-Id-$incidentId/attached-file",
                 $request->file("adjunto")->getClientOriginalName()
             );
             $url = Storage::url($adjunto);
+            // Fin parte local //
             
 
-            // Descomentar para infinityfree
+            // Parte para InfinityFree //
             /*$path = "storage/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")      ."/Incident-Id-$incidentId/attached-file";
 
             if (!file_exists($path)) {
@@ -71,7 +81,7 @@ class IncidentController extends Controller
             move_uploaded_file($_FILES["adjunto"]["tmp_name"],$path ."/". $_FILES["adjunto"]["name"]);
 
             $url = "/".$path."/".$_FILES["adjunto"]["name"];*/
-            //FIn infinityfree
+            //FIn infinityfree //
         }
 
 
@@ -110,17 +120,17 @@ class IncidentController extends Controller
 
         $incident = Incident::findOrFail($id);
 
-        // If an attachment is added
+        // Si tiene un archivo adjunto
         if ($request->file("adjunto")) {
             $incidentId = $incident->id;
 
             $projectName = Project::findOrFail($incident->project_id)->name;
 
             $category = Category::find($incident->category_id);
-            $categoryName = ($category) ? $category->name : "general"; //If the category is null, it is assigned general
+            $categoryName = ($category) ? $category->name : "general";
 
-            // If a new file is added, the previous one is deleted
-            // Parte local
+            // Si antes tenia un archivo adjunto se elimina y se guarda el nuevo
+            // Parte local //
             if ($incident->attached_file) {
                 $publicRoute = $incident->file_public_path;
                 if (Storage::exists($publicRoute))
@@ -133,8 +143,9 @@ class IncidentController extends Controller
             );
 
             $url = Storage::url($adjunto);
-
-            // Descomentar para infinityfree
+            // Fin parte local //
+            
+            // Inicio para infinityfree //
             /*if ($incident->attached_file) {
                 if (file_exists(substr($incident->attached_file, 1)))
                     unlink(substr($incident->attached_file, 1));
@@ -148,7 +159,7 @@ class IncidentController extends Controller
             move_uploaded_file($_FILES["adjunto"]["tmp_name"],$path ."/". $_FILES["adjunto"]["name"]);
 
             $url = "/".$path."/".$_FILES["adjunto"]["name"];*/
-            //FIn infinityfree
+            //FIn infinityfree //
         }
 
         $incident->level_id = $request->level_id ?: null;

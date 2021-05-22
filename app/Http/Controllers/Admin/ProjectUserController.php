@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 
 class ProjectUserController extends Controller
 {
+    /**
+     * Funcion para almacenar una relacion entre usuario y proyecto
+     */
     public function store(Request $request)
     {
 
@@ -54,6 +57,9 @@ class ProjectUserController extends Controller
         return back()->with("notification", "Usuario agregado al proyecto.");
     }
 
+    /**
+     * Funcion para actualizar una relacion entre un usuario y un proyecto
+     */
     public function update(Request $request)
     {
 
@@ -100,6 +106,9 @@ class ProjectUserController extends Controller
     }
 
 
+    /**
+     * Funcion para eliminar una relacion
+     */
     public function destroy($id)
     {
         ProjectUser::find($id)->delete();

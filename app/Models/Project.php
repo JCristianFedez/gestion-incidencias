@@ -11,8 +11,8 @@ class Project extends Model
     use HasFactory, SoftDeletes;
 
     public static $rules = [
-        'name' => ['required',"min:5","max:255"],
-        'description' => ["required","min:15","max:255"],
+        'name' => ['required', "min:5", "max:255"],
+        'description' => ["required", "min:15", "max:255"],
         'start' => 'date'
     ];
 
@@ -36,40 +36,56 @@ class Project extends Model
     // }
 
     // Relationships
-    public function categories(){
+    public function categories()
+    {
         return $this->hasMany("App\Models\Category");
     }
 
-    public function levels(){
+    public function levels()
+    {
         return $this->hasMany("App\Models\Level")->orderBy('difficulty');
     }
 
-    public function users(){
+    public function users()
+    {
         return $this->belongsToMany("App\Models\User");
     }
 
     // Accesors
-    public function getFirstLevelIdAttribute(){
-        if($this->levels->first())
+    public function getFirstLevelIdAttribute()
+    {
+        if ($this->levels->first())
             return $this->levels->first()->id;
-        
+
         return null;
     }
 
-    public function getStatusAttribute(){
-        if($this->trashed()){
+    public function getStatusAttribute()
+    {
+        if ($this->trashed()) {
             return "Inactivo";
-        }else{
+        } else {
             return "Activo";
         }
     }
 
-        /**
-     * @return String Returns a string with the path of the public directory
+    /**
+     * @return String Devuelve un string con la ruta del directorio de los archivos adjuntos al proyecto
      */
-    public function getPublicDirectoryPathAttribute(){
+    public function getPublicDirectoryPathAttribute()
+    {
         $path = "/public";
-        $path .= "/Project-".$this->name;
+        $path .= "/Project-" . $this->name;
+        return $path;
+    }
+
+    /**
+     * @return String Devuelve un string con la ruta del directorio de los archivos adjuntos al proyecto, usado in InfinityFree
+     */
+    public function getInfinityFreeDirectoryPathAttribute()
+    {
+        $path = "/storage";
+        $path .= "/Project-" . $this->name;
         return $path;
     }
 }

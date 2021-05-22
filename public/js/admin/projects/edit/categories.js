@@ -76,7 +76,7 @@ $(function () {
                 editCategory(this);
             });
 
-            $("#categories-table").off('click', '.delete-category'); // Limpio los eventos para que no se dupliquen
+            $("#categories-table").off('click', '.delete-category');
             $("#categories-table").on('click', '.delete-category', function (e) {
                 e.preventDefault();
                 deleteCategory(this);
@@ -125,7 +125,7 @@ function editCategory(theElement) {
     let url = $(theElement).find("form").attr("action");
     url = url.split($(location).attr('host'))[1];
 
-    // Recojo nombre
+    // Recojo nombre e id
     let newName = $("#modalEditCategory #category_name").val();
     let categoryId = $("#modalEditCategory #category_id").val();
 
@@ -193,7 +193,7 @@ function deleteCategory(theElement) {
                         '¡Eliminada!',
                         'Categoria eliminada.',
                         'success');
-                    $('#categories-table').DataTable().ajax.reload(null, false)
+                    $('#categories-table').DataTable().ajax.reload(null, false);
                 },
                 error: function error() {
                     Swal.fire({

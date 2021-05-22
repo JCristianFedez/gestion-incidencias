@@ -104,7 +104,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/proyecto-usuario" method="POST" class="needs-validation" novalidate>
+            <form action=" {{ route("proyecto-user.update") }} " method="POST" class="needs-validation" novalidate id="edit-relation-form">
                 <div class="modal-body row">
                     @csrf
                     @method("PUT")
@@ -123,7 +123,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-primary" id="editar-relacion" data-dismiss="modal">Guardar Cambios</button>
                 </div>
             </form>
         </div>
@@ -135,10 +135,13 @@
 <script src="{{ asset('/js/admin/users/edit.js') }}"></script>
 <script src="{{ asset('/datatables/datatables.min.js') }}"></script>
 <script src="{{ asset('/js/library/sweetalert2-all.min.js') }}"></script>
+<script src="{{ asset('/js/library/jquery-toast-plugin.min.js') }}"></script>
+
 @endsection
 
 {{-- Agregar css para esta pagina --}}
 @section('css')
 <link href="{{ asset('/datatables/datatables.min.css') }}" rel="stylesheet">
+<link href="{{ asset('/css/library/jquery-toast-plugin.min.css') }}" rel="stylesheet">
 
 @endsection

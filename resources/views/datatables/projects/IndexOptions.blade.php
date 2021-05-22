@@ -9,6 +9,7 @@
 </form>
 <form action="{{ route('proyecto.force.destroy', $id) }}" method="POST" class="d-inline-block">
     @csrf
+    @method('DELETE')
     <input type="hidden" data-project-name="{{$name}}" value="{{$name}}">
     <button type="submit" class="btn btn-sm btn-danger force-destroy-project" title="Eliminar" data-toggle="tooltip"
         data-placement="top" data-action="force-destroy-project">
