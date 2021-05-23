@@ -8,6 +8,7 @@ use App\Models\Incident;
 use App\Models\Level;
 use App\Models\Project;
 use App\Models\ProjectUser;
+use App\Models\User;
 use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -31,6 +32,39 @@ class IncidentController extends Controller
     public function show($id)
     {
         $incident = Incident::findOrFail($id);
+
+        $user = User::find(auth()->user()->id);
+
+        // Usuarios de soporte
+        if ($user->role == 1) {
+
+            $project_user = ProjectUser::where("user_id", $user->id)
+                ->where("project_id", $incident->project_id)
+                ->where("level_id", $incident->level_id)->first();
+
+            // Se comprueba que el usuario tenga asignacion al proyecto y la inciencia
+            // tenga el nivel como general
+            if (!$project_user && $incident->level_id == null) {
+                $project_user = ProjectUser::where("user_id", $user->id)
+                    ->where("project_id", $incident->project_id)
+                    ->first();
+            }
+
+            // Si el usuario de soporte no tiene una relacion con el proyecto y nivel de la incidencia
+            // no la puede ver y tampoco es la incidencia de soporte
+            if (!$project_user && $incident->client_id != $user->id) {
+                return back();
+            }
+
+            // Usuarios cliente
+        } else if ($user->role == 2) {
+
+            // Si no es la incidencia del cliente
+            if ($incident->client_id != $user->id) {
+                return back();
+            }
+        }
+
         $messages = $incident->messages;
         return view("incidents.show", compact("incident", "messages"));
     }
@@ -58,22 +92,22 @@ class IncidentController extends Controller
 
             $incidentId = Incident::all()->last()->id + 1;
 
-            $projectName = Project::findOrFail(auth()->user()->selected_project_id)->name;
+            $projectId = Project::findOrFail(auth()->user()->selected_project_id)->id;
 
             $category = Category::find($request->category_id);
-            $categoryName = ($category) ? $category->name : "general";
+            $categoryId = ($category) ? $category->id : 0;
 
             // Parte en local //
             $adjunto = $request->file("adjunto")->storeAs(
-                "public/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")."/Incident-Id-$incidentId/attached-file",
+                "public/Project-$projectId/Category-$categoryId/Year-" . date("Y") . "/Month-" . date("m") . "/Day-" . date("d") . "/Incident-Id-$incidentId/attached-file",
                 $request->file("adjunto")->getClientOriginalName()
             );
             $url = Storage::url($adjunto);
             // Fin parte local //
-            
+
 
             // Parte para InfinityFree //
-            /*$path = "storage/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")      ."/Incident-Id-$incidentId/attached-file";
+            /*$path = "storage/Project-$projectId/Category-$categoryId/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")      ."/Incident-Id-$incidentId/attached-file";
 
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
@@ -124,10 +158,10 @@ class IncidentController extends Controller
         if ($request->file("adjunto")) {
             $incidentId = $incident->id;
 
-            $projectName = Project::findOrFail($incident->project_id)->name;
+            $projectId = Project::findOrFail($incident->project_id)->id;
 
             $category = Category::find($incident->category_id);
-            $categoryName = ($category) ? $category->name : "general";
+            $categoryId = ($category) ? $category->id : 0;
 
             // Si antes tenia un archivo adjunto se elimina y se guarda el nuevo
             // Parte local //
@@ -138,20 +172,20 @@ class IncidentController extends Controller
             }
 
             $adjunto = $request->file("adjunto")->storeAs(
-                "public/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")."/Incident-Id-$incidentId/attached-file",
+                "public/Project-$projectId/Category-$categoryId/Year-" . date("Y") . "/Month-" . date("m") . "/Day-" . date("d") . "/Incident-Id-$incidentId/attached-file",
                 $request->file("adjunto")->getClientOriginalName()
             );
 
             $url = Storage::url($adjunto);
             // Fin parte local //
-            
+
             // Inicio para infinityfree //
             /*if ($incident->attached_file) {
                 if (file_exists(substr($incident->attached_file, 1)))
                     unlink(substr($incident->attached_file, 1));
             }
 
-            $path = "storage/Project-$projectName/Category-$categoryName/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")      ."/Incident-Id-$incidentId/attached-file";
+            $path = "storage/Project-$projectId/Category-$categoryId/Year-".date("Y")."/Month-".date("m")."/Day-".date("d")      ."/Incident-Id-$incidentId/attached-file";
 
             if (!file_exists($path)) {
                 mkdir($path, 0777, true);
@@ -169,6 +203,25 @@ class IncidentController extends Controller
         $incident->description = $request->description;
         $incident->attached_file = isset($url) ? $url : $incident->attached_file;
         $incident->save();
+
+        // Si se ha cambiado el nivel a uno distinto de general se elimina al usuario de soporte
+        if ($incident->level_id != null && $incident->support_id != null) {
+            $user = User::find($incident->support_id);
+
+            // Usuario de soporte
+            if ($user->role == 1) {
+
+                $project_user = ProjectUser::where("project_id", $incident->project_id)
+                    ->where("user_id", $user->id)
+                    ->where("level_id", $incident->level_id)
+                    ->first();
+
+                if ($project_user == null) {
+                    $incident->support_id = null;
+                    $incident->save();
+                }
+            }
+        }
 
         return redirect("/incidencia/ver/$id")->with("notification", "Incidencia modificada exitosamente.");
     }
@@ -212,7 +265,10 @@ class IncidentController extends Controller
         }
 
         // Si el nivel de la incidencia no es el mismo que el del usuario
-        if ($project_user->level_id != $incident->level_id) {
+        if (
+            $project_user->level_id != $incident->level_id
+            && $incident->level_id != null
+        ) {
             return back();
         }
 

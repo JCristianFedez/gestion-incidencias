@@ -75,7 +75,7 @@ class Project extends Model
     public function getPublicDirectoryPathAttribute()
     {
         $path = "/public";
-        $path .= "/Project-" . $this->name;
+        $path .= "/Project-" . $this->id;
         return $path;
     }
 
@@ -85,7 +85,7 @@ class Project extends Model
     public function getInfinityFreeDirectoryPathAttribute()
     {
         $path = "/storage";
-        $path .= "/Project-" . $this->name;
+        $path .= "/Project-" . $this->id;
         return $path;
     }
 }

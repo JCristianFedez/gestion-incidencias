@@ -59,7 +59,7 @@
     @csrf
     <input type="hidden" name="user_id" value="{{ $user->id }}">
     <div class="col-md-5 form-group">
-        <select name="project_id" class="form-control" id="select-project" aria-describedby="select-project-Feedback"
+        <select name="project_id" class="custom-select" id="select-project" aria-describedby="select-project-Feedback"
             required>
             <option selected disabled value="">Seleccione proyecto</option>
             @foreach ($projects as $project)
@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="col-md-5 form-group">
-        <select name="level_id" class="form-control" id="select-level" aria-describedby="select-level-Feedback"
+        <select name="level_id" class="custom-select" id="select-level" aria-describedby="select-level-Feedback"
             required>
             <option selected disabled value="">Seleccione nivel</option>
         </select>
@@ -113,7 +113,7 @@
                     <input type="hidden" name="project_user_id" value="" id="project_user_id_relation">
                     <div class="col-12 form-group">
                         <label for="level_id" class="form-label">Seleccione nivel</label>
-                        <select name="level_id" class="form-control" id="select_level_relation"
+                        <select name="level_id" class="custom-select" id="select_level_relation"
                             aria-describedby="select-level-Feedback" required>
                         </select>
                         <div id="select-level-Feedback" class="invalid-feedback">

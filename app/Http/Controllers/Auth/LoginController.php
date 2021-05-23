@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -44,7 +45,7 @@ class LoginController extends Controller
      * no lo tienen
      */
     public function authenticated(){
-        $user = auth()->user();
+        $user = User::find(auth()->user()->id);
 
         // Usuario no tiene un selected_project
         if(! $user->selected_project_id){

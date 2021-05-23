@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Incident;
 use App\Models\Level;
+use App\Models\Project;
 use App\Models\ProjectUser;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -81,7 +83,7 @@ class ProjectUserController extends Controller
         if ($level->project_id != $request->project_id) {
             return back();
         }
-        
+
         $project_user = ProjectUser::find($request->project_user_id);
 
         // Se desatienden todas las incidencias que estaba atendiendo el usuario si se le cambia el nivel
@@ -111,7 +113,45 @@ class ProjectUserController extends Controller
      */
     public function destroy($id)
     {
-        ProjectUser::find($id)->delete();
+        $projectUser = ProjectUser::find($id);
+
+        $incidents = Incident::where("support_id", $projectUser->user_id)
+            ->where("project_id", $projectUser->project_id)
+            ->where("level_id", $projectUser->level_id)->get();
+        for ($i = 0; $i < count($incidents); $i++) {
+            $incidents[$i]->support_id = null;
+            $incidents[$i]->save();
+        }
+
+
+        $user = User::find($projectUser->user_id);
+        // Se modifica el proyecto selccionado para los usuarios de soporte
+        if (
+            $user->selected_project_id == $projectUser->project_id
+            && $user->role == 1
+        ) {
+            if ($user->projects->first()) {
+                $user->selected_project_id = $user->projects->first()->id;
+            } else {
+                $user->selected_project_id = null;
+            }
+            $user->save();
+        }
+
+        // Se elimina el usuario de soporte en las incidencias de nivel general si
+        // el usuario que la atiende estaba relacionado con el proyecto con el nivel 
+        // eliminado
+        $incidentsToDeleteSupportId = Incident::whereNull("level_id")
+        ->where("project_id",$projectUser->project_id)
+        ->where("support_id",$projectUser->user_id)
+        ->get();
+        
+        foreach ($incidentsToDeleteSupportId as $incident) {
+            $incident->support_id = null;
+            $incident->save();
+        }
+
+        $projectUser->forceDelete();
         return back()->with("notification", "Relacion eliminada.");
     }
 }

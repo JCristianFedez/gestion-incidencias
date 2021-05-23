@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Incident;
 use App\Models\Level;
 use App\Models\ProjectUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LevelController extends Controller
@@ -135,6 +136,7 @@ class LevelController extends Controller
         $level = Level::find($id);
         $project = $level->project;
         $difficulty = $level->difficulty;
+        $projectUsers = ProjectUser::where("level_id", $id)->get();
 
         $incidents = Incident::where("level_id", $id)->get();
 
@@ -142,27 +144,49 @@ class LevelController extends Controller
         // si no es posible al anterior y si tampoco el general
         if ($incidents) {
             if ($level->next_level) {
-                for ($i = 0; $i < count($incidents); $i++) {
-                    $incidents[$i]->level_id = $level->next_level->id;
-                    $incidents[$i]->save();
+                foreach ($incidents as $incident) {
+                    $incident->level_id = $level->next_level->id;
+                    $incident->support_id = null;
+                    $incident->save();
                 }
             } else if ($level->previous_level) {
-                for ($i = 0; $i < count($incidents); $i++) {
-                    $incidents[$i]->level_id = $level->previous_level->id;
-                    $incidents[$i]->save();
+                foreach ($incidents as $incident) {
+                    $incident->level_id = $level->previous_level->id;
+                    $incident->support_id = null;
+                    $incident->save();
                 }
             } else {
-                for ($i = 0; $i < count($incidents); $i++) {
-                    $incidents[$i]->level_id = null;
-                    $incidents[$i]->save();
+                foreach ($incidents as $incident) {
+                    $incident->level_id = null;
+                    $incident->support_id = null;
+                    $incident->save();
                 }
             }
         }
 
         $level->forceDelete();
 
+        // Se elimina el usuario de soporte en las incidencias de nivel general si
+        // el usuario que la atiende estaba relacionado con el proyecto con el nivel 
+        // eliminado
+
+        $usersId = [];
+        foreach ($projectUsers as $user) {
+            $usersId[] = $user->user_id;
+        }
+
+        $incidentsToDeleteSupportId = Incident::whereNull("level_id")
+        ->where("project_id",$project->id)
+        ->whereIn("support_id",$usersId)
+        ->get();
+        
+        foreach ($incidentsToDeleteSupportId as $incident) {
+            $incident->support_id = null;
+            $incident->save();
+        }
+        
         // Se eliminan las relaciones de usuarios con dicho nivel
-        ProjectUser::where("level_id", $id)->delete();
+        $projectUsers->forceDelete();
 
         // Actualiza el nivel de dificultad de los niveles posteriores.
         $nextsLevels = Level::where("project_id", $project->id)

@@ -43,19 +43,27 @@ class User extends Authenticatable
     ];
 
     // Relationships
-    public function projects(){
+    public function projects()
+    {
         return $this->belongsToMany("App\Models\Project");
     }
 
 
     /**
-     * Devuelve true si el nivel de la incidencia y del usuario
-     * son el mismo
+     * Devuelve el projectUser mediante estan conectado el usuario
+     * y la incidencia
      */
-    public function canTake(Incident $incident){
-        return ProjectUser::where("user_id",$this->id)
-                ->where("level_id",$incident->level_id)
+    public function canTake(Incident $incident)
+    {
+        if ($incident->level_id != null) {
+            return ProjectUser::where("user_id", $this->id)
+                ->where("level_id", $incident->level_id)
                 ->first();
+        } else {
+            return ProjectUser::where("user_id", $this->id)
+                ->where("project_id", $incident->project_id)
+                ->first();
+        }
     }
 
 
@@ -64,48 +72,54 @@ class User extends Authenticatable
     /**
      * Devuelve la lista de projectos dependiendo del rol de usuario
      */
-    public function getListOfProjectsAttribute(){
+    public function getListOfProjectsAttribute()
+    {
 
-        if($this->role == 1){ //0: Admin | 1: Support | 2: Client
+        if ($this->role == 1) { //0: Admin | 1: Support | 2: Client
             return $this->projects;
         }
-        
+
         return Project::all();
     }
 
     /**
      * Devuelve las incidencias que esta atendiendo
      */
-    public function getListOfIncidentsTakeAttribute(){
-        return Incident::where("support_id",$this->id)->get();
+    public function getListOfIncidentsTakeAttribute()
+    {
+        return Incident::where("support_id", $this->id)->get();
     }
 
     /**
      * Devuelve true si es admin
      */
-    public function getIsAdminAttribute(){
+    public function getIsAdminAttribute()
+    {
         return $this->role == 0;
     }
 
     /**
      * Devuelve true si es cliente
      */
-    public function getIsClientAttribute(){
+    public function getIsClientAttribute()
+    {
         return $this->role == 2;
     }
 
     /**
      * Devuelve true si es support
      */
-    public function getIsSupportAttribute(){
+    public function getIsSupportAttribute()
+    {
         return $this->role == 1;
     }
 
     /**
      * Devuelve la ruta de la imagen de avatar
      */
-    public function getAvatarPathAttribute(){
-        if($this->is_client){
+    public function getAvatarPathAttribute()
+    {
+        if ($this->is_client) {
             return "/images/client.png";
         }
         return "/images/support.png";
@@ -114,7 +128,8 @@ class User extends Authenticatable
     /**
      * Devuelve el nombre completo del rol
      */
-    public function getRoleNameAttribute(){
+    public function getRoleNameAttribute()
+    {
         switch ($this->role) {
             case 0:
                 return "Admin";
@@ -134,12 +149,12 @@ class User extends Authenticatable
     /**
      * Devuelve el estado (Activo / Inactivo)
      */
-    public function getStatusAttribute(){
-        if($this->trashed()){
+    public function getStatusAttribute()
+    {
+        if ($this->trashed()) {
             return "Inactivo";
-        }else{
+        } else {
             return "Activo";
         }
     }
-
 }

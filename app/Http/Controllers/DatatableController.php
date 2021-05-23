@@ -190,7 +190,16 @@ class DatatableController extends Controller
                     if ($projectUser) {
                         $pending_incidents = Incident::where('support_id', null)->where('level_id', $projectUser->level_id)->get();
                     } else {
-                        $pending_incidents = collect(); // Vacio cuando no project associated
+                        $pending_incidents = collect(); // Vacio cuando no tiene proyecto seleccionado
+                    }
+
+                    // Agregar inicdencias de nivel general
+                    $incidents_general_level = Incident::where("support_id",null)
+                        ->where("level_id",null)
+                        ->where("project_id",$selected_project_id)
+                        ->get();
+                    foreach ($incidents_general_level as $incident) {
+                        $pending_incidents[] = $incident;
                     }
                 }
             }

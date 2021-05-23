@@ -91,7 +91,7 @@
     {{-- Boton: Desatender incidencia --}}
     @if ($incident->support_id != null
     && $incident->active
-    && (auth()->user()->canTake($incident) || auth()->user()->is_admin))
+    && $incident->support_id == auth()->user()->id)
     <a href="{{ route("incidencia.disatend", $incident->id) }}" class="btn btn-warning btn-sm btn-action-js"
         data-success-message="Incidencia desatendida correctamente" data-error-message="Error al desatender incidencia" role="button">
         Desatender Incidencia

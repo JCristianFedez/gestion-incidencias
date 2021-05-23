@@ -33,9 +33,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request)
     {
+        $rules = [
+            'name' => ["required", "min:5", "max:255"],
+            'category_id' => ["required", "exists:categories,id"]
+        ];
 
-        $this->validate($request, Category::$rules, Category::$messages);
-        
+        $messages = [
+            'name.required' => 'Es necesario ingresar un nombre para la categoría.',
+            'name.min' => 'La categoría necesita un minimo de 5 caracteres.',
+            'name.max' => 'La categoría no puede tener mas de 255 caracteres.',
+        ];
+
+        $this->validate($request, $rules, $messages);
+
         $category = Category::find($request->category_id);
 
         //Se verifica que no existe una categoría con el mismo nombre en el mismo proyecto
@@ -94,5 +104,4 @@ class CategoryController extends Controller
         $category->forceDelete();
         return back()->with('notification', 'La categoria se ha eliminado correctamente.');
     }
-
 }

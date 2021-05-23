@@ -38,8 +38,8 @@ class Category extends Model
     public function getPublicDirectoryPathAttribute()
     {
         $path = "/public";
-        $path .= "/Project-" . $this->project->name;
-        $path .= "/Category-" . $this->name;
+        $path .= "/Project-" . $this->project->id;
+        $path .= "/Category-" . $this->id;
         return $path;
     }
 
@@ -49,8 +49,8 @@ class Category extends Model
     public function getInfinityFreeDirectoryPathAttribute()
     {
         $path = "/storage";
-        $path .= "/Project-" . $this->project->name;
-        $path .= "/Category-" . $this->name;
+        $path .= "/Project-" . $this->project->id;
+        $path .= "/Category-" . $this->id;
         return $path;
     }
 }
