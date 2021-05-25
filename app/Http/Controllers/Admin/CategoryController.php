@@ -12,6 +12,7 @@ class CategoryController extends Controller
 {
     /**
      * Funcion para almacenar una nueva categoria
+     * @param Request $request Datos pasados por el usuario los cuales se usan para crear la categoria
      */
     public function store(Request $request)
     {
@@ -28,8 +29,13 @@ class CategoryController extends Controller
         return back()->with('notification', 'La categoria se ha creado correctamente.');
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     /**
      * Funcion para actualizar una categoria
+     * @param Request $request Datos pasados por el usuario los cuales se usan para actualizar la categoria
      */
     public function update(Request $request)
     {
@@ -49,17 +55,9 @@ class CategoryController extends Controller
         $category = Category::find($request->category_id);
 
         //Se verifica que no existe una categoría con el mismo nombre en el mismo proyecto
-        if (Category::where("project_id", $category->project_id)->where("name", $request->name)->first()) {
-
-            if ($request->ajax()) {
-                return response()->json([
-                    "head" => "¡Error!",
-                    "message" => "El proyecto ya tiene una categoria con ese nombre",
-                    "type" => "error",
-                ]);
-            }
-
-            return back()->with('notificationError', 'El proyecto ya tiene una categoria con ese nombre.');
+        $temp = $this->verifiedProjectDoesNotHaveCategoryWithSameName($category, $request);
+        if ($temp != null) {
+            return $temp;
         }
 
         $category->name = $request->name;
@@ -77,31 +75,74 @@ class CategoryController extends Controller
     }
 
     /**
+     * Se verifica que si existe en un proyecto una categoria con el mismo nombre que el pasado
+     * @param Category $category Categoria que se va a comprobar
+     * @param Request $request Datos pasadsos por por el usuario
+     * @return return Devuelve si ha el fallo a devolver si ya habia una categoria con el mismo nombre
+     */
+    private function verifiedProjectDoesNotHaveCategoryWithSameName(Category $category, Request $request)
+    {
+        if (Category::where("project_id", $category->project_id)->where("name", $request->name)->first()) {
+
+            if ($request->ajax()) {
+                return response()->json([
+                    "head" => "¡Error!",
+                    "message" => "El proyecto ya tiene una categoria con ese nombre",
+                    "type" => "error",
+                ]);
+            }
+
+            return back()->with('notificationError', 'El proyecto ya tiene una categoria con ese nombre.');
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
      * Funcion para eliminar una categoria
+     * @param Integer $id Id de la categoria a eliminar
      */
     public function destroy($id)
     {
         $category = Category::find($id);
 
         // Parte local //
-        $publicPath = $category->public_directory_path;
-
-        // Elimino los archivos adjuntos de dicha categoria
-        Storage::deleteDirectory($publicPath);
+        $this->localDeleteDirectory($category);
         // Fin parte local//
 
         // Parte para infinityfree //
-        /*
-            $publicPath = $category->infinity_free_directory_path;
-            // Elimino los archivos adjuntos a dicha categoria
-            $filesistem = new Filesystem();
-            $filesistem->deleteDirectory(substr($publicPath, 1));
-        */
+        // $this->infinityFreeDeleteDirectory($category);
         //Fin parte infinityfree //
-
 
         $category->delete();
         $category->forceDelete();
         return back()->with('notification', 'La categoria se ha eliminado correctamente.');
+    }
+
+    /**
+     * Elimina los archivos de la categoria pasada.
+     * Usado para laravel en local
+     * @param Category $category Categoria con la cual se sacara la ruta para eliminar el directorio
+     */
+    private function localDeleteDirectory(Category $category)
+    {
+        $publicPath = $category->public_directory_path;
+        // Elimino el directorio de dicha categoria
+        Storage::deleteDirectory($publicPath);
+    }
+
+    /**
+     * Elimina los archivos de la categoria pasada.
+     * Usado para laravel en infinityFree
+     * @param Category $category Categoria con la cual se sacara la ruta para eliminar el directorio
+     */
+    private function infinityFreeDeleteDirectory(Category $category)
+    {
+        $publicPath = $category->infinity_free_directory_path;
+        // Elimino el directorio de dicha categoria
+        $filesistem = new Filesystem();
+        $filesistem->deleteDirectory(substr($publicPath, 1));
     }
 }
