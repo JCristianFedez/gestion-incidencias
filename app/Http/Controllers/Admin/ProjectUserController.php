@@ -34,7 +34,7 @@ class ProjectUserController extends Controller
         $this->validate($request, $rules, $messages);
 
         // Si hay un usuario malicioso e intenta enlacar un proyecto con un nivel que no le corresponde
-        $level = Level::find($request->level_id);
+        $level = Level::findOrFail($request->level_id);
         if ($level->project_id != $request->project_id) {
             return back();
         }
@@ -135,7 +135,7 @@ class ProjectUserController extends Controller
     {
         if ($project_user->level_id != $request->level_id) {
 
-            $user = User::find($project_user->user_id);
+            $user = User::findOrFail($project_user->user_id);
             $incidents = $user->list_of_incidents_take;
             if ($incidents != null) {
                 foreach ($incidents as $incident) {
@@ -160,7 +160,7 @@ class ProjectUserController extends Controller
      */
     public function destroy($id)
     {
-        $projectUser = ProjectUser::find($id);
+        $projectUser = ProjectUser::findOrFail($id);
 
         // Se desatienden todas las incidencias que eran atendidas por el usuario en el proyecto
         // de la relacion
@@ -204,7 +204,7 @@ class ProjectUserController extends Controller
      */
     private function modifiedSelectedProjectForSupportUsers(ProjectUser $projectUser)
     {
-        $user = User::find($projectUser->user_id);
+        $user = User::findOrFail($projectUser->user_id);
         if (
             $user->selected_project_id == $projectUser->project_id
             && $user->role == 1

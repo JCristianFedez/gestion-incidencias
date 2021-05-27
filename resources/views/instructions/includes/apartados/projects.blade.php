@@ -72,7 +72,7 @@
         proyecto que
         quiere
         dar de baja y en la columna <em>opciones</em> pinche en el botón de <strong>Dar de baja</strong>
-        <a class="btn btn-sm btn-danger" title="" data-toggle="tooltip" data-placement="top"
+        <a class="btn btn-sm btn-warning" title="" data-toggle="tooltip" data-placement="top"
             data-original-title="Dar de baja" role="button">
             <i class="fas fa-trash"></i>
         </a>.

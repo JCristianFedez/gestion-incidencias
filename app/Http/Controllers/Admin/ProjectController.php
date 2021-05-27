@@ -47,7 +47,7 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        $project = Project::find($id);
+        $project = Project::findOrFail($id);
         $categories =  $project->categories;
         $levels = $project->levels;
         return view("admin.projects.edit", compact("project", "categories", "levels"));
@@ -66,7 +66,7 @@ class ProjectController extends Controller
     {
         $this->validate($request, Project::$rules, Project::$messages);
 
-        Project::find($id)->update($request->all());
+        Project::findOrFail($id)->update($request->all());
         return back()->with('notification', 'El proyecto se ha actualizado correctamente.');
     }
 
@@ -80,7 +80,7 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $project = Project::find($id);
+        $project = Project::findOrFail($id);
         $project->delete();
         ProjectUser::where("project_id", $id)->delete();
 

@@ -52,7 +52,7 @@ class CategoryController extends Controller
 
         $this->validate($request, $rules, $messages);
 
-        $category = Category::find($request->category_id);
+        $category = Category::findOrFail($request->category_id);
 
         //Se verifica que no existe una categoría con el mismo nombre en el mismo proyecto
         $temp = $this->verifiedProjectDoesNotHaveCategoryWithSameName($category, $request);
@@ -106,7 +106,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
 
         // Parte local //
         $this->localDeleteDirectory($category);

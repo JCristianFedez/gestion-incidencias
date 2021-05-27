@@ -94,7 +94,7 @@ class LevelController extends Controller
 
         $this->validate($request, $rules, $messages);
 
-        $level = Level::find($request->level_id);
+        $level = Level::findOrFail($request->level_id);
 
         // Se verifica que no haya un nivel con el mismo nombre en el mismo proyecto
         $temp = $this->verifiedProjectDoesNotHaveLevelWithSameNameAndDifficulty($level, $request);
@@ -188,7 +188,7 @@ class LevelController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $level = Level::find($id);
+        $level = Level::findOrFail($id);
         $project = $level->project;
         $difficulty = $level->difficulty;
         $projectUsers = ProjectUser::where("level_id", $id)->get();

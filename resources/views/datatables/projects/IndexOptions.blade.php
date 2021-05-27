@@ -31,7 +31,7 @@
     @csrf
     @method('DELETE')
     <input type="hidden" data-project-name="{{$name}}" value="{{$name}}">
-    <button type="submit" class="btn btn-sm btn-danger delete-project" title="Dar de baja" data-toggle="tooltip"
+    <button type="submit" class="btn btn-sm btn-warning delete-project" title="Dar de baja" data-toggle="tooltip"
         data-placement="top" data-action="delete-project">
         <i class="fas fa-trash"></i>
     </button>
