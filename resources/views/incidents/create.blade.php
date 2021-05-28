@@ -13,9 +13,9 @@
 {{-- Formulario para crear incidencia --}}
 <form action="" method="POST" class="row needs-validation" novalidate enctype="multipart/form-data">
     @csrf
-    {{-- Categoria --}}
+    {{-- Categoría --}}
     <div class="form-group @if (auth()->user()->is_admin) col-md-4  @else col-md-6 @endif">
-        <label for="category_id" class="form-label">Categoria</label>
+        <label for="category_id" class="form-label">Categoría</label>
         <select name="category_id" id="category_id" class="custom-select">
             <option value="">General</option>
             @foreach ($categories as $category)
@@ -48,11 +48,11 @@
     </div>
 
     <div class="col-md-12 form-group">
-        <label for="title" class="form-label">Titulo</label>
+        <label for="title" class="form-label">Título</label>
         <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" required minlength="5"
             maxlength="255">
         <div class="invalid-feedback">
-            Porfavor introduzca un titulo valido.
+            Porfavor introduzca un título valido. Entre 5 y 255 caracteres.
         </div>
     </div>
 
@@ -61,7 +61,7 @@
         <textarea name="description" id="description" class="form-control" required minlength="15"
             maxlength="255">{{old('description')}}</textarea>
         <div class="invalid-feedback">
-            Porfavor introduzca una descripcion valida.
+            Porfavor introduzca una descripcion valida. Entre 15 y 255 caracteres.
         </div>
     </div>
 

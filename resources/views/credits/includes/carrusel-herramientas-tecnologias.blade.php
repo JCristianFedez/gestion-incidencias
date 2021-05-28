@@ -1,5 +1,5 @@
 <div class="row mb-5">
-    <h3 class="h3">Principales Hermaientas y tecnologias</h3>
+    <h3 class="h3">Principales Herramientas y Tecnologías.</h3>
     <div class="owl-carousel owl-carousel-several owl-theme owl-img-responsive">
         <div class="item m-3">
             <div class="card card-custom bg-white border-white border-0 position-relative">
@@ -21,7 +21,9 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://laravel.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
+                    <a href="https://laravel.com/" target="_blank" class="btn btn-primary" role="button">
+                        Más información
+                    </a>
                 </div>
             </div>
         </div>
@@ -46,7 +48,9 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://httpd.apache.org/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
+                    <a href="https://httpd.apache.org/" target="_blank" class="btn btn-primary" role="button">
+                        Más información
+                    </a>
                 </div>
             </div>
         </div>
@@ -73,7 +77,9 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://www.mysql.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
+                    <a href="https://www.mysql.com/" target="_blank" class="btn btn-primary" role="button">
+                        Más información
+                    </a>
                 </div>
             </div>
         </div>
@@ -94,7 +100,9 @@
                         potentes complementos de JavaScript.</p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://getbootstrap.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
+                    <a href="https://getbootstrap.com/" target="_blank" class="btn btn-primary" role="button">
+                        Más información
+                    </a>
                 </div>
             </div>
         </div>

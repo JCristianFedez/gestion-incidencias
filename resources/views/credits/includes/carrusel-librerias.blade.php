@@ -1,5 +1,5 @@
 <div class="row mb-5">
-    <h3 class="h3">Librerias y Complementos</h3>
+    <h3 class="h3">Librerías y Complementos</h3>
     <div class="owl-carousel owl-carousel-several owl-theme owl-img-responsive">
         <div class="item m-3">
             <div class="card card-custom bg-white border-white border-0 position-relative">
@@ -24,7 +24,9 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://jquery.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
+                    <a href="https://jquery.com/" target="_blank" class="btn btn-primary" role="button">
+                        Más información
+                    </a>
                 </div>
             </div>
         </div>
@@ -46,7 +48,9 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://fontawesome.com/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
+                    <a href="https://fontawesome.com/" target="_blank" class="btn btn-primary" role="button">
+                        Más información
+                    </a>
                 </div>
             </div>
         </div>
@@ -66,13 +70,14 @@
                         DataTables es un complemento para la biblioteca jQuery Javascript.
                     </p>
                     <p class="card-text">
-                        Es una
-                        herramienta muy flexible, construida sobre los cimientos de la mejora progresiva, que agrega
-                        todas estas características avanzadas a cualquier tabla HTML.
+                        Es una herramienta muy flexible, construida sobre los cimientos de la mejora progresiva, que
+                        agrega todas estas características avanzadas a cualquier tabla HTML.
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://datatables.net/" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
+                    <a href="https://datatables.net/" target="_blank" class="btn btn-primary" role="button">
+                        Más información
+                    </a>
                 </div>
             </div>
         </div>
@@ -93,8 +98,10 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://owlcarousel2.github.io/OwlCarousel2/" target="_blank" class="btn btn-primary" role="button">Mas
-                        informacion</a>
+                    <a href="https://owlcarousel2.github.io/OwlCarousel2/" target="_blank" class="btn btn-primary"
+                        role="button">
+                        Más información
+                    </a>
                 </div>
             </div>
         </div>
@@ -117,7 +124,7 @@
                 </div>
                 <div class="card-footer bg-transparent">
                     <a href="https://sweetalert2.github.io/" target="_blank" class="btn btn-primary" role="button">
-                        Mas informacion
+                        Más información
                     </a>
                 </div>
             </div>
@@ -141,7 +148,8 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://kamranahmed.info/toast" target="_blank" class="btn btn-primary" role="button">Mas informacion</a>
+                    <a href="https://kamranahmed.info/toast" target="_blank" class="btn btn-primary" role="button">
+                        Más información</a>
                 </div>
             </div>
         </div>
@@ -166,8 +174,10 @@
                     </p>
                 </div>
                 <div class="card-footer bg-transparent">
-                    <a href="https://craftpip.github.io/jquery-confirm/" target="_blank" class="btn btn-primary" role="button">Mas
-                        informacion</a>
+                    <a href="https://craftpip.github.io/jquery-confirm/" target="_blank" class="btn btn-primary"
+                        role="button">
+                        Más información
+                    </a>
                 </div>
             </div>
         </div>

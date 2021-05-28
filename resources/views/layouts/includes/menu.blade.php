@@ -62,15 +62,15 @@
             <a href="{{ route("credits") }}" class="nav-link font-italic
             @if(request()->is("creditos")) active text-white @else text-primary bg-light @endif">
                 <i class="fab fa-gratipay mr-3 fa-fw"></i>
-                Creditos
+                Créditos
             </a>
         </li>
         @auth
         <li class="nav-item">
-            <a href="{{ route("instructions") }}" class="nav-link font-italic 
-            @if(request()->is("instrucciones")) active text-white @else text-primary bg-light @endif">
+            <a href="{{ route("help") }}" class="nav-link font-italic 
+            @if(request()->is("ayuda")) active text-white @else text-primary bg-light @endif">
                 <i class="fas fa-book mr-3 fa-fw"></i>
-                Instrucciones
+                Ayuda
             </a>
         </li>
         @endauth

@@ -42,9 +42,9 @@ Route::middleware(['middleware' => 'project.selected', 'auth'])->group(function 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     // Instrucciones
-    Route::get("/instrucciones", function () {
-        return view('instructions.instructions');
-    })->name("instructions");
+    Route::get("/ayuda", function () {
+        return view('help.help');
+    })->name("help");
 
     // Seleccionar proyecto
     Route::get("/seleccionar/proyecto/{id}", [HomeController::class, "selectProject"])->name("seleccionar.proyecto");
