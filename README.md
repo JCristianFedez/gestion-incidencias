@@ -165,7 +165,7 @@ Se le redirigirá a una ventana en la cual aparecerá un formulario en la **part
 ### <a name="proyectos-dar-de-baja">Dar de baja un proyecto</a>
 Para dar de baja a un proyecto, debe de dirigirse en el menú izquierdo al apartado de **Proyectos** ![Imagen del boton para acceder al apartado de proyectos](https://raw.githubusercontent.com/JCristianFedez/gestion-incidencias/main/documentation/Imagenes-botones/btn-proyectos.png).
 
-Una vez le haya cargado la página, debe dirigirse a la **tabla inferior**, buscar el registro del proyecto que quiere dar de baja y en la columna *opciones* pinche en el botón de **Dar de baja** ![Imagen del boton para dar de baja un proyecto](https://raw.githubusercontent.com/JCristianFedez/gestion-incidencias/main/documentation/Imagenes-botones/btn-eliminar.png).
+Una vez le haya cargado la página, debe dirigirse a la **tabla inferior**, buscar el registro del proyecto que quiere dar de baja y en la columna *opciones* pinche en el botón de **Dar de baja** ![Imagen del boton para dar de baja un proyecto](https://raw.githubusercontent.com/JCristianFedez/gestion-incidencias/main/documentation/Imagenes-botones/btn-dar-de-baja-proyecto.png).
 <br>
 
 ### <a name="proyectos-restaurar">Restaurar proyecto</a>

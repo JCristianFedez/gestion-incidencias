@@ -35,6 +35,7 @@
                                 <a class="dropdown-item rounded" href="#see-projects">Ver</a>
                                 <a class="dropdown-item rounded" href="#create-project">Crear</a>
                                 <a class="dropdown-item rounded" href="#edit-project">Editar</a>
+                                <a class="dropdown-item rounded" href="#disabled-project">Dar de baja</a>
                                 <a class="dropdown-item rounded" href="#delete-project">Eliminar</a>
                                 <a class="dropdown-item rounded" href="#change-project">Cambiar</a>
                         </div>
