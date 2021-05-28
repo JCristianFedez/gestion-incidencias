@@ -50,6 +50,9 @@ Las mayoría de las tablas en esta aplicación tienen varias opciones para busca
 2. Filtros por campos.
 3. Eliminar campos que no se quieran ver.
 
+La aplicación está desplegada en el siguiente servidor web: [Infinity Free](https://infinityfree.net/)
+La URL de la aplicación es la siguiente: [http://gestion-incidencias.42web.io/](http://gestion-incidencias.42web.io/)
+
 
 - - -
 
