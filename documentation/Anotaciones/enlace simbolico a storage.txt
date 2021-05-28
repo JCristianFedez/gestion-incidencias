@@ -1,0 +1,2 @@
+Si al acceder a un archivo adjunto da error probar a eliminar la carpeta "public/storage" y ejecutar el siguiente comando:
+php artisan storage:link
