@@ -55,7 +55,7 @@
     @endif
     @endauth
 
-    <p class="font-weight-bold text-uppercase px-3 small mb-1">Informacion</p>
+    <p class="font-weight-bold text-uppercase px-3 small mb-1">Información</p>
 
     <ul class="nav nav-pills flex-column mb-0">
         <li class="nav-item">
