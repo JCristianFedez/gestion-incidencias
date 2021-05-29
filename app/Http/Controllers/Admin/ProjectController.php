@@ -102,11 +102,18 @@ class ProjectController extends Controller
         foreach ($users as $user) {
             // Admin y cliente
             if ($user->is_admin || $user->is_client) {
-                $user->selected_project_id = Project::first()->id;
+                $project = Project::first();
+                if ($project != null) {
+                    $user->selected_project_id = $project->id;
+                } else {
+                    $user->selected_project_id = null;
+                }
             } else {
                 // Y si el usuario de soporte no esta asignado a ningun proyecto
-                if ($user->projects->first()) {
+                if ($user->projects->first() != null) {
                     $user->selected_project_id = $user->projects->first()->id;
+                } else {
+                    $user->selected_project_id = null;
                 }
             }
             $user->save();
@@ -142,7 +149,8 @@ class ProjectController extends Controller
      * Usado para laravel en local
      * @param Project $project Proyecto con la cual se sacara la ruta para eliminar el directorio
      */
-    private function localDeleteDirectory(Project $project){
+    private function localDeleteDirectory(Project $project)
+    {
         $publicPath = $project->public_directory_path;
 
         // Elimino los archivos adjuntos de dicho proyecto
@@ -154,9 +162,10 @@ class ProjectController extends Controller
      * Usado para laravel en infinityFree
      * @param Project $project Proyecto con la cual se sacara la ruta para eliminar el directorio
      */
-    private function infinityFreeDeleteDirectory(Project $project){
+    private function infinityFreeDeleteDirectory(Project $project)
+    {
         $publicPath = $project->infinity_free_directory_path;
-        
+
         // Elimino los archivos adjuntos de dicho proyecto
         $filesistem = new Filesystem();
         $filesistem->deleteDirectory(substr($publicPath, 1));
@@ -172,8 +181,35 @@ class ProjectController extends Controller
     public function restore($id)
     {
         Project::withTrashed()->find($id)->restore();
-        ProjectUser::withTrashed("project_id", $id)->restore();
+        $projectUser = ProjectUser::withTrashed()->where("project_id", $id)->get();
+        ProjectUser::withTrashed()->where("project_id", $id)->restore();
+        $this->changeSelectedFromProjectRestore($projectUser, $id);
 
         return back()->with('notification', 'El proyecto se ha habilitado correctamente.');
+    }
+
+    /**
+     * Si el nivel dado de baja, elimina la relacion con el usuario y el proyecto
+     *  y el proyecto de dicha relacion es el que tiene el usuario seleccionado se 
+     * le selecciona otro automaticamente
+     * @param Array $projectUser Array de projectUsers del proyecto a restaurar
+     * @param Integer $id Id del proyecto a restaurar
+     */
+    private function changeSelectedFromProjectRestore($projectUser, $id)
+    {
+        $usersId = [];
+        foreach ($projectUser as $pj) {
+            $usersId[] = $pj->user_id;
+        }
+
+        $users = User::whereNull("selected_project_id")
+            ->where("role", "1")
+            ->whereIn("id", $usersId)
+            ->get();
+
+        foreach ($users as $user) {
+            $user->selected_project_id = $id;
+            $user->save();
+        }
     }
 }

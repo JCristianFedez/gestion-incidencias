@@ -42,7 +42,7 @@ class IncidentController extends Controller
         $user = User::findOrFail(auth()->user()->id);
 
         $temp = $this->userCanSeeTheIncident($user, $incident);
-        if($temp != null){
+        if ($temp != null) {
             return $temp;
         }
 
@@ -62,12 +62,12 @@ class IncidentController extends Controller
     private function userCanSeeTheIncident(User $user, Incident $incident)
     {
         // Si el proyecto de la incidencia es distinto al del seleccionado por el usuario
-        if($user->selected_project_id != $incident->project_id){
+        if ($user->selected_project_id != $incident->project_id) {
             return back();
         }
 
         // Usuarios de soporte
-        if ($user->role == 1) {
+        if ($user->is_support) {
 
             $projectUser = ProjectUser::where("user_id", $user->id)
                 ->where("project_id", $incident->project_id)
@@ -88,7 +88,7 @@ class IncidentController extends Controller
             }
 
             // Usuarios cliente
-        } else if ($user->role == 2) {
+        } else if ($user->is_client) {
 
             // Si no es la incidencia del cliente
             if ($incident->client_id != $user->id) {
@@ -107,7 +107,8 @@ class IncidentController extends Controller
     public function create()
     {
         $categories = Category::where("project_id", auth()->user()->selected_project_id)->get();
-        $levels = Level::where("project_id", auth()->user()->selected_project_id)->get();
+        $levels = Level::where("project_id", auth()->user()->selected_project_id)
+            ->orderBy('difficulty')->get();
         return view("incidents.create", compact("categories", "levels"));
     }
 
@@ -154,11 +155,16 @@ class IncidentController extends Controller
     {
         if ($request->file("adjunto") != null) {
 
-            $incidentId = Incident::all()->last()->id + 1;
+            $incidentId = Incident::all()->last();
+            $incidentId = $incidentId != null ? $incidentId->id + 1 : 1;
 
             $user = User::findOrFail(auth()->user()->id);
 
-            $projectId = Project::findOrFail($user->selected_project_id)->id;
+            $projectId = Project::findOrFail($user->selected_project_id);
+            if ($projectId == null) {
+                return null;
+            }
+            $projectId = $projectId->id;
 
             $categoryId = $request->category_id != null ? $request->category_id : 0;
 
@@ -571,12 +577,12 @@ class IncidentController extends Controller
 
             $user = User::find($incident->support_id);
             // Si el usuario que la atiende es de soporte, se elimina el usuario que atiende la incidencia
-            if($user != null){
+            if ($user != null) {
                 if ($user->is_support) {
                     $incident->support_id = null;
                 }
             }
-            
+
             $incident->save();
 
             if ($request->ajax()) {

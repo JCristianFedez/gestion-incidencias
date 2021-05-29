@@ -110,7 +110,7 @@ class DatatableController extends Controller
     public function projectsLevels($id)
     {
 
-        $levels = Project::find($id)->levels;
+        $levels = Project::findOrFail($id)->levels;
 
         return DataTables::of($levels)
             ->addColumn('options', 'datatables.projects.edit.levelsOption')
@@ -130,7 +130,7 @@ class DatatableController extends Controller
      */
     public function incidentsByMe()
     {
-        $user = User::find(auth()->user()->id);
+        $user = User::findOrFail(auth()->user()->id);
         $selected_project_id = $user->selected_project_id;
 
         if ($selected_project_id) {
@@ -168,7 +168,7 @@ class DatatableController extends Controller
      */
     public function myIncidents()
     {
-        $user = User::find(auth()->user()->id);
+        $user = User::findOrFail(auth()->user()->id);
         $selected_project_id = $user->selected_project_id;
 
         if ($selected_project_id) {
@@ -207,7 +207,7 @@ class DatatableController extends Controller
      */
     public function pendingIncidents()
     {
-        $user = User::find(auth()->user()->id);
+        $user = User::findOrFail(auth()->user()->id);
         $selectedProjectId = $user->selected_project_id;
 
 

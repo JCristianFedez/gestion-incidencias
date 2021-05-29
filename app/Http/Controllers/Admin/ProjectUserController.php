@@ -45,6 +45,14 @@ class ProjectUserController extends Controller
             return $temp;
         }
 
+        // Si el usuario al que se le asigna el proyecto no tiene ningun proyecto
+        // seleccionado se le asigna este
+        $user = User::findOrFail($request->user_id);
+        if ($user->selected_project_id == null){
+            $user->selected_project_id = $request->project_id;
+            $user->save();
+        }
+
         $project_user = new ProjectUser();
         $project_user->project_id = $request->project_id;
         $project_user->user_id = $request->user_id;
@@ -66,7 +74,7 @@ class ProjectUserController extends Controller
         $project_user = ProjectUser::where("project_id", $request->project_id)
             ->where("user_id", $request->user_id)->first();
 
-        if ($project_user) {
+        if ($project_user != null) {
             if ($project_user->deleted_at == null) {
                 return back()->with("notification", "El usuario ya pertenece a este proyecto.");
             } else {
@@ -161,20 +169,20 @@ class ProjectUserController extends Controller
     public function destroy($id)
     {
         $projectUser = ProjectUser::findOrFail($id);
+        $projectUser->forceDelete();
 
         // Se desatienden todas las incidencias que eran atendidas por el usuario en el proyecto
         // de la relacion
         $this->disregardedAllIncidentsThatUserAttendingInTheRelationshipProject($projectUser);
-
-        // Se modifica el proyecto selccionado para los usuarios de soporte
-        $this->modifiedSelectedProjectForSupportUsers($projectUser);
 
         // Se elimina el usuario de soporte en las incidencias de nivel general si
         // el usuario que la atiende estaba relacionado con el proyecto con el nivel 
         // eliminado
         $this->neglectGeneralLevelIncidentIfTheUserWhoAttendsItWasTheOneFromTheRelationship($projectUser);
 
-        $projectUser->forceDelete();
+        // Se modifica el proyecto selccionado para los usuarios de soporte
+        $this->modifiedSelectedProjectForSupportUsers($projectUser);
+
         return back()->with("notification", "Relacion eliminada.");
     }
 
@@ -207,9 +215,9 @@ class ProjectUserController extends Controller
         $user = User::findOrFail($projectUser->user_id);
         if (
             $user->selected_project_id == $projectUser->project_id
-            && $user->role == 1
+            && $user->is_support
         ) {
-            if ($user->projects->first()) {
+            if ($user->projects->first() != null) {
                 $user->selected_project_id = $user->projects->first()->id;
             } else {
                 $user->selected_project_id = null;

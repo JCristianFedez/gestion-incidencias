@@ -17,7 +17,7 @@ class ProyectoSeleccionadoMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-        if(! auth()->user()->selected_project_id){
+        if(auth()->user()->selected_project_id == null){
             return redirect("/");
         }
         return $next($request);

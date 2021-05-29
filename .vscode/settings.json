@@ -1,3 +1,4 @@
 {
-    "cSpell.language": ",es"
+    "cSpell.language": ",es",
+    "compile-hero.disable-compile-files-on-did-save-code": true
 }

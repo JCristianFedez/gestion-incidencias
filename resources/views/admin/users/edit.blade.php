@@ -25,7 +25,7 @@
         <input type="text" name="name" id="name" class="form-control" value="{{old('name',$user->name)}}" required
             maxlength="255">
         <div class="invalid-feedback">
-            Porfavor introduzca un nombre valido.
+            Porfavor introduzca un nombre valido. El nombre no puede contener más de 255 caracteres.
         </div>
     </div>
 
@@ -34,7 +34,7 @@
         <input type="text" name="password" id="password" class="form-control" value="{{old('password')}}" minlength="8"
             maxlength="255">
         <div class="invalid-feedback">
-            Porfavor introduzca una contraseña valido.
+            Porfavor introduzca una contraseña valido. La contraseña debe de contener entre 8 y 255 caracteres.
         </div>
     </div>
 

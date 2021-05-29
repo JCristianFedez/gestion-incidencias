@@ -39,6 +39,12 @@ class LevelController extends Controller
             return back()->with('notificationError', 'El proyecto ya tiene un nivel con ese nombre.');
         }
 
+        // Se comprueba que la dificultad este entre el 1 y la cantidad de niveles + 1
+        $temp = $this->checkLevelDifficulty($request);
+        if ($temp != null) {
+            return $temp;
+        }
+
         // Actualiza el nivel de dificultad de los niveles posteriores.
         $this->updateDifficultyLevelOfLaterLevels($request);
 
@@ -47,9 +53,28 @@ class LevelController extends Controller
         return back()->with('notification', 'El nivel se ha creado correctamente.');
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /**
+     * Comprueba que la dificultad del nivel no sea superior al maximo ni infernior a uno
+     * 
+     * @param Request $request Contiene los datos usados para crear un nivel
+     * @return Error Devuelve el error a retornar
+     */
+    private function checkLevelDifficulty(Request $request)
+    {
+        if ($request->difficulty < 1) {
+            return back()->with('notificationError', 'La dificultad no puede ser menor a 1.');
+        }
+
+        // Dificultad maxima permitida
+        $maxDifficulty = Level::where("project_id", $request->project_id)
+            ->orderBy('difficulty', "desc")->first();
+
+        $maxDifficulty = $maxDifficulty != null ? $maxDifficulty->difficulty + 1 : 1;
+
+        if ($maxDifficulty < $request->difficulty) {
+            return back()->with('notificationError', "La dificultad no puede ser superior a $maxDifficulty.");
+        }
+    }
 
     /**
      * Actuaiza el nivel de dificultad de los niveles con mas dificultad de el proyecto de dicho
@@ -96,12 +121,16 @@ class LevelController extends Controller
 
         $level = Level::findOrFail($request->level_id);
 
+        $temp = $this->checkLevelDifficultyWithAjax($level, $request);
+        if ($temp != null) {
+            return $temp;
+        }
+
         // Se verifica que no haya un nivel con el mismo nombre en el mismo proyecto
         $temp = $this->verifiedProjectDoesNotHaveLevelWithSameNameAndDifficulty($level, $request);
         if ($temp != null) {
             return $temp;
         }
-
 
         // Se organiza la dificultad de los niveles entre la dificultad actual del nivel y la última.
         $this->difficultyLevelsOrganizedBetweenTheCurrentDifficultyOfTheLevelAndTheLast($level, $request);
@@ -179,6 +208,47 @@ class LevelController extends Controller
         }
     }
 
+    /**
+     * Comprueba que la dificultad del nivel no sea superior al maximo actual ni infernior a uno, ademas se
+     * le agrega la posibilidad de usar ajax
+     * 
+     * @param Level $level Contiene el nivel a editar
+     * @param Request $request Contienen los nuevos datos para el nivel
+     * @return Error Devuelve el error a retornar
+     */
+    private function checkLevelDifficultyWithAjax(Level $level, Request $request)
+    {
+        if ($request->difficulty < 1) {
+
+            if ($request->ajax()) {
+                return response()->json([
+                    "head" => "¡Error!",
+                    "message" => "La dificultad no puede ser menor a 1.",
+                    "type" => "error",
+                ]);
+            }
+
+            return back()->with('notificationError', 'La dificultad no puede ser menor a 1.');
+        }
+
+        // Dificultad maxima permitida
+        $maxDifficulty = Level::where("project_id", $level->project_id)
+            ->orderBy('difficulty', "desc")->first()->difficulty;
+
+        if ($maxDifficulty < $request->difficulty) {
+
+            if ($request->ajax()) {
+                return response()->json([
+                    "head" => "¡Error!",
+                    "message" => "La dificultad no puede ser superior a $maxDifficulty.",
+                    "type" => "error",
+                ]);
+            }
+
+            return back()->with('notificationError', "La dificultad no puede ser superior a $maxDifficulty.");
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,6 +259,7 @@ class LevelController extends Controller
     public function destroy($id, Request $request)
     {
         $level = Level::findOrFail($id);
+        $level->forceDelete();
         $project = $level->project;
         $difficulty = $level->difficulty;
         $projectUsers = ProjectUser::where("level_id", $id)->get();
@@ -199,7 +270,10 @@ class LevelController extends Controller
         // si no es posible al anterior y si tampoco el general
         $this->reorganizeTheLevelOfTheIncidentsOfTheLevelToBeEliminated($incidents, $level);
 
-        $level->forceDelete();
+        // Se cambia el proyecto seleccionado si el nivel a eliminar es el nivel mediante
+        // el cual el usuario esta relacionado con el proyecto que tiene seleccionado
+        $this->changeSelectedProjectsFromTheLevelToRemove($level);
+
 
         // Se elimina el usuario de soporte en las incidencias de nivel general si
         // el usuario que la atiende estaba relacionado con el proyecto con el nivel 
@@ -297,6 +371,29 @@ class LevelController extends Controller
         }
     }
 
+    /**
+     * Si el nivel dado de baja, elimina la relacion con el usuario y el proyecto
+     *  y el proyecto de dicha relacion es el que tiene el usuario seleccionado se 
+     * le selecciona otro automaticamente
+     * @param Level $level Nivel que se va a eliminar
+     */
+    private function changeSelectedProjectsFromTheLevelToRemove(Level $level)
+    {
+        $users = User::where("selected_project_id", $level->project_id)
+            ->where("role", "1")
+            ->get();
+
+        foreach ($users as $user) {
+            
+            if ($user->projects->first() != null) {
+                $user->selected_project_id = $user->projects->first()->id;
+            } else {
+                $user->selected_project_id = null;
+            }
+            $user->save();
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -304,6 +401,6 @@ class LevelController extends Controller
     // Mi pequeño api para recuperar los niveles de un proyecto
     public function byProject($id)
     {
-        return Level::where("project_id", $id)->get();
+        return Level::where("project_id", $id)->orderBy('difficulty')->get();
     }
 }

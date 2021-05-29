@@ -9,6 +9,7 @@
 </form>
 <form action="{{ route('usuario.force.destroy', $id) }}" method="POST" class="d-inline-block">
     @csrf
+    @method('DELETE')
     <input type="hidden" data-user-name="{{$name}}" value="{{$name}}">
     <button type="submit" class="btn btn-sm btn-danger force-destroy-user" title="Eliminar" data-toggle="tooltip"
         data-placement="top" data-action="force-destroy-user">
@@ -20,7 +21,7 @@
     data-placement="top" role="button">
     <i class="fas fa-user-edit"></i>
 </a>
-<form action="{{ route('usuario.destroy', $id) }}" method="POST" class="d-inline-block not-send">
+<form action="{{ route('usuario.destroy', $id) }}" method="POST" class="d-inline-block">
     @csrf
     @method('DELETE')
     <input type="hidden" data-user-name="{{$name}}" value="{{$name}}">

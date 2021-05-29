@@ -48,6 +48,9 @@ class User extends Authenticatable
         return $this->belongsToMany("App\Models\Project");
     }
 
+    public function projectUser(){
+        return $this->hasMany("App\Models\ProjectUser");
+    }
 
     /**
      * Devuelve el projectUser mediante estan conectado el usuario
@@ -80,6 +83,13 @@ class User extends Authenticatable
         }
 
         return Project::all();
+    }
+
+    /**
+     * Devuelve la lista de incidencias creadas
+     */
+    public function getListOfIncidentsClientAttribute(){
+        return Incident::where("client_id", $this->id)->get();
     }
 
     /**
@@ -157,4 +167,5 @@ class User extends Authenticatable
             return "Activo";
         }
     }
+
 }

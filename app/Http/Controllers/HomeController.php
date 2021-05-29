@@ -42,7 +42,7 @@ class HomeController extends Controller
     public function selectProject($id){
         // Validar que el usuario esta asociado con el proyecto
 
-        $user = User::find(auth()->user()->id);
+        $user = User::findOrFail(auth()->user()->id);
 
         // Usuario de soporte solo puede acceder a los proyectos que tenga asignados
         if($user->projects->find($id) == null && $user->is_support){

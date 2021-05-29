@@ -8,7 +8,9 @@ use App\Models\Message;
 use App\Models\Project;
 use App\Models\ProjectUser;
 use App\Models\User;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -77,9 +79,13 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $projects = Project::all();
 
-        return view("admin.users.edit", compact("user", "projects"));
+        if ($user->is_support) {
+            $projects = Project::all();
+            return view("admin.users.edit", compact("user", "projects"));
+        }
+
+        return view("admin.users.edit", compact("user"));
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,7 +114,7 @@ class UserController extends Controller
             'email.required' => 'Es indispensable ingresar el e-mail del usuario.',
             'email.email' => 'El e-mail ingresado no es válido.',
             'email.max' => 'El e-mail es demasiado extenso.',
-            'password.min' => 'La contraseña debe presentar al menos 6 caracteres.',
+            'password.min' => 'La contraseña debe presentar al menos 8 caracteres.',
             'password.min' => 'La contraseña debe presentar menos de 255 caracteres.',
             'rol.required' => 'El rol es obligatorio',
             'rol.in' => 'Rol invalido'
@@ -117,6 +123,8 @@ class UserController extends Controller
         $this->validate($request, $rules, $messages);
 
         $user = User::findOrFail($id);
+        $this->modifiedSelectedProjectForUsers($user, $request);
+
         $user->name = $request->name;
         $user->role = $request->rol;
 
@@ -147,7 +155,7 @@ class UserController extends Controller
      */
     private function neglectAllUserIncidents(User $user)
     {
-        if ($user->role == 2) {
+        if ($user->is_client) {
             $incidencias = Incident::where("support_id", $user->id)->get();
             foreach ($incidencias as $incidencia) {
                 $incidencia->support_id = null;
@@ -157,14 +165,14 @@ class UserController extends Controller
     }
 
     /**
-     * Si el usuario ahora no es soporte se le eliminan todas las relaciones con proyectos, si
-     * el usuario ahora es support se intenta recuerar las posibles relaciones antiguas
+     * Si el usuario ahora no es soporte se le eliminan todas las relaciones con proyectos
+     * Si el usuario ahora es support se intenta recuerar las posibles relaciones antiguas
      * 
      * @param User $user Usuario el cual se va a modificar
      */
     private function removeOrRestoreAllRelationshipsOfAUserToProjects(User $user)
     {
-        if ($user->role != 1) {
+        if (!$user->is_support) {
             $projectUser = ProjectUser::where("user_id", $user->id)->get();
             foreach ($projectUser as $pj) {
                 $pj->delete();
@@ -173,6 +181,30 @@ class UserController extends Controller
             $projectUser = ProjectUser::withTrashed()->where("user_id", $user->id)->get();
             foreach ($projectUser as $pj) {
                 $pj->restore();
+            }
+        }
+    }
+
+    /**
+     * Se modifica el proyecto seleccionado si el usuario pasa a ser de soporte
+     * y el proyecto que tenia seleccionado previamente no coincide con ninguna relacion
+     * del usuario
+     * 
+     * @param User $user Usuario que se va a modificar
+     * @param Request $request Contiene los nuevos datos del usuario
+     */
+    private function modifiedSelectedProjectForUsers(User $user, Request $request)
+    {
+        $projectUser = ProjectUser::where("project_id", $user->selected_project_id)
+            ->where("user_id", $user->id)->first();
+
+        // Si el usuario antes no era de soporte y se le va a hacer de soporte y el proyecto
+        // seleccionado no coincide con ninguna de sus relaciones
+        if (!$user->is_support && $request->rol == 1 && $projectUser == null) {
+            if ($user->projects->first() != null) {
+                $user->selected_project_id = $user->projects->first()->id;
+            } else {
+                $user->selected_project_id = null;
             }
         }
     }
@@ -189,9 +221,22 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-
+        $this->neglectIncidentsUserAttending($user);
         $user->delete();
         return back()->with("notification", "Usuario desactivado exitosamente.");
+    }
+
+    /**
+     * Todas las incidencias atendidas atendidas por el usuario se desatienden
+     * 
+     * @param User $user Usuario a deshabilitar
+     */
+    private function neglectIncidentsUserAttending(User $user){
+        $incidents = $user->list_of_incidents_take;
+        foreach($incidents as $incident){
+            $incident->support_id = null;
+            $incident->save();
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -205,9 +250,53 @@ class UserController extends Controller
      */
     public function forceDestroy($id)
     {
-        User::withTrashed()->findOrFail($id)->forceDelete();
+        $user = User::withTrashed()->findOrFail($id);
+
+        // Local
+        $this->deleteFileAttachmentLocal($user);
+
+        // InifnityFree
+        // $this->deleteFileAttachmentInfinityFree($user);
+
+        $user->forceDelete();
 
         return back()->with("notification", "Usuario eliminado completametnte exitosamente.");
+    }
+
+    /**
+     * Elimina los archivos adjuntos de las incidencias del usuario a eliminar
+     * Usado en local
+     * 
+     * @param User $user Usuario a eliminar
+     */
+    private function deleteFileAttachmentLocal(User $user){
+        $incidents = $user->list_of_incidents_client;
+
+        foreach($incidents as $incident){
+            if($incident->file_public_path != null){
+                $publicRoute = $incident->file_public_path;
+                if(Storage::exists($publicRoute)){
+                    Storage::delete($publicRoute);
+                }
+            }
+        }
+    }
+
+    /**
+     * Elimina los archivos adjuntos de las incidencias del usuario a eliminar
+     * Usado en ininityFree
+     * 
+     * @param User $user Usuario a eliminar
+     */
+    private function deleteFileAttachmentInfinityFree(User $user){
+        $incidents = $user->list_of_incidents_client;
+
+        foreach($incidents as $incident){
+            if ($incident->attached_file != null) {
+                if (file_exists(substr($incident->attached_file, 1)))
+                    unlink(substr($incident->attached_file, 1));
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////

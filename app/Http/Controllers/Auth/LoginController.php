@@ -51,7 +51,12 @@ class LoginController extends Controller
         if(! $user->selected_project_id){
             // Admin y cliente
             if ($user->is_admin || $user->is_client){
-                $user->selected_project_id = Project::first()->id;
+                $project = Project::first();
+                if ($project != null) {
+                    $user->selected_project_id = $project->id;
+                } else {
+                    $user->selected_project_id = null;
+                }
 
             }else{
                 // support

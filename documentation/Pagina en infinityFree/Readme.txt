@@ -6,4 +6,5 @@ Ademas modificar las siguientes paginas comentando y descomentando la parte nece
 app/Http/Controllers/IncidentController.php - En las funciones store y update
 app/Http/Controllers/Admin/ProjectController.php - En la funcion forceDestroy
 app/Http/Controllers/Admin/CategoryController.php - En la funcoin destroy
+app/Http/Controllers/Admin/UserController.php - En la funcoin forceDestroy
 
