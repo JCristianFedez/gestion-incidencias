@@ -43,7 +43,6 @@ function ejecutarFuncionDelBoton(e) {
         type: 'GET',
         data: { '_method': 'GET' },
         success: function success(data) {
-            console.log(data.head);
             $.toast({
                 heading: data.head,
                 text: data.message,
@@ -51,11 +50,19 @@ function ejecutarFuncionDelBoton(e) {
                 icon: data.type,
                 loader: true,
             });
-            $("#action-butons").load(" #action-butons", function () {
-                darEventos();
-            });
-            $("#tabla-incidencia").load(" #tabla-incidencia");
-            $("#tabla-incidencia2").load(" #tabla-incidencia2");
+
+            // Si hay que redirigir
+            if(data.redirect != null){
+                setTimeout(() => {
+                    window.location.replace(data.redirect);
+                }, 2000);
+            } else {
+                $("#action-butons").load(" #action-butons", function () {
+                    darEventos();
+                });
+                $("#tabla-incidencia").load(" #tabla-incidencia");
+                $("#tabla-incidencia2").load(" #tabla-incidencia2");
+            }           
         },
         error: function error() {
             $.toast({

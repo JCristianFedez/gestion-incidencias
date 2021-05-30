@@ -1,5 +1,5 @@
 @if (session("notificationError"))
-    <div class="toast fixed-top fade show ml-auto bg-gradient-warning" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast fixed-top fade show ml-auto bg-warning" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
             <i class="fas fa-bell text-warning mr-3"></i>
             <strong class="mr-auto">Atencion</strong>

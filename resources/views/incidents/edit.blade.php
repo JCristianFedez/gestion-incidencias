@@ -80,7 +80,7 @@
     </div>
 
     <div class="col-md-12 form-group">
-        <input type="submit" value="Registrar Incidencia" class="btn btn-primary">
+        <input type="submit" value="Actualizar Incidencia" class="btn btn-primary">
     </div>
 </form>
 @endsection

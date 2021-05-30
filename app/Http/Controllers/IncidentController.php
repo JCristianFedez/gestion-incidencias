@@ -46,6 +46,7 @@ class IncidentController extends Controller
             return $temp;
         }
 
+
         $messages = $incident->messages;
         return view("incidents.show", compact("incident", "messages"));
     }
@@ -63,7 +64,7 @@ class IncidentController extends Controller
     {
         // Si el proyecto de la incidencia es distinto al del seleccionado por el usuario
         if ($user->selected_project_id != $incident->project_id) {
-            return back();
+            return redirect("home");
         }
 
         // Usuarios de soporte
@@ -84,7 +85,7 @@ class IncidentController extends Controller
             // Si el usuario de soporte no tiene una relacion con el proyecto y nivel de la incidencia
             // no la puede ver y tampoco es la incidencia de soporte
             if ($projectUser == null && $incident->client_id != $user->id) {
-                return back();
+                return redirect("home");
             }
 
             // Usuarios cliente
@@ -92,7 +93,7 @@ class IncidentController extends Controller
 
             // Si no es la incidencia del cliente
             if ($incident->client_id != $user->id) {
-                return back();
+                return redirect("home");
             }
         }
     }
@@ -232,6 +233,12 @@ class IncidentController extends Controller
     public function edit($id)
     {
         $incident = Incident::findOrFail($id);
+
+        // Si la intenta editar un usuario que no la ha creado
+        if ($incident->client_id != auth()->user()->id) {
+            return redirect("home");
+        }
+
         $categories = $incident->project->categories;
         $levels = $incident->project->levels;
         return view("incidents.edit", compact("incident", "categories", "levels"));
@@ -575,7 +582,7 @@ class IncidentController extends Controller
         if ($nextLevel != null) {
             $incident->level_id = $nextLevel->id;
 
-            $user = User::find($incident->support_id);
+            $user = User::findOrFail($incident->support_id);
             // Si el usuario que la atiende es de soporte, se elimina el usuario que atiende la incidencia
             if ($user != null) {
                 if ($user->is_support) {
@@ -585,11 +592,21 @@ class IncidentController extends Controller
 
             $incident->save();
 
+            // Si el usuario que la ha derivado al siguiente nivel le enviamos la ruta de home
+            // para que nos rediriga alli, ya que el usuario no tendria permiso para ver las
+            // incidencias del siguiente nivel
+            if(auth()->user()->is_support){
+                $redirect = route("home");
+            } else {
+                $redirect = null;
+            }
+
             if ($request->ajax()) {
                 return response()->json([
                     "head" => "¡Correcto!",
                     "message" => "Incidencia derivada al siguiente nivel.",
                     "type" => "success",
+                    "redirect" => $redirect
                 ]);
             }
 
