@@ -17,16 +17,16 @@
                         <label for="name">Nombre del nivel</label>
                         <input type="text" name="name" id="level_name" class="form-control" value="" required
                             minlength="5" maxlength="255">
-                        <div class="invalid-feedback">
+                        <span class="invalid-feedback" role="alert">
                             Campo obligatorio y con mas de 5 caracteres
-                        </div>
+                        </span>
                     </div>
                     <div class="form-group col-12">
                         <input type="number" name="difficulty" class="form-control" id="level_difficulty"
                             placeholder="Dificultad" value="" required min="1" max="{{ count($levels) }}">
-                        <div class="invalid-feedback">
+                        <span class="invalid-feedback" role="alert">
                             Campo obligatorio
-                        </div>
+                        </span>
                     </div>
                 </div>
                 <div class="modal-footer">

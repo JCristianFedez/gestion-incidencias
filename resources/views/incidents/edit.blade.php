@@ -59,18 +59,18 @@
         <label for="title" class="form-label">Titulo</label>
         <input type="text" name="title" id="title" class="form-control" value="{{old('title',$incident->title)}}"
             required minlength="5" maxlength="255">
-        <div class="invalid-feedback">
+        <span class="invalid-feedback" role="alert">
             Porfavor introduzca un titulo valido.
-        </div>
+        </span>
     </div>
 
     <div class="col-md-12 form-group">
         <label for="description" class="form-label">Descripción</label>
         <textarea name="description" id="description" class="form-control" required minlength="15"
             maxlength="255">{{old('description',$incident->description)}}</textarea>
-        <div class="invalid-feedback">
+        <span class="invalid-feedback" role="alert">
             Porfavor introduzca una descripcion valida.
-        </div>
+        </span>
     </div>
 
     <div class="col-md-12 form-group">

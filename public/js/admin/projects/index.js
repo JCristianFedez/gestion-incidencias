@@ -136,6 +136,7 @@ function loadEventsDeleteProject(theElement) {
                         'Proyecto deshabilitado.',
                         'success');
                     $('#projects-table').DataTable().ajax.reload(null, false);
+                    $("#form-list-of-projects").load(" #form-list-of-projects");
                 },
                 error: function error() {
                     Swal.fire({
@@ -189,6 +190,7 @@ function loadEventsRestoreProject(theElement) {
                         'Proyecto habilitado.',
                         'success');
                     $('#projects-table').DataTable().ajax.reload(null, false);
+                    $("#form-list-of-projects").load(" #form-list-of-projects");
                 },
                 error: function error() {
                     Swal.fire({

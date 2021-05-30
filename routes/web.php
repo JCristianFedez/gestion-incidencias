@@ -71,7 +71,7 @@ Route::middleware(['middleware' => 'project.selected', 'auth'])->group(function 
     Route::get("/datatables/dashboard/pendingIncidents", [DatatableController::class, "pendingIncidents"])->name("datatables.dashboard.pendingIncidents");
 });
 
-Route::group(["middleware" => "admin",'middleware' => 'project.selected'], function () {
+Route::group(["middleware" => "admin"], function () {
     // Usuarios
     Route::get('/usuarios', [UserController::class, "index"])->name("usuarios");
     Route::post('/usuarios', [UserController::class, "store"])->name("usuarios.store");

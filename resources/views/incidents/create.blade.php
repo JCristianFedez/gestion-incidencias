@@ -51,18 +51,18 @@
         <label for="title" class="form-label">Título</label>
         <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" required minlength="5"
             maxlength="255">
-        <div class="invalid-feedback">
+        <span class="invalid-feedback" role="alert">
             Porfavor introduzca un título valido. Entre 5 y 255 caracteres.
-        </div>
+        </span>
     </div>
 
     <div class="col-md-12 form-group">
         <label for="description" class="form-label">Descripción</label>
         <textarea name="description" id="description" class="form-control" required minlength="15"
             maxlength="255">{{old('description')}}</textarea>
-        <div class="invalid-feedback">
+        <span class="invalid-feedback" role="alert">
             Porfavor introduzca una descripcion valida. Entre 15 y 255 caracteres.
-        </div>
+        </span>
     </div>
 
     <div class="col-md-12 form-group">

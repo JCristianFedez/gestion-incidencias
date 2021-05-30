@@ -34,7 +34,29 @@ class ProjectController extends Controller
 
         Project::create($request->all());
 
+        $this->setNewProjectWithSelectedProjectWhereIsTheFirstProject();
+
         return back()->with('notification', 'El proyecto se ha registrado correctamente.');
+    }
+
+    /**
+     * Si es el primer proyecto creado se asigna como seleccionado a los usuarios que no
+     * tengan ninguno y sean de administradores o cliente.
+     * 
+     * Tambien puede usarse si no hay proyectos activos y se restaura uno, este pasara a ser el 
+     * selccionado
+     */
+    private function setNewProjectWithSelectedProjectWhereIsTheFirstProject()
+    {
+        if (count(Project::all()) == 1) {
+            $users = User::whereIn("role", ["0", 2])
+                ->whereNull("selected_project_id")->get();
+
+            foreach($users as $user){
+                $user->selected_project_id = Project::first()->id;
+                $user->save();
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +108,7 @@ class ProjectController extends Controller
 
         // Si el proyecto dado de baja es el que tiene el usuario seleccionado se le selecciona
         // otro automaticamente
-        $this->removeSelectedProjectsFromTheProjectToRemove($project);
+        $this->changeSelectedProjectsFromTheProjectToRemove($project);
 
         return back()->with('notification', 'El proyecto se ha deshabilitado correctamente.');
     }
@@ -96,7 +118,7 @@ class ProjectController extends Controller
      * otro automaticamente
      * @param Project $project Proyecto que se va a eliminar
      */
-    private function removeSelectedProjectsFromTheProjectToRemove(Project $project)
+    private function changeSelectedProjectsFromTheProjectToRemove(Project $project)
     {
         $users = User::where("selected_project_id", $project->id)->get();
         foreach ($users as $user) {
@@ -184,7 +206,7 @@ class ProjectController extends Controller
         $projectUser = ProjectUser::withTrashed()->where("project_id", $id)->get();
         ProjectUser::withTrashed()->where("project_id", $id)->restore();
         $this->changeSelectedFromProjectRestore($projectUser, $id);
-
+        $this->setNewProjectWithSelectedProjectWhereIsTheFirstProject();
         return back()->with('notification', 'El proyecto se ha habilitado correctamente.');
     }
 

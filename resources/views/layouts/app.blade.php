@@ -45,7 +45,7 @@
                         <!-- Left Side Of Navbar -->
                         <ul class="nav navbar-nav">
                             @auth
-                            <form action="" class="form">
+                            <form action="" class="form" id="form-list-of-projects">
 
                                 @if (auth()->user()->selected_project_id)
                                 <select id="list-of-projects" class="custom-select">

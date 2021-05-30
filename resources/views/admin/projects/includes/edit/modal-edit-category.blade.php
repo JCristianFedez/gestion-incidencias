@@ -20,9 +20,9 @@
                         <label for="name">Nombre de la categoría</label>
                         <input type="text" name="name" id="category_name" class="form-control" value="" required
                             minlength="5" maxlength="255">
-                        <div class="invalid-feedback">
+                        <span class="invalid-feedback" role="alert">
                             Campo obligatorio y con mas de 5 caracteres.
-                        </div>
+                        </span>
                     </div>
                 </div>
                 <div class="modal-footer">

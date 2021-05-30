@@ -17,6 +17,10 @@ class ProyectoSeleccionadoMiddleware
     public function handle(Request $request, Closure $next)
     {
 
+        if(! auth()->check()){// Si no ha iniciado sesion
+            return redirect("login");
+        }
+
         if(auth()->user()->selected_project_id == null){
             return redirect("/");
         }

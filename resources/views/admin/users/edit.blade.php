@@ -9,7 +9,7 @@
 
 @include('layouts.includes.messages.notification')
 
-@include('layouts.includes.messages.errors')
+{{-- @include('layouts.includes.messages.errors') --}}
 
 {{-- Formulario para editar usuario --}}
 <form action="" method="POST" class="row g-3 needs-validation mb-4" novalidate>
@@ -22,20 +22,34 @@
 
     <div class="col-md-12 form-group">
         <label for="name" class="form-label">Nombre</label>
-        <input type="text" name="name" id="name" class="form-control" value="{{old('name',$user->name)}}" required
-            maxlength="255">
-        <div class="invalid-feedback">
+        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror"
+            value="{{old('name',$user->name)}}" required maxlength="255">
+        @if(count($errors) == 0)
+        <span class="invalid-feedback" role="alert">
             Porfavor introduzca un nombre valido. El nombre no puede contener más de 255 caracteres.
-        </div>
+        </span>
+        @endif
+        @error('name')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
     <div class="col-md-6 form-group">
         <label for="password" class="form-label">Contraseña <em>Ingresar solo si se desea modificar</em></label>
-        <input type="text" name="password" id="password" class="form-control" value="{{old('password')}}" minlength="8"
-            maxlength="255">
-        <div class="invalid-feedback">
-            Porfavor introduzca una contraseña valido. La contraseña debe de contener entre 8 y 255 caracteres.
-        </div>
+        <input type="text" name="password" id="password" class="form-control @error('password') is-invalid @enderror"
+            value="{{old('password')}}" minlength="8" maxlength="255">
+        @if(count($errors) == 0)
+        <span class="invalid-feedback" role="alert">
+            Porfavor introduzca una contraseña valida. La contraseña debe de tener entre 8 y 255 caracteres.
+        </span>
+        @endif
+        @error('password')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
     <div class="col-md-6 form-group">
@@ -54,13 +68,13 @@
 
 @if ($user->is_support)
 {{-- Forumlario para agregar asignar proyecto y nivel --}}
-<form action="{{ route("proyecto-user.store") }}" method="POST" class="mb-3 row needs-validation border-top pt-4 border-secondary"
-    novalidate>
+<form action="{{ route("proyecto-user.store") }}" method="POST"
+    class="mb-3 row needs-validation border-top pt-4 border-secondary" novalidate>
     @csrf
     <input type="hidden" name="user_id" value="{{ $user->id }}">
     <div class="col-md-5 form-group">
-        <select name="project_id" class="custom-select" id="select-project" aria-describedby="select-project-Feedback"
-            required>
+        <select name="project_id" class="custom-select @error('project_id') is-invalid @enderror" id="select-project"
+            aria-describedby="select-project-Feedback" required>
             <option selected disabled value="">Seleccione proyecto</option>
             @foreach ($projects as $project)
             <option value="{{ $project->id }}">
@@ -68,18 +82,32 @@
             </option>
             @endforeach
         </select>
-        <div id="select-project-Feedback" class="invalid-feedback">
+        @if(count($errors) == 0)
+        <span id="select-project-Feedback" class="invalid-feedback" role="alert">
             Ingrese proyecto valido.
-        </div>
+        </span>
+        @endif
+        @error('project_id')
+        <span id="select-project-Feedback" class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
     <div class="col-md-5 form-group">
-        <select name="level_id" class="custom-select" id="select-level" aria-describedby="select-level-Feedback"
-            required>
+        <select name="level_id" class="custom-select @error('level_id') is-invalid @enderror" id="select-level"
+            aria-describedby="select-level-Feedback" required>
             <option selected disabled value="">Seleccione nivel</option>
         </select>
-        <div id="select-level-Feedback" class="invalid-feedback">
+        @if(count($errors) == 0)
+        <span id="select-level-Feedback" class="invalid-feedback" role="alert">
             Ingrese nivel valido.
-        </div>
+        </span>
+        @endif
+        @error('level_id')
+        <span id="select-level-Feedback" class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
     <div class="col-md-2 form-group">
         <button class="btn btn-primary">Asignar proyecto</button>
@@ -104,7 +132,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action=" {{ route("proyecto-user.update") }} " method="POST" class="needs-validation" novalidate id="edit-relation-form">
+            <form action=" {{ route("proyecto-user.update") }} " method="POST" class="needs-validation" novalidate
+                id="edit-relation-form">
                 <div class="modal-body row">
                     @csrf
                     @method("PUT")
@@ -113,17 +142,28 @@
                     <input type="hidden" name="project_user_id" value="" id="project_user_id_relation">
                     <div class="col-12 form-group">
                         <label for="level_id" class="form-label">Seleccione nivel</label>
-                        <select name="level_id" class="custom-select" id="select_level_relation"
-                            aria-describedby="select-level-Feedback" required>
+                        <select name="level_id" class="custom-select @error('level_id') is-invalid @enderror"
+                            id="select_level_relation" aria-describedby="select-level-Feedback" required>
                         </select>
                         <div id="select-level-Feedback" class="invalid-feedback">
                             Ingrese nivel valido.
                         </div>
+                        @if(count($errors) == 0)
+                        <span id="select-level-Feedback" class="invalid-feedback" role="alert">
+                            Ingrese nivel valido.
+                        </span>
+                        @endif
+                        @error('level_id')
+                        <span id="select-level-Feedback" class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary" id="editar-relacion" data-dismiss="modal">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-primary" id="editar-relacion" data-dismiss="modal">Guardar
+                        Cambios</button>
                 </div>
             </form>
         </div>

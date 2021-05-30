@@ -11,7 +11,7 @@
 
 @include('layouts.includes.messages.notification-error')
 
-@include('layouts.includes.messages.errors')
+{{-- @include('layouts.includes.messages.errors') --}}
 
 {{-- Formulario para editar proyecto --}}
 <form action="" method="POST" class="row needs-validation mb-4" novalidate>
@@ -19,29 +19,51 @@
     @method("PUT")
     <div class="col-md-12 form-group">
         <label for="name" class="form-label">Nombre</label>
-        <input type="text" name="name" id="name" class="form-control" value="{{old('name',$project->name)}}" required
-            minlength="5" maxlength="255">
-        <div class="invalid-feedback">
-            Porfavor introduzca un nombre valido.
-        </div>
+        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror"
+            value="{{old('name',$project->name)}}" required minlength="5" maxlength="255">
+        @if(count($errors) == 0)
+        <span class="invalid-feedback" role="alert">
+            Porfavor introduzca un nombre valido. Debe de contener entre 5 y 255 caracteres.
+        </span>
+        @endif
+        @error('name')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
     <div class="col-md-12 form-group">
         <label for="description" class="form-label">Descripción</label>
-        <input type="text" name="description" id="description" class="form-control"
+        <input type="text" name="description" id="description"
+            class="form-control @error('description') is-invalid @enderror"
             value="{{old('description',$project->description)}}" required minlength="15" maxlength="255">
-        <div class="invalid-feedback">
-            Porfavor introduzca una descripción valido.
-        </div>
+        @if(count($errors) == 0)
+        <span class="invalid-feedback" role="alert">
+            Porfavor introduzca una descripción valido. Debe de contener entre 15 y 255 caracteres.
+        </span>
+        @endif
+        @error('description')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
     <div class="col-md-12 form-group">
         <label for="start" class="form-label">Fecha de inicio</label>
-        <input type="date" name="start" id="start" class="form-control" value="{{old('start',$project->start)}}"
-            required>
-        <div class="invalid-feedback">
+        <input type="date" name="start" id="start" class="form-control @error('start') is-invalid @enderror"
+            value="{{old('start',$project->start)}}" required>
+        @if(count($errors) == 0)
+        <span class="invalid-feedback" role="alert">
             Porfavor introduzca una fecha valida.
-        </div>
+        </span>
+        @endif
+        @error('description')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
     <div class="col-md-12 form-group">
@@ -64,9 +86,9 @@
                 <div class="form-group col-xl-6 mb-xl-0 mb-3">
                     <input type="text" name="name" class="form-control " placeholder="Ingrese nombre" required
                         minlength="5" maxlength="255">
-                    <div class="invalid-feedback">
-                        Campo obligatorio y con mas de 5 caracteres
-                    </div>
+                    <span class="invalid-feedback" role="alert">
+                        Campo obligatorio y debe de contener entre 5 y 255 caracteres.
+                    </span>
                 </div>
                 <div class="form-group col-xl-3 mb-xl-0 mb-3">
                     <input type="submit" value="Añadir" class="btn btn-primary w-100">
@@ -90,19 +112,20 @@
                 <input type="hidden" name="project_id" value="{{ $project->id }}">
 
                 <div class="form-group col-xl-3 mb-xl-0 mb-3">
-                    <input type="number" id="level-difficulty" name="difficulty" class="form-control" placeholder="Dificultad" required
-                        min="1" max="{{ count($levels)+1 }}" value="{{ count($levels)+1 }}">
-                    <div class="invalid-feedback">
-                        Campo obligatorio
-                    </div>
+                    <input type="number" id="level-difficulty" name="difficulty" class="form-control"
+                        placeholder="Dificultad" required min="1" max="{{ count($levels)+1 }}"
+                        value="{{ count($levels)+1 }}">
+                    <span class="invalid-feedback" role="alert">
+                        Campo obligatorio.
+                    </span>
                 </div>
 
                 <div class="form-group col-xl-6 mb-xl-0 mb-3">
                     <input type="text" name="name" class="form-control" placeholder="Ingrese nombre" required
                         minlength="5" maxlength="255">
-                    <div class="invalid-feedback">
-                        Campo obligatorio y con mas de 5 caracteres
-                    </div>
+                    <span class="invalid-feedback" role="alert">
+                        Campo obligatorio y debe de contener entre 5 y 255 caracteres.
+                    </span>
                 </div>
 
 

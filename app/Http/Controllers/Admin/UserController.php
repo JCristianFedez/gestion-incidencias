@@ -275,8 +275,13 @@ class UserController extends Controller
         foreach($incidents as $incident){
             if($incident->file_public_path != null){
                 $publicRoute = $incident->file_public_path;
+
+                $partsOfPublicRoute = explode("/",$publicRoute);
+                array_splice($partsOfPublicRoute,-2);
+                $publicRoute = implode("/",$partsOfPublicRoute);
+
                 if(Storage::exists($publicRoute)){
-                    Storage::delete($publicRoute);
+                    Storage::deleteDirectory($publicRoute);
                 }
             }
         }
@@ -293,8 +298,14 @@ class UserController extends Controller
 
         foreach($incidents as $incident){
             if ($incident->attached_file != null) {
-                if (file_exists(substr($incident->attached_file, 1)))
-                    unlink(substr($incident->attached_file, 1));
+                $publicRoute = $incident->attached_file;
+                
+                $partsOfPublicRoute = explode("/",$publicRoute);
+                array_splice($partsOfPublicRoute,-2);
+                $publicRoute = implode("/",$partsOfPublicRoute);
+
+                $filesistem = new Filesystem();
+                $filesistem->deleteDirectory(substr($publicRoute, 1));
             }
         }
     }

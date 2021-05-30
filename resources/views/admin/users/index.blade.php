@@ -9,7 +9,7 @@
 
 @include('layouts.includes.messages.notification')
 
-@include('layouts.includes.messages.errors')
+{{-- @include('layouts.includes.messages.errors') --}}
 
 {{-- Formulario para registrar usuario --}}
 <form action="" method="POST" class="row needs-validation mb-4 border-bottom" novalidate>
@@ -17,28 +17,49 @@
 
     <div class="col-md-12 form-group">
         <label for="email" class="form-label">E-mail</label>
-        <input type="email" name="email" id="email" class="form-control" value="{{old('email')}}" required
-            maxlength="255">
-        <div class="invalid-feedback">
-            Porfavor introduzca un E-mail valido.
-        </div>
+        <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror"
+            value="{{old('email')}}" required maxlength="255">
+        @if(count($errors) == 0)
+        <span class="invalid-feedback" role="alert">
+            Porfavor introduzca un E-mail valido. Cantidad maxima de caracteres 255.
+        </span>
+        @endif
+        @error('email')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
     <div class="col-md-12 form-group">
         <label for="name" class="form-label">Nombre</label>
-        <input type="text" name="name" id="name" class="form-control" value="{{old('name')}}" required maxlength="255">
-        <div class="invalid-feedback">
-            Porfavor introduzca un nombre valido.
-        </div>
+        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}" required maxlength="255">
+        @if(count($errors) == 0)
+        <span class="invalid-feedback" role="alert">
+            Porfavor introduzca un nombre valido. Cantidad maxima de caracteres 255.
+        </span>
+        @endif
+        @error('name')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
     <div class="col-md-6 form-group">
         <label for="password" class="form-label">Contraseña</label>
-        <input type="text" name="password" id="password" class="form-control" value="{{old('password',Str::random(8))}}"
-            required minlength="8">
-        <div class="invalid-feedback">
-            Porfavor introduzca una contraseña valido.
-        </div>
+        <input type="text" name="password" id="password" class="form-control @error('password') is-invalid @enderror" value="{{old('password',Str::random(8))}}"
+            required minlength="8" maxlength="255">
+        @if(count($errors) == 0)
+        <span class="invalid-feedback" role="alert">
+            Porfavor introduzca una contraseña valida. La contraseña debe de tener entre 8 y 255 caracteres.
+        </span>
+        @endif
+        @error('password')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
     </div>
 
     <div class="col-md-6 form-group">
