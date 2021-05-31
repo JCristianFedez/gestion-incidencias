@@ -9,6 +9,8 @@ use App\Models\Project;
 use App\Models\ProjectUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectUserController extends Controller
 {
@@ -169,6 +171,13 @@ class ProjectUserController extends Controller
     public function destroy($id)
     {
         $projectUser = ProjectUser::findOrFail($id);
+
+        // Local
+        $this->deleteIncidentsAndFileAttachmentLocal($projectUser);
+
+        // InifnityFree
+        // $this->deleteIncidentsAndFileAttachmentInfinityFree($projectUser);
+
         $projectUser->forceDelete();
 
         // Se desatienden todas las incidencias que eran atendidas por el usuario en el proyecto
@@ -176,14 +185,67 @@ class ProjectUserController extends Controller
         $this->disregardedAllIncidentsThatUserAttendingInTheRelationshipProject($projectUser);
 
         // Se elimina el usuario de soporte en las incidencias de nivel general si
-        // el usuario que la atiende estaba relacionado con el proyecto con el nivel 
-        // eliminado
+        // el usuario que la atiende estaba relacionado con el proyecto con la relacion
+        // eliminada
         $this->neglectGeneralLevelIncidentIfTheUserWhoAttendsItWasTheOneFromTheRelationship($projectUser);
 
         // Se modifica el proyecto selccionado para los usuarios de soporte
         $this->modifiedSelectedProjectForSupportUsers($projectUser);
 
         return back()->with("notification", "Relacion eliminada.");
+    }
+
+    /**
+     * Elimina las incidencias que hizo el usuario en el proyecto y sus correspondientes
+     * archivos adjuntos, Usado en local
+     * 
+     * @param ProjectUser $projectUser Relacion a eliminar
+     */
+    private function deleteIncidentsAndFileAttachmentLocal(ProjectUser $projectUser){
+        $incidents = Incident::where("client_id",$projectUser->user_id)
+        ->where("project_id",$projectUser->project_id)->get();
+
+        foreach($incidents as $incident){
+            if($incident->file_public_path != null){
+                $publicRoute = $incident->file_public_path;
+
+                $partsOfPublicRoute = explode("/",$publicRoute);
+                array_splice($partsOfPublicRoute,-2);
+                $publicRoute = implode("/",$partsOfPublicRoute);
+
+                if(Storage::exists($publicRoute)){
+                    Storage::deleteDirectory($publicRoute);
+                }
+            }
+
+            $incident->delete();
+        }
+    }
+
+    /**
+     * Elimina las incidencias que hizo el usuario en el proyecto y sus correspondientes
+     * archivos adjuntos, Usado en infinityFree
+     * 
+     * @param ProjectUser $projectUser Relacion a eliminar
+     */
+    private function deleteIncidentsAndFileAttachmentInfinityFree(ProjectUser $projectUser){
+        $incidents = Incident::where("client_id",$projectUser->user_id)
+        ->where("project_id",$projectUser->project_id)->get();
+
+        foreach($incidents as $incident){
+            if ($incident->attached_file != null) {
+                $publicRoute = $incident->attached_file;
+                
+                $partsOfPublicRoute = explode("/",$publicRoute);
+                array_splice($partsOfPublicRoute,-2);
+                $publicRoute = implode("/",$partsOfPublicRoute);
+
+                $filesistem = new Filesystem();
+                $filesistem->deleteDirectory(substr($publicRoute, 1));
+                
+            }
+            $incident->delete();
+        }
     }
 
     /**
@@ -228,8 +290,8 @@ class ProjectUserController extends Controller
 
     /**
      * Se elimina el usuario de soporte en las incidencias de nivel general si
-     * el usuario que la atiende estaba relacionado con el proyecto con el nivel 
-     * eliminado
+     * el usuario que la atiende estaba relacionado con el proyecto con la relacion
+     * eliminada
      * 
      * @param ProjectUser $projectUser Es la relacion que contiene el usuario y el proyecto
      */
