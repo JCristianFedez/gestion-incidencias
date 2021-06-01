@@ -135,7 +135,10 @@ class DatatableController extends Controller
 
         if ($selected_project_id) {
 
-            $incidents_by_me = Incident::where('project_id', $selected_project_id)->where('support_id', $user->id)->get();
+            $incidents_by_me = Incident::where('project_id', $selected_project_id)
+            ->where('support_id', $user->id)
+            ->where("active","1")
+            ->get();
         } else {
             $incidents_by_me = [];
         }
@@ -246,19 +249,26 @@ class DatatableController extends Controller
 
                 // Si es admin puede ver todas las incidencias del proyecto seleccionado
                 if ($user->is_admin) {
-                    $pendingIncidents = Incident::where('support_id', null)->where('project_id', $selectedProjectId)->get();
+                    $pendingIncidents = Incident::whereNull('support_id')
+                    ->where('project_id', $selectedProjectId)
+                    ->where("active","1")
+                    ->get();
                 } else { // Si es de soporte solo puede atender incidencias de su proyecto y nivel
                     $projectUser = ProjectUser::where('project_id', $selectedProjectId)->where('user_id', $user->id)->first();
                     if ($projectUser != null) {
-                        $pendingIncidents = Incident::where('support_id', null)->where('level_id', $projectUser->level_id)->get();
+                        $pendingIncidents = Incident::whereNull('support_id')
+                        ->where('level_id', $projectUser->level_id)
+                        ->where("active","1")
+                        ->get();
                     } else {
                         $pendingIncidents = collect(); // Vacio cuando no tiene proyecto seleccionado
                     }
 
                     // Agregar inicdencias de nivel general
-                    $incidents_general_level = Incident::where("support_id", null)
-                        ->where("level_id", null)
+                    $incidents_general_level = Incident::whereNull("support_id")
+                        ->whereNull("level_id")
                         ->where("project_id", $selectedProjectId)
+                        ->where("active","1")
                         ->get();
                     foreach ($incidents_general_level as $incident) {
                         $pendingIncidents[] = $incident;
