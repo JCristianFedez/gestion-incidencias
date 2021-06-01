@@ -19,6 +19,7 @@
     bottom:0;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.4s;
+    z-index: 5;
 }
 
 .page-content {
@@ -51,7 +52,8 @@
     }
 
     #content.active {
-        margin-left: 13rem;
-        width: calc(100% - 13rem);
+        //margin-left: 13rem;
+        // width: calc(100% - 13rem);
+        width: 100%;
     }
 }
