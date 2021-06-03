@@ -1,0 +1,11 @@
+$ heroku login
+
+$ heroku run bash -a gestion-de-incidencias 
+        [gestion-de-incidencias es el nombre de la aplicacion]
+
+$ composer update
+
+$ php artisan migrate:fresh --seed
+
+Ahora eliminar la carpeta sotrage de public y ejecutar el siguiente comando:
+$ php artisan storage:link
