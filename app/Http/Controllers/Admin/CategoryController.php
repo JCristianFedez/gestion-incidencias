@@ -109,11 +109,11 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         // Parte local //
-        $this->localDeleteDirectory($category);
+        // $this->localDeleteDirectory($category);
         // Fin parte local//
 
         // Parte para infinityfree //
-        // $this->infinityFreeDeleteDirectory($category);
+        $this->infinityFreeDeleteDirectory($category);
         //Fin parte infinityfree //
 
         $category->delete();

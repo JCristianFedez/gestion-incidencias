@@ -170,11 +170,11 @@ class IncidentController extends Controller
             $categoryId = $request->category_id != null ? $request->category_id : 0;
 
             // Parte en local //
-            $url = $this->saveAttachmentLocally($request, $projectId, $categoryId, $incidentId);
+            // $url = $this->saveAttachmentLocally($request, $projectId, $categoryId, $incidentId);
             // Fin parte local //
 
             // Parte para InfinityFree //
-            // $url = $this->saveAttachmentInfinityFree($projectId,$categoryId,$incidentId);
+            $url = $this->saveAttachmentInfinityFree($projectId, $categoryId, $incidentId);
             //Fin infinityfree //
 
             return $url;
@@ -297,11 +297,11 @@ class IncidentController extends Controller
 
             // Si antes tenia un archivo adjunto se elimina y se guarda el nuevo
             // Parte local //
-            $url = $this->updateAttachmentLocally($incident, $request, $projectId, $categoryId, $incidentId);
+            // $url = $this->updateAttachmentLocally($incident, $request, $projectId, $categoryId, $incidentId);
             // Fin parte local //
 
             // Inicio para infinityfree //
-            // $url = $this->updateAttachmentInfinityFree($incident, $projectId, $categoryId, $incidentId);
+            $url = $this->updateAttachmentInfinityFree($incident, $projectId, $categoryId, $incidentId);
             //FIn infinityfree //
 
             return $url;
@@ -595,7 +595,7 @@ class IncidentController extends Controller
             // Si el usuario que la ha derivado al siguiente nivel le enviamos la ruta de home
             // para que nos rediriga alli, ya que el usuario no tendria permiso para ver las
             // incidencias del siguiente nivel
-            if(auth()->user()->is_support){
+            if (auth()->user()->is_support) {
                 $redirect = route("home");
             } else {
                 $redirect = null;

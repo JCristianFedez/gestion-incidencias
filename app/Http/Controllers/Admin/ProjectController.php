@@ -154,11 +154,11 @@ class ProjectController extends Controller
         $project = Project::withTrashed()->findOrFail($id);
 
         // Parte local//
-        $this->localDeleteDirectory($project);
+        // $this->localDeleteDirectory($project);
         // Fin parte Local//
 
         // Parte para infinityfree //
-        // $this->infinityFreeDeleteDirectory($project);
+        $this->infinityFreeDeleteDirectory($project);
         //Fin para infinityfree //
 
         $project->forceDelete();

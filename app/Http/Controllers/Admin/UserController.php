@@ -253,10 +253,10 @@ class UserController extends Controller
         $user = User::withTrashed()->findOrFail($id);
 
         // Local
-        $this->deleteFileAttachmentLocal($user);
+        // $this->deleteFileAttachmentLocal($user);
 
         // InifnityFree
-        // $this->deleteFileAttachmentInfinityFree($user);
+        $this->deleteFileAttachmentInfinityFree($user);
 
         $user->forceDelete();
 

@@ -173,10 +173,10 @@ class ProjectUserController extends Controller
         $projectUser = ProjectUser::findOrFail($id);
 
         // Local
-        $this->deleteIncidentsAndFileAttachmentLocal($projectUser);
+        // $this->deleteIncidentsAndFileAttachmentLocal($projectUser);
 
         // InifnityFree
-        // $this->deleteIncidentsAndFileAttachmentInfinityFree($projectUser);
+        $this->deleteIncidentsAndFileAttachmentInfinityFree($projectUser);
 
         $projectUser->forceDelete();
 
