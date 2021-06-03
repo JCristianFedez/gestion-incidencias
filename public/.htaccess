@@ -1,7 +1,6 @@
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
-        # Options -MultiViews -Indexes
-        Options All
+        Options -MultiViews -Indexes
     </IfModule>
 
     RewriteEngine On
