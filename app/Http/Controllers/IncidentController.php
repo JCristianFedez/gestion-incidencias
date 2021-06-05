@@ -599,6 +599,14 @@ class IncidentController extends Controller
         $incident = Incident::findOrFail($id);
         $level = Level::find($incident->level_id);
 
+        $userDerivedIncident = User::findOrFail(auth()->user()->id);
+        if ($userDerivedIncident->is_client) {
+            return redirect(route("welcome"));
+        }
+        if ($userDerivedIncident->is_support && $userDerivedIncident->canTake($incident) == null) {
+            return redirect(route("welcome"));
+        }
+
         // Si el nivel de la incidencia es general se le asigna el primer nivel del proyecto
         if ($level == null) {
             $nextLevel = Level::where("project_id", $incident->project->id)->orderBy('difficulty')->first();
@@ -610,20 +618,15 @@ class IncidentController extends Controller
 
             $incident->level_id = $nextLevel->id;
 
-            $user = User::find($incident->support_id);
             // Si el usuario que la atiende es de soporte, se elimina el usuario que atiende la incidencia
-            if ($user != null) {
-                if ($user->is_support) {
-                    $incident->support_id = null;
-                }
-            }
+            $this->removeSupportUserIfLevelHasBeenChangedToSomethingOtherThanGeneral($incident);
 
             $incident->save();
 
             // Si el usuario que la ha derivado al siguiente nivel le enviamos la ruta de home
             // para que nos rediriga alli, ya que el usuario no tendria permiso para ver las
             // incidencias del siguiente nivel
-            if (auth()->user()->is_support) {
+            if ($userDerivedIncident->canTake($incident) == null) {
                 $redirect = route("home");
             } else {
                 $redirect = null;
