@@ -159,7 +159,7 @@ class LevelController extends Controller
     private function verifiedProjectDoesNotHaveLevelWithSameNameAndDifficulty(Level $level, Request $request)
     {
         if ((Level::where("project_id", $level->project_id)->where("name", $request->name)->first())
-            && ($level->difficulty == $request->difficulty)
+            && ($level->difficulty == $request->difficulty || $level->name != $request->name)
         ) {
             if ($request->ajax()) {
                 return response()->json([
@@ -384,7 +384,7 @@ class LevelController extends Controller
             ->get();
 
         foreach ($users as $user) {
-            
+
             if ($user->projects->first() != null) {
                 $user->selected_project_id = $user->projects->first()->id;
             } else {
