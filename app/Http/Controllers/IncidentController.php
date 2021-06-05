@@ -127,10 +127,15 @@ class IncidentController extends Controller
 
         $this->validate($request, Incident::$rules, Incident::$messages);
 
+
         // Se comprueba si tiene archivo adjunto y en caso de tener se almacena
         $url = $this->saveAttachment($request);
 
         $user = User::findOrFail(auth()->user()->id);
+
+        // Se comprueba si la incidencia es creada por suport o client se le asigna el primer nivel
+        $levelId = $this->verifyLevel($request->level_id, $request->project_id, $user);
+
         $incident = new Incident();
         $incident->category_id = $request->category_id != null ? $request->category_id : null;
         $incident->severity = $request->severity;
@@ -138,11 +143,32 @@ class IncidentController extends Controller
         $incident->description = $request->description;
         $incident->client_id = $user->id;
         $incident->project_id = $user->selected_project_id;
-        $incident->level_id = $request->level_id != null ? $request->level_id : null;
+        $incident->level_id = $levelId;
         $incident->attached_file = $url != null ? $url : null;
         $incident->save();
 
         return back()->with("notification", "Incidencia registrada exitosamente.");
+    }
+
+    /**
+     * Si el $levelId es null, el proyecto pasado contiene al menos un nivel distinto de 
+     * general y el usuario pasado es support o cliente devuelve el ID del primer nivel
+     * del proyecto
+     * 
+     * @param Integer $levelId Id del nivel
+     * @param Integer $projectId Id del proyecto
+     * @param User $user Usuario que crea la incidencia
+     */
+    private function verifyLevel($levelId, $projectId, User $user)
+    {
+        if ($user->is_admin) {
+            return $levelId;
+        }
+
+        if ($levelId == null) {
+            $levelToReturn = Level::where("project_id", $projectId)->where("difficulty", 1)->first();
+            return $levelToReturn != null ? $levelToReturn->id : null;
+        }
     }
 
     /**
