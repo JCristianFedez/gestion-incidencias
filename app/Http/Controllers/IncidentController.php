@@ -600,6 +600,10 @@ class IncidentController extends Controller
         $level = Level::find($incident->level_id);
 
         $userDerivedIncident = User::findOrFail(auth()->user()->id);
+        
+        // Si la intenta derivar un usuario el cual no deberia poder hacerlo se le 
+        // deniega la accion, esta accion mejora la seguridad ya que el usuario podria 
+        // modificar le HTML o acceder a la ruta directamente
         if ($userDerivedIncident->is_client) {
             return redirect(route("welcome"));
         }

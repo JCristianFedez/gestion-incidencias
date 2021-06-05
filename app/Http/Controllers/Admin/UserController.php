@@ -125,6 +125,10 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $this->modifiedSelectedProjectForUsers($user, $request);
 
+        // Esta funcion se utiliza cuando se va a cambiar el rol de un usuario de administracion o cliente a soporte 
+        // se le eliminan las incidencias y archivos adjuntos los cuales esten en proyectos con los que no tenga relacion
+        $this->deleteIncidentsAndFileAttachmentFromProjectsThatYouCannotAccess($user, $request);
+
         $user->name = $request->name;
         $user->role = $request->rol;
 
@@ -195,7 +199,9 @@ class UserController extends Controller
      */
     private function modifiedSelectedProjectForUsers(User $user, Request $request)
     {
-        $projectUser = ProjectUser::where("project_id", $user->selected_project_id)
+        // Si el usuario de soporte tiene una relacion con el proyecto que tiene seleccionado este 
+        // no se le cambia
+        $projectUser = ProjectUser::withTrashed()->where("project_id", $user->selected_project_id)
             ->where("user_id", $user->id)->first();
 
         // Si el usuario antes no era de soporte y se le va a hacer de soporte y el proyecto
@@ -205,6 +211,44 @@ class UserController extends Controller
                 $user->selected_project_id = $user->projects->first()->id;
             } else {
                 $user->selected_project_id = null;
+            }
+        }
+    }
+
+    /**
+     * Elimina las incidencias y archivos adjuntos si el usuario de los proyectos a los cuales
+     * el usuario no tenga permitido acceder.
+     * Esta funcion se utiliza cuando se va a cambiar el rol de un usuario de administracion o cliente a soporte 
+     * se le eliminan las incidencias y archivos adjuntos los cuales esten en proyectos con los que no tenga relacion
+     * 
+     * @param User $user Usuario que se va a modificar
+     * @param Request $request Contiene los nuevos datos del usuario
+     */
+    private function deleteIncidentsAndFileAttachmentFromProjectsThatYouCannotAccess(User $user, Request $request)
+    {
+
+        if (!$user->is_support && $request->rol == 1) {
+            $projectsUser = ProjectUser::withTrashed()->where("user_id", $user->id)->get();
+            $projectsUsersId = [];
+            foreach ($projectsUser as $pj) {
+                $projectsUsersId[] = $pj->id;
+            }
+            
+            $incidents = Incident::where("client_id", $user->id)
+            ->whereNotIn("project_id", $projectsUsersId)->get();
+
+            foreach ($incidents as $incident) {
+                if ($incident->attached_file != null) {
+                    $publicRoute = $incident->attached_file;
+
+                    $partsOfPublicRoute = explode("/", $publicRoute);
+                    array_splice($partsOfPublicRoute, -2);
+                    $publicRoute = implode("/", $partsOfPublicRoute);
+
+                    $filesistem = new Filesystem();
+                    $filesistem->deleteDirectory(substr($publicRoute, 1));
+                }
+                $incident->delete();
             }
         }
     }
@@ -231,9 +275,10 @@ class UserController extends Controller
      * 
      * @param User $user Usuario a deshabilitar
      */
-    private function neglectIncidentsUserAttending(User $user){
+    private function neglectIncidentsUserAttending(User $user)
+    {
         $incidents = $user->list_of_incidents_take;
-        foreach($incidents as $incident){
+        foreach ($incidents as $incident) {
             $incident->support_id = null;
             $incident->save();
         }
@@ -269,18 +314,19 @@ class UserController extends Controller
      * 
      * @param User $user Usuario a eliminar
      */
-    private function deleteFileAttachmentLocal(User $user){
+    private function deleteFileAttachmentLocal(User $user)
+    {
         $incidents = $user->list_of_incidents_client;
 
-        foreach($incidents as $incident){
-            if($incident->file_public_path != null){
+        foreach ($incidents as $incident) {
+            if ($incident->file_public_path != null) {
                 $publicRoute = $incident->file_public_path;
 
-                $partsOfPublicRoute = explode("/",$publicRoute);
-                array_splice($partsOfPublicRoute,-2);
-                $publicRoute = implode("/",$partsOfPublicRoute);
+                $partsOfPublicRoute = explode("/", $publicRoute);
+                array_splice($partsOfPublicRoute, -2);
+                $publicRoute = implode("/", $partsOfPublicRoute);
 
-                if(Storage::exists($publicRoute)){
+                if (Storage::exists($publicRoute)) {
                     Storage::deleteDirectory($publicRoute);
                 }
             }
@@ -293,16 +339,17 @@ class UserController extends Controller
      * 
      * @param User $user Usuario a eliminar
      */
-    private function deleteFileAttachmentInfinityFree(User $user){
+    private function deleteFileAttachmentInfinityFree(User $user)
+    {
         $incidents = $user->list_of_incidents_client;
 
-        foreach($incidents as $incident){
+        foreach ($incidents as $incident) {
             if ($incident->attached_file != null) {
                 $publicRoute = $incident->attached_file;
-                
-                $partsOfPublicRoute = explode("/",$publicRoute);
-                array_splice($partsOfPublicRoute,-2);
-                $publicRoute = implode("/",$partsOfPublicRoute);
+
+                $partsOfPublicRoute = explode("/", $publicRoute);
+                array_splice($partsOfPublicRoute, -2);
+                $publicRoute = implode("/", $partsOfPublicRoute);
 
                 $filesistem = new Filesystem();
                 $filesistem->deleteDirectory(substr($publicRoute, 1));
