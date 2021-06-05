@@ -134,7 +134,7 @@ class IncidentController extends Controller
         $user = User::findOrFail(auth()->user()->id);
 
         // Se comprueba si la incidencia es creada por suport o client se le asigna el primer nivel
-        $levelId = $this->verifyLevel($request->level_id, $request->project_id, $user);
+        $levelId = $this->verifyLevel($request->level_id, $user);
 
         $incident = new Incident();
         $incident->category_id = $request->category_id != null ? $request->category_id : null;
@@ -156,19 +156,20 @@ class IncidentController extends Controller
      * del proyecto
      * 
      * @param Integer $levelId Id del nivel
-     * @param Integer $projectId Id del proyecto
      * @param User $user Usuario que crea la incidencia
      */
-    private function verifyLevel($levelId, $projectId, User $user)
+    private function verifyLevel($levelId,  User $user)
     {
         if ($user->is_admin) {
             return $levelId;
         }
 
         if ($levelId == null) {
-            $levelToReturn = Level::where("project_id", $projectId)->where("difficulty", 1)->first();
+            $levelToReturn = Level::where("project_id", $user->selected_project_id)->where("difficulty", 1)->first();
             return $levelToReturn != null ? $levelToReturn->id : null;
         }
+        
+        return $levelId;
     }
 
     /**
