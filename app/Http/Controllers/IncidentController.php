@@ -168,7 +168,7 @@ class IncidentController extends Controller
             $levelToReturn = Level::where("project_id", $user->selected_project_id)->where("difficulty", 1)->first();
             return $levelToReturn != null ? $levelToReturn->id : null;
         }
-        
+
         return $levelId;
     }
 
@@ -607,9 +607,10 @@ class IncidentController extends Controller
         }
 
         if ($nextLevel != null) {
+
             $incident->level_id = $nextLevel->id;
 
-            $user = User::findOrFail($incident->support_id);
+            $user = User::find($incident->support_id);
             // Si el usuario que la atiende es de soporte, se elimina el usuario que atiende la incidencia
             if ($user != null) {
                 if ($user->is_support) {
