@@ -630,7 +630,7 @@ class IncidentController extends Controller
             // Si el usuario que la ha derivado al siguiente nivel le enviamos la ruta de home
             // para que nos rediriga alli, ya que el usuario no tendria permiso para ver las
             // incidencias del siguiente nivel
-            if ($userDerivedIncident->canTake($incident) == null) {
+            if ($userDerivedIncident->canTake($incident) == null && $userDerivedIncident->is_support) {
                 $redirect = route("home");
             } else {
                 $redirect = null;

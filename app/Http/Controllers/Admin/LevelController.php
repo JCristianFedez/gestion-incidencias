@@ -9,6 +9,8 @@ use App\Models\Project;
 use App\Models\ProjectUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Filesystem\Filesystem;
+
 
 class LevelController extends Controller
 {
@@ -259,21 +261,27 @@ class LevelController extends Controller
     public function destroy($id, Request $request)
     {
         $level = Level::findOrFail($id);
-        $level->forceDelete();
+
         $project = $level->project;
         $difficulty = $level->difficulty;
-        $projectUsers = ProjectUser::where("level_id", $id)->get();
 
+        $projectUsers = ProjectUser::where("level_id", $id)->get();
         $incidents = Incident::where("level_id", $id)->get();
+
+        // Los usuarios de soporte los cuales tienen 
+        // alguna relacion con el nivel eliminado y han generado indencias en dicho nivel
+        // se eliminan asi como los archivos adjuntos
+        $this->deleteIncidentsAndAttachmentFromSupportWithRelationshipsToTheDeletedLevel($projectUsers, $project);
 
         // Si hay incidencias asignadas en este nivel, intentarán pasar primero al siguiente nivel, 
         // si no es posible al anterior y si tampoco el general
         $this->reorganizeTheLevelOfTheIncidentsOfTheLevelToBeEliminated($incidents, $level);
 
+        $level->forceDelete();
+
         // Se cambia el proyecto seleccionado si el nivel a eliminar es el nivel mediante
         // el cual el usuario esta relacionado con el proyecto que tiene seleccionado
         $this->changeSelectedProjectsFromTheLevelToRemove($level);
-
 
         // Se elimina el usuario de soporte en las incidencias de nivel general si
         // el usuario que la atiende estaba relacionado con el proyecto con el nivel 
@@ -311,19 +319,25 @@ class LevelController extends Controller
             if ($level->next_level) {
                 foreach ($incidents as $incident) {
                     $incident->level_id = $level->next_level->id;
-                    $incident->support_id = null;
+                    if (User::findOrFail($incident->support_id)->is_support) {
+                        $incident->support_id = null;
+                    }
                     $incident->save();
                 }
             } else if ($level->previous_level) {
                 foreach ($incidents as $incident) {
                     $incident->level_id = $level->previous_level->id;
-                    $incident->support_id = null;
+                    if (User::findOrFail($incident->support_id)->is_support) {
+                        $incident->support_id = null;
+                    }
                     $incident->save();
                 }
             } else {
                 foreach ($incidents as $incident) {
                     $incident->level_id = null;
-                    $incident->support_id = null;
+                    if (User::findOrFail($incident->support_id)->is_support) {
+                        $incident->support_id = null;
+                    }
                     $incident->save();
                 }
             }
@@ -391,6 +405,38 @@ class LevelController extends Controller
                 $user->selected_project_id = null;
             }
             $user->save();
+        }
+    }
+
+    /**
+     * Elimina las incidencias y archivos adjuntos del proyecto que contiene el nivel a eliminar
+     * creados por usuarios de soporte los cuales tienen relaciones con el proyecto y el nivel.
+     * 
+     * @param ProjectUser[] $projectUsers Relaciones de proyectos con usuarios de soportes a partir de un nivel
+     * @param Project $project Proyecto el cual contiene el nivel que se va a eliminar
+     */
+    private function deleteIncidentsAndAttachmentFromSupportWithRelationshipsToTheDeletedLevel($projectUsers, Project $project)
+    {
+        $usersId = [];
+        foreach ($projectUsers as $pj) {
+            $usersId[] = $pj->user_id;
+        }
+        $incidents = Incident::whereIn("client_id", $usersId)
+            ->where("project_id", $project->id)->get();
+
+
+        foreach ($incidents as $incident) {
+            if ($incident->attached_file != null) {
+                $publicRoute = $incident->attached_file;
+
+                $partsOfPublicRoute = explode("/", $publicRoute);
+                array_splice($partsOfPublicRoute, -2);
+                $publicRoute = implode("/", $partsOfPublicRoute);
+
+                $filesistem = new Filesystem();
+                $filesistem->deleteDirectory(substr($publicRoute, 1));
+            }
+            $incident->delete();
         }
     }
 
