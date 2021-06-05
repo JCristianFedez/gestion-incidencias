@@ -86,7 +86,18 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, Project::$rules, Project::$messages);
+        $rules = [
+            'name' => ['required', "min:5", "max:255"],
+            'description' => ["required", "min:15", "max:255"],
+            'start' => ['date',"required"]
+        ];
+        $this->validate($request, $rules, Project::$messages);
+
+        $otherProjects = Project::where("name",$request->name)
+        ->where("id","!=",$id)->first();
+        if($otherProjects != null){
+            return back()->withErrors(["name"=>"Este nombre ya se encuentra en uso."]);
+        }
 
         Project::findOrFail($id)->update($request->all());
         return back()->with('notification', 'El proyecto se ha actualizado correctamente.');
